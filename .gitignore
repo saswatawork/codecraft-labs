@@ -82,3 +82,4 @@ storybook-static
 # Temporary folders
 tmp/
 temp/
+*storybook.log

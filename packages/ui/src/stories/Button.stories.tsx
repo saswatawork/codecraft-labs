@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from '../components/Button';
 
-// Sample icons for demonstration
+// Enhanced icons for better visual storytelling
 const PlusIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <title>Plus Icon</title>
     <line x1="12" y1="5" x2="12" y2="19" />
     <line x1="5" y1="12" x2="19" y2="12" />
   </svg>
@@ -11,17 +12,42 @@ const PlusIcon = () => (
 
 const DownloadIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <title>Download Icon</title>
     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
     <polyline points="7,10 12,15 17,10" />
     <line x1="12" y1="15" x2="12" y2="3" />
   </svg>
 );
 
+const TrashIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <title>Trash Icon</title>
+    <polyline points="3,6 5,6 21,6" />
+    <path d="m19,6v14a2,2 0 0,1-2,2H7a2,2 0 0,1-2-2V6m3,0V4a2,2 0 0,1,2-2h4a2,2 0 0,1,2,2v2" />
+  </svg>
+);
+
 const meta: Meta<typeof Button> = {
-  title: 'Components/Atoms/Button',
+  title: 'Components/Button',
   component: Button,
   parameters: {
     layout: 'centered',
+    docs: {
+      description: {
+        component: `
+The Button component is a versatile, accessible button with multiple variants, sizes, and states.
+Built with TypeScript, Tailwind CSS, and Radix UI for maximum flexibility and accessibility.
+
+## Features
+- **8 Variants**: Default, primary, secondary, destructive, outline, ghost, link, success, warning
+- **5 Sizes**: Small (sm), medium (md), large (lg), extra large (xl), icon
+- **States**: Loading, disabled, interactive
+- **Icons**: Left and right icon support
+- **Polymorphic**: Can render as different elements (button, a, div, etc.)
+- **Accessibility**: Full ARIA support and keyboard navigation
+        `,
+      },
+    },
   },
   tags: ['autodocs'],
   argTypes: {
@@ -38,19 +64,32 @@ const meta: Meta<typeof Button> = {
         'success',
         'warning',
       ],
+      description: 'The visual style variant of the button',
     },
     size: {
       control: { type: 'select' },
-      options: ['sm', 'md', 'lg', 'xl', 'icon'],
+      options: ['sm', 'default', 'lg', 'xl', 'icon'],
+      description: 'The size of the button',
     },
     loading: {
       control: { type: 'boolean' },
+      description: 'Shows loading spinner and disables interaction',
     },
     disabled: {
       control: { type: 'boolean' },
+      description: 'Disables the button',
     },
     asChild: {
       control: { type: 'boolean' },
+      description: 'Render as Slot component for composition',
+    },
+    leftIcon: {
+      control: false,
+      description: 'Icon to display on the left side',
+    },
+    rightIcon: {
+      control: false,
+      description: 'Icon to display on the right side',
     },
   },
 };
