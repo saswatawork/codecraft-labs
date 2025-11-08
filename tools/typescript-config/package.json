@@ -1,5 +1,5 @@
 {
-  "name": "@repo/typescript-config",
+  "name": "@ccl/typescript-config",
   "version": "1.0.0",
   "description": "Shared TypeScript configurations for CodeCraft Labs",
   "main": "index.js",
