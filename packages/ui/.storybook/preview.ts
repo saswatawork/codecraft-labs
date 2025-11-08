@@ -1,4 +1,4 @@
-import type { Preview } from '@storybook/react';
+import type { Preview } from '@storybook/react-vite';
 import '../src/styles/globals.css'; // Import our design system styles
 
 const preview: Preview = {
@@ -14,19 +14,20 @@ const preview: Preview = {
       autodocs: 'tag',
     },
     backgrounds: {
-      default: 'light',
-      values: [
-        {
+      options: {
+        light: {
           name: 'light',
           value: '#ffffff',
         },
-        {
+
+        dark: {
           name: 'dark',
           value: '#0f172a',
         },
-      ],
+      },
     },
   },
+
   globalTypes: {
     theme: {
       description: 'Global theme for components',
@@ -37,6 +38,12 @@ const preview: Preview = {
         items: ['light', 'dark'],
         dynamicTitle: true,
       },
+    },
+  },
+
+  initialGlobals: {
+    backgrounds: {
+      value: 'light',
     },
   },
 };
