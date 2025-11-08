@@ -1,0 +1,12 @@
+{
+  "name": "@repo/typescript-config",
+  "version": "1.0.0",
+  "description": "Shared TypeScript configurations for CodeCraft Labs",
+  "main": "index.js",
+  "files": [
+    "base.json",
+    "nextjs.json",
+    "react-library.json",
+    "node.json"
+  ]
+}

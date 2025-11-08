@@ -1,0 +1,11 @@
+# pnpm workspace configuration
+# This file defines which directories are part of the monorepo workspace
+packages:
+  # Applications - Individual deployable apps
+  - 'apps/*'
+  
+  # Packages - Shared libraries and utilities
+  - 'packages/*'
+  
+  # Tools - Development tools and configurations
+  - 'tools/*'

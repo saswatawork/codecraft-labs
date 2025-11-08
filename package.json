@@ -1,0 +1,91 @@
+{
+  "name": "codecraft-labs",
+  "version": "1.0.0",
+  "description": "Modern full-stack development laboratory showcasing enterprise patterns and cutting-edge technologies",
+  "author": "Saswata Pal <saswata.career@gmail.com>",
+  "license": "MIT",
+  "type": "module",
+  "packageManager": "pnpm@9.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/saswatawork/codecraft-labs.git"
+  },
+  "homepage": "https://codecraft-labs.vercel.app",
+  "bugs": {
+    "url": "https://github.com/saswatawork/codecraft-labs/issues"
+  },
+  "keywords": [
+    "monorepo",
+    "nextjs",
+    "nestjs",
+    "typescript",
+    "react",
+    "graphql",
+    "prisma",
+    "tailwindcss",
+    "turbo",
+    "full-stack",
+    "portfolio",
+    "showcase"
+  ],
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "tools/*"
+  ],
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev --parallel",
+    "lint": "turbo lint",
+    "format": "biome format --write .",
+    "check": "biome check --apply .",
+    "test": "turbo test",
+    "test:unit": "turbo test:unit",
+    "test:e2e": "turbo test:e2e",
+    "test:watch": "turbo test:watch",
+    "typecheck": "turbo typecheck",
+    "clean": "turbo clean && rm -rf node_modules .turbo",
+    "reset": "pnpm clean && pnpm install",
+    "db:generate": "turbo db:generate",
+    "db:push": "turbo db:push",
+    "db:migrate": "turbo db:migrate",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "pnpm build && changeset publish",
+    "docker:build": "docker-compose build",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.6.4",
+    "@changesets/cli": "^2.27.1",
+    "@commitlint/cli": "^18.4.4",
+    "@commitlint/config-conventional": "^18.4.4",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0",
+    "turbo": "^2.0.14",
+    "typescript": "^5.6.2"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "react": "19.0.0-rc",
+        "react-dom": "19.0.0-rc"
+      }
+    },
+    "overrides": {
+      "react": "19.0.0-rc.1",
+      "react-dom": "19.0.0-rc.1"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json,css,md}": [
+      "biome check --apply"
+    ]
+  }
+}
