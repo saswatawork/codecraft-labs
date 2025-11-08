@@ -173,10 +173,9 @@ Each implementation includes:
 ## 🤝 Contact
 
 **Saswata Pal** - Full Stack Developer
-- 🌐 Portfolio: [codecraftlabs.com](https://codecraftlabs.com)
-- 📧 Email: hello@codecraftlabs.com
+- 📧 Email: saswata.career@gmail.com
 - 💼 LinkedIn: [linkedin.com/in/saswatapal](https://linkedin.com/in/saswatapal)
-- 🐱 GitHub: [github.com/saswatapal](https://github.com/saswatapal)
+- 🐱 GitHub: [github.com/saswatawork](https://github.com/saswatawork)
 
 ---
 
