@@ -52,6 +52,15 @@ importers:
 
   apps/web:
     dependencies:
+      '@ccl/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
+      clsx:
+        specifier: ^2.0.0
+        version: 2.1.1
+      lucide-react:
+        specifier: ^0.294.0
+        version: 0.294.0(react@19.0.0-rc.1)
       next:
         specifier: 16.0.1
         version: 16.0.1(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0-rc.1(react@19.0.0-rc.1))(react@19.0.0-rc.1)
@@ -62,6 +71,9 @@ importers:
         specifier: 19.0.0-rc.1
         version: 19.0.0-rc.1(react@19.0.0-rc.1)
     devDependencies:
+      '@ccl/typescript-config':
+        specifier: workspace:*
+        version: link:../../tools/typescript-config
       '@tailwindcss/postcss':
         specifier: ^4
         version: 4.1.17
