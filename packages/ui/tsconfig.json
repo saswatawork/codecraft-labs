@@ -14,16 +14,13 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
-    "moduleResolution": "bundler"
+    "moduleResolution": "bundler",
+    "types": ["vitest/globals", "@testing-library/jest-dom"]
   },
   "include": ["src/**/*"],
   "exclude": [
     "node_modules",
     "dist",
-    "storybook-static",
-    "**/*.stories.ts",
-    "**/*.stories.tsx",
-    "**/*.test.ts",
-    "**/*.test.tsx"
+    "storybook-static"
   ]
 }

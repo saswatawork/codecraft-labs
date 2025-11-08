@@ -15,10 +15,14 @@
     },
     "./styles": "./dist/styles.css"
   },
-  "files": ["dist/**"],
-  "sideEffects": ["**/*.css"],
+  "files": [
+    "dist/**"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
   "scripts": {
-    "build": "vite build && tsc --emitDeclarationOnly",
+    "build": "vite build && tsc --project tsconfig.build.json --emitDeclarationOnly",
     "dev": "storybook dev -p 6006",
     "lint": "biome check src/",
     "format": "biome format --write src/",
@@ -62,14 +66,15 @@
     "@storybook/react": "^7.6.4",
     "@storybook/react-vite": "^7.6.4",
     "@storybook/test": "^7.6.4",
-    "@testing-library/jest-dom": "^6.1.5",
-    "@testing-library/react": "^14.1.2",
-    "@testing-library/user-event": "^14.5.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^14.3.1",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^24.10.0",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
     "@vitejs/plugin-react": "^4.2.0",
     "autoprefixer": "^10.4.16",
-    "jsdom": "^23.0.1",
+    "jsdom": "^23.2.0",
     "postcss": "^8.4.32",
     "react": "19.0.0-rc.1",
     "react-dom": "19.0.0-rc.1",
