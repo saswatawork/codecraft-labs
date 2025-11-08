@@ -4,18 +4,13 @@
     "build": {
       "dependsOn": ["^build"],
       "inputs": [
-        "$TURBO_DEFAULT$", 
+        "$TURBO_DEFAULT$",
         "!**/*.test.{js,jsx,ts,tsx}",
         "!**/*.spec.{js,jsx,ts,tsx}",
         "!**/*.stories.{js,jsx,ts,tsx}",
         "!**/tests/**/*"
       ],
-      "outputs": [
-        ".next/**",
-        "!.next/cache/**",
-        "dist/**",
-        "build/**"
-      ]
+      "outputs": [".next/**", "!.next/cache/**", "dist/**", "build/**"]
     },
     "dev": {
       "cache": false,
@@ -23,20 +18,11 @@
     },
     "lint": {
       "dependsOn": ["^build"],
-      "inputs": [
-        "$TURBO_DEFAULT$",
-        "biome.json",
-        ".eslintrc*",
-        "prettier.config.*"
-      ]
+      "inputs": ["$TURBO_DEFAULT$", "biome.json", ".eslintrc*", "prettier.config.*"]
     },
     "typecheck": {
       "dependsOn": ["^build"],
-      "inputs": [
-        "$TURBO_DEFAULT$",
-        "tsconfig.json",
-        "tsconfig.*.json"
-      ]
+      "inputs": ["$TURBO_DEFAULT$", "tsconfig.json", "tsconfig.*.json"]
     },
     "test": {
       "dependsOn": ["^build"],
@@ -47,25 +33,15 @@
         "**/*.test.{js,jsx,ts,tsx}",
         "**/*.spec.{js,jsx,ts,tsx}"
       ],
-      "outputs": [
-        "coverage/**"
-      ]
+      "outputs": ["coverage/**"]
     },
     "test:unit": {
       "dependsOn": ["^build"],
-      "inputs": [
-        "$TURBO_DEFAULT$",
-        "**/*.test.{js,jsx,ts,tsx}",
-        "**/*.spec.{js,jsx,ts,tsx}"
-      ]
+      "inputs": ["$TURBO_DEFAULT$", "**/*.test.{js,jsx,ts,tsx}", "**/*.spec.{js,jsx,ts,tsx}"]
     },
     "test:e2e": {
       "dependsOn": ["^build"],
-      "inputs": [
-        "$TURBO_DEFAULT$",
-        "**/e2e/**",
-        "**/tests/**"
-      ]
+      "inputs": ["$TURBO_DEFAULT$", "**/e2e/**", "**/tests/**"]
     },
     "test:watch": {
       "cache": false,
@@ -76,10 +52,7 @@
     },
     "db:generate": {
       "cache": false,
-      "inputs": [
-        "prisma/schema.prisma",
-        "drizzle/**/*.ts"
-      ]
+      "inputs": ["prisma/schema.prisma", "drizzle/**/*.ts"]
     },
     "db:push": {
       "cache": false

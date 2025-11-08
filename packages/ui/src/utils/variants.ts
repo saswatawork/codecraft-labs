@@ -1,4 +1,4 @@
-import { cva, type VariantProps } from 'class-variance-authority'
+import { type VariantProps, cva } from 'class-variance-authority';
 
 /**
  * Button component variants using CVA (Class Variance Authority)
@@ -10,62 +10,53 @@ export const buttonVariants = cva(
   {
     variants: {
       variant: {
-        primary:
-          'bg-primary text-primary-foreground hover:bg-primary/90 active:bg-primary/95',
-        destructive:
-          'bg-destructive text-destructive-foreground hover:bg-destructive/90',
-        outline:
-          'border border-input bg-background hover:bg-accent hover:text-accent-foreground',
-        secondary:
-          'bg-secondary text-secondary-foreground hover:bg-secondary/80',
+        primary: 'bg-primary text-primary-foreground hover:bg-primary/90 active:bg-primary/95',
+        destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
+        outline: 'border border-input bg-background hover:bg-accent hover:text-accent-foreground',
+        secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
         ghost: 'hover:bg-accent hover:text-accent-foreground',
         link: 'text-primary underline-offset-4 hover:underline',
-        success:
-          'bg-success text-success-foreground hover:bg-success/90',
-        warning:
-          'bg-warning text-warning-foreground hover:bg-warning/90'
+        success: 'bg-success text-success-foreground hover:bg-success/90',
+        warning: 'bg-warning text-warning-foreground hover:bg-warning/90',
       },
       size: {
         sm: 'h-9 px-3',
         md: 'h-10 px-4 py-2',
         lg: 'h-11 px-8',
         xl: 'h-12 px-10',
-        icon: 'h-10 w-10'
-      }
+        icon: 'h-10 w-10',
+      },
     },
     defaultVariants: {
       variant: 'primary',
-      size: 'md'
-    }
+      size: 'md',
+    },
   }
-)
+);
 
 /**
  * Card component variants
  */
-export const cardVariants = cva(
-  'rounded-lg border bg-card text-card-foreground shadow-sm',
-  {
-    variants: {
-      variant: {
-        default: '',
-        elevated: 'shadow-lg',
-        outlined: 'border-2',
-        filled: 'bg-muted'
-      },
-      padding: {
-        none: '',
-        sm: 'p-4',
-        md: 'p-6',
-        lg: 'p-8'
-      }
+export const cardVariants = cva('rounded-lg border bg-card text-card-foreground shadow-sm', {
+  variants: {
+    variant: {
+      default: '',
+      elevated: 'shadow-lg',
+      outlined: 'border-2',
+      filled: 'bg-muted',
     },
-    defaultVariants: {
-      variant: 'default',
-      padding: 'md'
-    }
-  }
-)
+    padding: {
+      none: '',
+      sm: 'p-4',
+      md: 'p-6',
+      lg: 'p-8',
+    },
+  },
+  defaultVariants: {
+    variant: 'default',
+    padding: 'md',
+  },
+});
 
 /**
  * Badge component variants
@@ -75,30 +66,27 @@ export const badgeVariants = cva(
   {
     variants: {
       variant: {
-        default:
-          'border-transparent bg-primary text-primary-foreground hover:bg-primary/80',
+        default: 'border-transparent bg-primary text-primary-foreground hover:bg-primary/80',
         secondary:
           'border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80',
         destructive:
           'border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80',
-        success:
-          'border-transparent bg-success text-success-foreground hover:bg-success/80',
-        warning:
-          'border-transparent bg-warning text-warning-foreground hover:bg-warning/80',
-        outline: 'text-foreground'
+        success: 'border-transparent bg-success text-success-foreground hover:bg-success/80',
+        warning: 'border-transparent bg-warning text-warning-foreground hover:bg-warning/80',
+        outline: 'text-foreground',
       },
       size: {
         sm: 'px-2 py-0.5 text-xs',
         md: 'px-2.5 py-0.5 text-xs',
-        lg: 'px-3 py-1 text-sm'
-      }
+        lg: 'px-3 py-1 text-sm',
+      },
     },
     defaultVariants: {
       variant: 'default',
-      size: 'md'
-    }
+      size: 'md',
+    },
   }
-)
+);
 
 /**
  * Input component variants
@@ -110,23 +98,23 @@ export const inputVariants = cva(
       variant: {
         default: '',
         error: 'border-destructive focus-visible:ring-destructive',
-        success: 'border-success focus-visible:ring-success'
+        success: 'border-success focus-visible:ring-success',
       },
       inputSize: {
         sm: 'h-9 px-3 text-sm',
         md: 'h-10 px-3 py-2',
-        lg: 'h-11 px-4 py-3'
-      }
+        lg: 'h-11 px-4 py-3',
+      },
     },
     defaultVariants: {
       variant: 'default',
-      inputSize: 'md'
-    }
+      inputSize: 'md',
+    },
   }
-)
+);
 
 // Export types for component props
-export type ButtonVariants = VariantProps<typeof buttonVariants>
-export type CardVariants = VariantProps<typeof cardVariants>
-export type BadgeVariants = VariantProps<typeof badgeVariants>
-export type InputVariants = VariantProps<typeof inputVariants>
+export type ButtonVariants = VariantProps<typeof buttonVariants>;
+export type CardVariants = VariantProps<typeof cardVariants>;
+export type BadgeVariants = VariantProps<typeof badgeVariants>;
+export type InputVariants = VariantProps<typeof inputVariants>;

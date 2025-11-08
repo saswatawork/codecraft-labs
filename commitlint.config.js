@@ -6,32 +6,32 @@ module.exports = {
       2,
       'always',
       [
-        'feat',     // New feature
-        'fix',      // Bug fix
-        'docs',     // Documentation
-        'style',    // Formatting, missing semicolons, etc
+        'feat', // New feature
+        'fix', // Bug fix
+        'docs', // Documentation
+        'style', // Formatting, missing semicolons, etc
         'refactor', // Code refactoring
-        'test',     // Adding tests
-        'chore',    // Maintenance tasks
-        'perf',     // Performance improvements
-        'ci',       // CI/CD changes
-        'build',    // Build system changes
-        'revert'    // Revert changes
-      ]
+        'test', // Adding tests
+        'chore', // Maintenance tasks
+        'perf', // Performance improvements
+        'ci', // CI/CD changes
+        'build', // Build system changes
+        'revert', // Revert changes
+      ],
     ],
     'scope-enum': [
       2,
       'always',
       [
-        'web',      // Frontend app
-        'api',      // Backend app
-        'admin',    // Admin app
-        'ui',       // UI package
-        'shared',   // Shared package
-        'config',   // Configuration
-        'deps',     // Dependencies
-        'docs'      // Documentation
-      ]
-    ]
-  }
+        'web', // Frontend app
+        'api', // Backend app
+        'admin', // Admin app
+        'ui', // UI package
+        'shared', // Shared package
+        'config', // Configuration
+        'deps', // Dependencies
+        'docs', // Documentation
+      ],
+    ],
+  },
 };

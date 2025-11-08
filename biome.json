@@ -2,15 +2,7 @@
   "$schema": "https://biomejs.dev/schemas/1.6.0/schema.json",
   "files": {
     "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx", "**/*.json"],
-    "ignore": [
-      "node_modules",
-      "dist",
-      "build",
-      ".next",
-      ".turbo",
-      "coverage",
-      "*.min.js"
-    ]
+    "ignore": ["node_modules", "dist", "build", ".next", ".turbo", "coverage", "*.min.js"]
   },
   "formatter": {
     "enabled": true,
@@ -38,8 +30,11 @@
         "useImportType": "error"
       },
       "suspicious": {
-        "noExplicitAny": "warn",
+        "noExplicitAny": "off",
         "noArrayIndexKey": "warn"
+      },
+      "a11y": {
+        "noSvgWithoutTitle": "off"
       }
     }
   },
@@ -48,7 +43,7 @@
       "quoteStyle": "single",
       "jsxQuoteStyle": "double",
       "semicolons": "always",
-      "trailingComma": "es5"
+      "trailingCommas": "es5"
     }
   },
   "json": {

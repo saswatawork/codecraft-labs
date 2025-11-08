@@ -32,11 +32,7 @@
     "node": ">=20.0.0",
     "pnpm": ">=9.0.0"
   },
-  "workspaces": [
-    "apps/*",
-    "packages/*",
-    "tools/*"
-  ],
+  "workspaces": ["apps/*", "packages/*", "tools/*"],
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev --parallel",
@@ -84,8 +80,12 @@
     }
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,json,css,md}": [
-      "biome check --apply"
-    ]
+    "*.{js,jsx,ts,tsx,json,css,md}": ["biome check --apply"]
+  },
+  "dependencies": {
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
+    "react": "19.0.0-rc.1",
+    "react-dom": "19.0.0-rc.1"
   }
 }
