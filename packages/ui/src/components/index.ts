@@ -4,6 +4,7 @@
 export * from './Button';
 export * from './Input';
 export * from './Badge';
+export * from './Card';
 
 // Re-exports for convenience
 export { default as Button } from './Button';

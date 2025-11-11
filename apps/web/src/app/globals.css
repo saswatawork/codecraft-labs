@@ -1,8 +1,5 @@
 @import "tailwindcss";
 
-/* Import UI package styles */
-@import "@ccl/ui/styles";
-
 :root {
   --background: 0 0% 100%;
   --foreground: 20 14.3% 4.1%;

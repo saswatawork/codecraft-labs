@@ -2,7 +2,7 @@
   "extends": "./tsconfig.json",
   "exclude": [
     "node_modules",
-    "dist", 
+    "dist",
     "storybook-static",
     "**/*.stories.ts",
     "**/*.stories.tsx",

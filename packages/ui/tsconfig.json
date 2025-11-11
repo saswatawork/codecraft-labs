@@ -18,9 +18,5 @@
     "types": ["vitest/globals", "@testing-library/jest-dom"]
   },
   "include": ["src/**/*"],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "storybook-static"
-  ]
+  "exclude": ["node_modules", "dist", "storybook-static"]
 }

@@ -82,15 +82,15 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
       className,
-      variant = "default",
-      size = "default", 
+      variant = 'default',
+      size = 'default',
       asChild = false,
       loading = false,
       leftIcon,
       rightIcon,
       children,
       disabled,
-      as: Component = "button",
+      as: Component = 'button',
       ...props
     },
     ref
@@ -123,7 +123,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <ButtonComponent
         ref={ref}
-        type={Component === "button" ? "button" : undefined}
+        type={Component === 'button' ? 'button' : undefined}
         className={cn(
           buttonVariants({
             variant: variant as any,
