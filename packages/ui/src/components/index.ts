@@ -5,11 +5,13 @@ export * from './Button';
 export * from './Input';
 export * from './Badge';
 export * from './Card';
+export * from './Avatar';
 
 // Re-exports for convenience
 export { default as Button } from './Button';
 export { default as Input } from './Input';
 export { default as Badge } from './Badge';
+export { Avatar as default } from './Avatar';
 
 // Molecules - Component combinations
 // export * from './molecules/Card'
