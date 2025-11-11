@@ -6,6 +6,7 @@ export * from './Input';
 export * from './Badge';
 export * from './Card';
 export * from './Avatar';
+export * from './Dialog';
 
 // Re-exports for convenience
 export { default as Button } from './Button';

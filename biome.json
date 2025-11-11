@@ -42,8 +42,7 @@
     "formatter": {
       "quoteStyle": "single",
       "jsxQuoteStyle": "double",
-      "semicolons": "always",
-      "trailingCommas": "es5"
+      "semicolons": "always"
     }
   },
   "json": {
