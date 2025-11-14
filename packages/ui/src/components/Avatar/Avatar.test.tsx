@@ -20,42 +20,42 @@ describe('Avatar', () => {
       const { rerender } = render(
         <Avatar data-testid="avatar" size="xs">
           Test
-        </Avatar>
+        </Avatar>,
       );
       expect(screen.getByTestId('avatar')).toHaveClass('h-6', 'w-6');
 
       rerender(
         <Avatar data-testid="avatar" size="sm">
           Test
-        </Avatar>
+        </Avatar>,
       );
       expect(screen.getByTestId('avatar')).toHaveClass('h-8', 'w-8');
 
       rerender(
         <Avatar data-testid="avatar" size="md">
           Test
-        </Avatar>
+        </Avatar>,
       );
       expect(screen.getByTestId('avatar')).toHaveClass('h-10', 'w-10');
 
       rerender(
         <Avatar data-testid="avatar" size="lg">
           Test
-        </Avatar>
+        </Avatar>,
       );
       expect(screen.getByTestId('avatar')).toHaveClass('h-12', 'w-12');
 
       rerender(
         <Avatar data-testid="avatar" size="xl">
           Test
-        </Avatar>
+        </Avatar>,
       );
       expect(screen.getByTestId('avatar')).toHaveClass('h-16', 'w-16');
 
       rerender(
         <Avatar data-testid="avatar" size="2xl">
           Test
-        </Avatar>
+        </Avatar>,
       );
       expect(screen.getByTestId('avatar')).toHaveClass('h-20', 'w-20');
     });
@@ -64,7 +64,7 @@ describe('Avatar', () => {
       render(
         <Avatar data-testid="avatar" className="custom-class">
           Test
-        </Avatar>
+        </Avatar>,
       );
       expect(screen.getByTestId('avatar')).toHaveClass('custom-class');
     });
@@ -73,7 +73,7 @@ describe('Avatar', () => {
       render(
         <Avatar data-testid="avatar" role="img" aria-label="User avatar">
           Test
-        </Avatar>
+        </Avatar>,
       );
       const avatar = screen.getByTestId('avatar');
       expect(avatar).toHaveAttribute('role', 'img');
@@ -120,7 +120,7 @@ describe('Avatar', () => {
           src="/test.jpg"
           alt="Test"
           className="custom-image"
-        />
+        />,
       );
       expect(screen.getByTestId('avatar-image')).toHaveClass('custom-image');
     });
@@ -149,38 +149,38 @@ describe('Avatar', () => {
       const { rerender } = render(
         <AvatarFallback data-testid="fallback" variant="default">
           JD
-        </AvatarFallback>
+        </AvatarFallback>,
       );
       expect(screen.getByTestId('fallback')).toHaveClass('bg-primary/10', 'text-primary');
 
       rerender(
         <AvatarFallback data-testid="fallback" variant="secondary">
           JD
-        </AvatarFallback>
+        </AvatarFallback>,
       );
       expect(screen.getByTestId('fallback')).toHaveClass(
         'bg-secondary',
-        'text-secondary-foreground'
+        'text-secondary-foreground',
       );
 
       rerender(
         <AvatarFallback data-testid="fallback" variant="muted">
           JD
-        </AvatarFallback>
+        </AvatarFallback>,
       );
       expect(screen.getByTestId('fallback')).toHaveClass('bg-muted', 'text-muted-foreground');
 
       rerender(
         <AvatarFallback data-testid="fallback" variant="accent">
           JD
-        </AvatarFallback>
+        </AvatarFallback>,
       );
       expect(screen.getByTestId('fallback')).toHaveClass('bg-accent', 'text-accent-foreground');
 
       rerender(
         <AvatarFallback data-testid="fallback" variant="destructive">
           JD
-        </AvatarFallback>
+        </AvatarFallback>,
       );
       expect(screen.getByTestId('fallback')).toHaveClass('bg-destructive/10', 'text-destructive');
     });
@@ -200,7 +200,7 @@ describe('Avatar', () => {
         'items-center',
         'justify-center',
         'rounded-full',
-        'font-medium'
+        'font-medium',
       );
     });
   });
@@ -295,7 +295,7 @@ describe('Avatar', () => {
 
     it('renders status indicator when provided', () => {
       render(
-        <CompoundAvatar data-testid="compound-avatar" alt="John Doe" status="online" size="md" />
+        <CompoundAvatar data-testid="compound-avatar" alt="John Doe" status="online" size="md" />,
       );
       const status = screen.getByLabelText('User is online');
       expect(status).toBeInTheDocument();
@@ -322,7 +322,7 @@ describe('Avatar', () => {
           size="lg"
           className="custom-avatar"
           role="img"
-        />
+        />,
       );
       const avatar = screen.getByTestId('compound-avatar');
       expect(avatar).toHaveClass('h-12', 'w-12', 'custom-avatar');
@@ -333,7 +333,7 @@ describe('Avatar', () => {
       render(
         <CompoundAvatar alt="John Doe">
           <span data-testid="custom-child">Custom</span>
-        </CompoundAvatar>
+        </CompoundAvatar>,
       );
       expect(screen.getByTestId('custom-child')).toBeInTheDocument();
     });
@@ -346,7 +346,7 @@ describe('Avatar', () => {
           <AvatarImage src="/test.jpg" alt="John Doe" />
           <AvatarFallback variant="secondary">JD</AvatarFallback>
           <AvatarStatus status="online" size="lg" />
-        </Avatar>
+        </Avatar>,
       );
 
       expect(screen.getByTestId('avatar')).toBeInTheDocument();
@@ -363,7 +363,7 @@ describe('Avatar', () => {
             JD
           </AvatarFallback>
           <AvatarStatus status="away" size="lg" className="custom-status" />
-        </Avatar>
+        </Avatar>,
       );
 
       expect(screen.getByTestId('avatar')).toHaveClass('custom-avatar');

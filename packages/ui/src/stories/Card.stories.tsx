@@ -429,7 +429,7 @@ export const Playground: Story = {
     padding: 'md',
     className: 'w-80',
   },
-  render: (args) => (
+  render: (args: typeof Default.args) => (
     <Card {...args}>
       <CardHeader>
         <CardTitle>Playground Card</CardTitle>

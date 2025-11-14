@@ -1,5 +1,5 @@
-export { 
-  Navigation, 
+export {
+  Navigation,
   NavigationContainer,
   NavigationBrand,
   NavigationMenu,
@@ -7,16 +7,16 @@ export {
   NavigationToggle,
   NavigationActions,
   CompoundNavigation,
-  useNavigation
+  useNavigation,
 } from './Navigation';
 
-export type { 
-  NavigationProps, 
+export type {
+  NavigationProps,
   NavigationContainerProps,
   NavigationBrandProps,
   NavigationMenuProps,
   NavigationItemProps,
   NavigationToggleProps,
   NavigationActionsProps,
-  CompoundNavigationProps
+  CompoundNavigationProps,
 } from './Navigation';

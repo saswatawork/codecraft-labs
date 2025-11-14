@@ -1,8 +1,9 @@
 import path from 'node:path';
-import fs from 'fs-extra';
-import { execa } from 'execa';
-import Handlebars from 'handlebars';
+import { fileURLToPath } from 'node:url';
 import chalk from 'chalk';
+import { execa } from 'execa';
+import fs from 'fs-extra';
+import Handlebars from 'handlebars';
 import ora from 'ora';
 import '../utils/handlebars-helpers.js';
 
@@ -31,15 +32,12 @@ export async function createProject({
   // Create project directory
   await fs.ensureDir(targetDir);
 
-  // Get template directory
-  const templateDir = path.resolve(
-    new URL(import.meta.url).pathname,
-    '../../../templates',
-    template
-  );
+  // Resolve template directory relative to this file (dist/commands/create.js -> ../templates)
+  const __dirname = path.dirname(fileURLToPath(import.meta.url));
+  const templateDir = path.join(__dirname, '../templates', template);
 
   if (!(await fs.pathExists(templateDir))) {
-    throw new Error(`Template "${template}" not found`);
+    throw new Error(`Template "${template}" not found at path: ${templateDir}`);
   }
 
   // Copy template files
@@ -79,7 +77,7 @@ export async function createProject({
 async function copyTemplate(
   templateDir: string,
   targetDir: string,
-  data: Record<string, any>
+  data: Record<string, any>,
 ): Promise<void> {
   const files = await fs.readdir(templateDir, { withFileTypes: true });
 

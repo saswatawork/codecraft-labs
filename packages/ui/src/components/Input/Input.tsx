@@ -115,7 +115,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       id,
       ...props
     },
-    ref
+    ref,
   ) => {
     // Generate unique ID if not provided
     const inputId = id || React.useId();
@@ -160,7 +160,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
               }),
               leftIcon && 'pl-10',
               (rightElement || rightIcon) && 'pr-10',
-              className
+              className,
             )}
             {...props}
           />
@@ -181,7 +181,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         )}
       </div>
     );
-  }
+  },
 );
 
 Input.displayName = 'Input';

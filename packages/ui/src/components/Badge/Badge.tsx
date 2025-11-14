@@ -91,7 +91,7 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
       children,
       ...props
     },
-    ref
+    ref,
   ) => {
     // Cast Component for TypeScript
     const BadgeComponent = Component as any;
@@ -106,7 +106,7 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
           }),
           interactive && 'cursor-pointer hover:opacity-80 active:opacity-90',
           loading && 'animate-pulse',
-          className
+          className,
         )}
         {...props}
       >
@@ -132,7 +132,7 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
         {rightIcon && <span className="ml-1 flex-shrink-0 flex items-center">{rightIcon}</span>}
       </BadgeComponent>
     );
-  }
+  },
 );
 
 Badge.displayName = 'Badge';

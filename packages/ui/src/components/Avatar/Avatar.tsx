@@ -36,7 +36,7 @@ const avatarFallbackVariants = cva(
     defaultVariants: {
       variant: 'default',
     },
-  }
+  },
 );
 
 const avatarStatusVariants = cva('absolute rounded-full border-2 border-background', {
@@ -87,7 +87,7 @@ export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(
     <div ref={ref} className={cn(avatarVariants({ size }), className)} {...props}>
       {children}
     </div>
-  )
+  ),
 );
 Avatar.displayName = 'Avatar';
 
@@ -96,7 +96,7 @@ export const AvatarImage = forwardRef<HTMLImageElement, AvatarImageProps>(
   ({ className, alt = '', ...props }, ref) => (
     // biome-ignore lint/a11y/useAltText: Alt text is provided via props, empty fallback is intentional for avatar images
     <img ref={ref} className={cn(avatarImageVariants(), className)} alt={alt} {...props} />
-  )
+  ),
 );
 AvatarImage.displayName = 'AvatarImage';
 
@@ -106,7 +106,7 @@ export const AvatarFallback = forwardRef<HTMLDivElement, AvatarFallbackProps>(
     <div ref={ref} className={cn(avatarFallbackVariants({ variant }), className)} {...props}>
       {children}
     </div>
-  )
+  ),
 );
 AvatarFallback.displayName = 'AvatarFallback';
 
@@ -119,7 +119,7 @@ export const AvatarStatus = forwardRef<HTMLDivElement, AvatarStatusProps>(
       aria-label={status ? `User is ${status}` : undefined}
       {...props}
     />
-  )
+  ),
 );
 AvatarStatus.displayName = 'AvatarStatus';
 
@@ -145,7 +145,7 @@ export const CompoundAvatar = forwardRef<HTMLDivElement, CompoundAvatarProps>(
       children,
       ...props
     },
-    ref
+    ref,
   ) => {
     // Generate initials from alt or fallback
     const getInitials = (name: string) => {
@@ -173,7 +173,7 @@ export const CompoundAvatar = forwardRef<HTMLDivElement, CompoundAvatarProps>(
         {children}
       </Avatar>
     );
-  }
+  },
 );
 CompoundAvatar.displayName = 'CompoundAvatar';
 

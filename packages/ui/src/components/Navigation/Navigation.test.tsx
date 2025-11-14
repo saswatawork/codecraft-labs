@@ -1,15 +1,15 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { createRef } from 'react';
-import { describe, it, expect, vi } from 'vitest';
-import { 
-  Navigation, 
-  NavigationContainer,
-  NavigationBrand,
-  NavigationMenu,
-  NavigationItem,
-  NavigationToggle,
+import { describe, expect, it, vi } from 'vitest';
+import {
+  CompoundNavigation,
+  Navigation,
   NavigationActions,
-  CompoundNavigation
+  NavigationBrand,
+  NavigationContainer,
+  NavigationItem,
+  NavigationMenu,
+  NavigationToggle,
 } from './Navigation';
 
 describe('Navigation', () => {
@@ -18,7 +18,7 @@ describe('Navigation', () => {
       render(
         <Navigation>
           <div>Navigation content</div>
-        </Navigation>
+        </Navigation>,
       );
       expect(screen.getByText('Navigation content')).toBeInTheDocument();
     });
@@ -27,21 +27,21 @@ describe('Navigation', () => {
       const { rerender } = render(
         <Navigation variant="default" data-testid="nav">
           Content
-        </Navigation>
+        </Navigation>,
       );
       expect(screen.getByTestId('nav')).toHaveClass('border-border');
 
       rerender(
         <Navigation variant="ghost" data-testid="nav">
           Content
-        </Navigation>
+        </Navigation>,
       );
       expect(screen.getByTestId('nav')).toHaveClass('border-transparent');
 
       rerender(
         <Navigation variant="floating" data-testid="nav">
           Content
-        </Navigation>
+        </Navigation>,
       );
       expect(screen.getByTestId('nav')).toHaveClass('rounded-lg', 'shadow-sm');
     });
@@ -50,21 +50,21 @@ describe('Navigation', () => {
       const { rerender } = render(
         <Navigation size="sm" data-testid="nav">
           Content
-        </Navigation>
+        </Navigation>,
       );
       expect(screen.getByTestId('nav')).toHaveClass('h-12');
 
       rerender(
         <Navigation size="md" data-testid="nav">
           Content
-        </Navigation>
+        </Navigation>,
       );
       expect(screen.getByTestId('nav')).toHaveClass('h-14');
 
       rerender(
         <Navigation size="lg" data-testid="nav">
           Content
-        </Navigation>
+        </Navigation>,
       );
       expect(screen.getByTestId('nav')).toHaveClass('h-16');
     });
@@ -73,32 +73,28 @@ describe('Navigation', () => {
       const { rerender } = render(
         <Navigation position="static" data-testid="nav">
           Content
-        </Navigation>
+        </Navigation>,
       );
       expect(screen.getByTestId('nav')).toHaveClass('relative');
 
       rerender(
         <Navigation position="sticky" data-testid="nav">
           Content
-        </Navigation>
+        </Navigation>,
       );
       expect(screen.getByTestId('nav')).toHaveClass('sticky');
 
       rerender(
         <Navigation position="fixed" data-testid="nav">
           Content
-        </Navigation>
+        </Navigation>,
       );
       expect(screen.getByTestId('nav')).toHaveClass('fixed');
     });
 
     it('forwards ref correctly', () => {
       const ref = createRef<HTMLElement>();
-      render(
-        <Navigation ref={ref}>
-          Content
-        </Navigation>
-      );
+      render(<Navigation ref={ref}>Content</Navigation>);
       expect(ref.current).toBeInstanceOf(HTMLElement);
       expect(ref.current?.tagName).toBe('NAV');
     });
@@ -107,7 +103,7 @@ describe('Navigation', () => {
       render(
         <Navigation className="custom-nav" data-testid="nav">
           Content
-        </Navigation>
+        </Navigation>,
       );
       expect(screen.getByTestId('nav')).toHaveClass('custom-nav');
     });
@@ -117,10 +113,8 @@ describe('Navigation', () => {
     it('renders container correctly', () => {
       render(
         <Navigation>
-          <NavigationContainer data-testid="container">
-            Container content
-          </NavigationContainer>
-        </Navigation>
+          <NavigationContainer data-testid="container">Container content</NavigationContainer>
+        </Navigation>,
       );
       expect(screen.getByTestId('container')).toBeInTheDocument();
       expect(screen.getByText('Container content')).toBeInTheDocument();
@@ -132,7 +126,7 @@ describe('Navigation', () => {
           <NavigationContainer spacing="sm" data-testid="container">
             Content
           </NavigationContainer>
-        </Navigation>
+        </Navigation>,
       );
       expect(screen.getByTestId('container')).toHaveClass('gap-2');
 
@@ -141,7 +135,7 @@ describe('Navigation', () => {
           <NavigationContainer spacing="md" data-testid="container">
             Content
           </NavigationContainer>
-        </Navigation>
+        </Navigation>,
       );
       expect(screen.getByTestId('container')).toHaveClass('gap-4');
 
@@ -150,7 +144,7 @@ describe('Navigation', () => {
           <NavigationContainer spacing="lg" data-testid="container">
             Content
           </NavigationContainer>
-        </Navigation>
+        </Navigation>,
       );
       expect(screen.getByTestId('container')).toHaveClass('gap-6');
     });
@@ -159,10 +153,8 @@ describe('Navigation', () => {
       const ref = createRef<HTMLDivElement>();
       render(
         <Navigation>
-          <NavigationContainer ref={ref}>
-            Content
-          </NavigationContainer>
-        </Navigation>
+          <NavigationContainer ref={ref}>Content</NavigationContainer>
+        </Navigation>,
       );
       expect(ref.current).toBeInstanceOf(HTMLDivElement);
     });
@@ -173,7 +165,7 @@ describe('Navigation', () => {
       render(
         <Navigation>
           <NavigationBrand text="Brand Name" />
-        </Navigation>
+        </Navigation>,
       );
       expect(screen.getByText('Brand Name')).toBeInTheDocument();
     });
@@ -182,7 +174,7 @@ describe('Navigation', () => {
       render(
         <Navigation>
           <NavigationBrand logo={<img src="logo.png" alt="Logo" />} />
-        </Navigation>
+        </Navigation>,
       );
       expect(screen.getByAltText('Logo')).toBeInTheDocument();
     });
@@ -190,11 +182,8 @@ describe('Navigation', () => {
     it('renders brand with both logo and text', () => {
       render(
         <Navigation>
-          <NavigationBrand 
-            logo={<img src="logo.png" alt="Logo" />}
-            text="Brand Name"
-          />
-        </Navigation>
+          <NavigationBrand logo={<img src="logo.png" alt="Logo" />} text="Brand Name" />
+        </Navigation>,
       );
       expect(screen.getByAltText('Logo')).toBeInTheDocument();
       expect(screen.getByText('Brand Name')).toBeInTheDocument();
@@ -204,7 +193,7 @@ describe('Navigation', () => {
       render(
         <Navigation>
           <NavigationBrand href="/" text="Brand Name" />
-        </Navigation>
+        </Navigation>,
       );
       const link = screen.getByText('Brand Name').closest('a');
       expect(link).toHaveAttribute('href', '/');
@@ -216,7 +205,7 @@ describe('Navigation', () => {
           <NavigationBrand>
             <span>Custom Brand Content</span>
           </NavigationBrand>
-        </Navigation>
+        </Navigation>,
       );
       expect(screen.getByText('Custom Brand Content')).toBeInTheDocument();
     });
@@ -225,14 +214,14 @@ describe('Navigation', () => {
       const { rerender } = render(
         <Navigation>
           <NavigationBrand size="sm" text="Brand" data-testid="brand" />
-        </Navigation>
+        </Navigation>,
       );
       expect(screen.getByTestId('brand')).toHaveClass('text-sm');
 
       rerender(
         <Navigation>
           <NavigationBrand size="lg" text="Brand" data-testid="brand" />
-        </Navigation>
+        </Navigation>,
       );
       expect(screen.getByTestId('brand')).toHaveClass('text-lg');
     });
@@ -242,7 +231,7 @@ describe('Navigation', () => {
       render(
         <Navigation>
           <NavigationBrand ref={ref} text="Brand" />
-        </Navigation>
+        </Navigation>,
       );
       expect(ref.current).toBeInstanceOf(HTMLDivElement);
     });
@@ -255,7 +244,7 @@ describe('Navigation', () => {
           <NavigationMenu>
             <span>Menu Item</span>
           </NavigationMenu>
-        </Navigation>
+        </Navigation>,
       );
       expect(screen.getByText('Menu Item')).toBeInTheDocument();
     });
@@ -264,10 +253,8 @@ describe('Navigation', () => {
       render(
         <Navigation>
           <NavigationToggle />
-          <NavigationMenu data-testid="menu">
-            Menu Content
-          </NavigationMenu>
-        </Navigation>
+          <NavigationMenu data-testid="menu">Menu Content</NavigationMenu>
+        </Navigation>,
       );
 
       const menu = screen.getByTestId('menu');
@@ -291,7 +278,7 @@ describe('Navigation', () => {
           <NavigationMenu orientation="horizontal" data-testid="menu">
             Content
           </NavigationMenu>
-        </Navigation>
+        </Navigation>,
       );
       expect(screen.getByTestId('menu')).toHaveClass('flex-row');
 
@@ -300,7 +287,7 @@ describe('Navigation', () => {
           <NavigationMenu orientation="vertical" data-testid="menu">
             Content
           </NavigationMenu>
-        </Navigation>
+        </Navigation>,
       );
       expect(screen.getByTestId('menu')).toHaveClass('flex-col');
     });
@@ -309,10 +296,8 @@ describe('Navigation', () => {
       const ref = createRef<HTMLDivElement>();
       render(
         <Navigation>
-          <NavigationMenu ref={ref}>
-            Content
-          </NavigationMenu>
-        </Navigation>
+          <NavigationMenu ref={ref}>Content</NavigationMenu>
+        </Navigation>,
       );
       expect(ref.current).toBeInstanceOf(HTMLDivElement);
     });
@@ -323,7 +308,7 @@ describe('Navigation', () => {
       render(
         <Navigation>
           <NavigationItem href="/about">About</NavigationItem>
-        </Navigation>
+        </Navigation>,
       );
       const link = screen.getByText('About');
       expect(link).toBeInTheDocument();
@@ -336,7 +321,7 @@ describe('Navigation', () => {
           <NavigationItem variant="default" href="/test" data-testid="item">
             Test
           </NavigationItem>
-        </Navigation>
+        </Navigation>,
       );
       expect(screen.getByTestId('item')).toHaveClass('text-foreground/60');
 
@@ -345,7 +330,7 @@ describe('Navigation', () => {
           <NavigationItem variant="ghost" href="/test" data-testid="item">
             Test
           </NavigationItem>
-        </Navigation>
+        </Navigation>,
       );
       expect(screen.getByTestId('item')).toHaveClass('hover:bg-transparent');
     });
@@ -356,7 +341,7 @@ describe('Navigation', () => {
           <NavigationItem href="/test" active={false} data-testid="item">
             Test
           </NavigationItem>
-        </Navigation>
+        </Navigation>,
       );
       expect(screen.getByTestId('item')).not.toHaveClass('bg-accent');
 
@@ -365,7 +350,7 @@ describe('Navigation', () => {
           <NavigationItem href="/test" active={true} data-testid="item">
             Test
           </NavigationItem>
-        </Navigation>
+        </Navigation>,
       );
       expect(screen.getByTestId('item')).toHaveClass('bg-accent');
     });
@@ -376,7 +361,7 @@ describe('Navigation', () => {
           <NavigationItem size="sm" href="/test" data-testid="item">
             Test
           </NavigationItem>
-        </Navigation>
+        </Navigation>,
       );
       expect(screen.getByTestId('item')).toHaveClass('h-8');
 
@@ -385,7 +370,7 @@ describe('Navigation', () => {
           <NavigationItem size="lg" href="/test" data-testid="item">
             Test
           </NavigationItem>
-        </Navigation>
+        </Navigation>,
       );
       expect(screen.getByTestId('item')).toHaveClass('h-10');
     });
@@ -396,7 +381,7 @@ describe('Navigation', () => {
           <NavigationItem asChild>
             <button type="button">Custom Button</button>
           </NavigationItem>
-        </Navigation>
+        </Navigation>,
       );
       const button = screen.getByText('Custom Button');
       expect(button.tagName).toBe('BUTTON');
@@ -409,7 +394,7 @@ describe('Navigation', () => {
           <NavigationItem ref={ref} href="/test">
             Test
           </NavigationItem>
-        </Navigation>
+        </Navigation>,
       );
       expect(ref.current).toBeInstanceOf(HTMLAnchorElement);
     });
@@ -420,7 +405,7 @@ describe('Navigation', () => {
       render(
         <Navigation>
           <NavigationToggle />
-        </Navigation>
+        </Navigation>,
       );
       const button = screen.getByRole('button');
       expect(button).toBeInTheDocument();
@@ -431,10 +416,8 @@ describe('Navigation', () => {
       render(
         <Navigation>
           <NavigationToggle />
-          <NavigationMenu data-testid="menu">
-            Menu Content
-          </NavigationMenu>
-        </Navigation>
+          <NavigationMenu data-testid="menu">Menu Content</NavigationMenu>
+        </Navigation>,
       );
 
       const button = screen.getByRole('button');
@@ -460,7 +443,7 @@ describe('Navigation', () => {
       render(
         <Navigation>
           <NavigationToggle onToggle={onToggle} />
-        </Navigation>
+        </Navigation>,
       );
 
       const button = screen.getByRole('button');
@@ -474,7 +457,7 @@ describe('Navigation', () => {
       render(
         <Navigation>
           <NavigationToggle isOpen={true} onToggle={onToggle} />
-        </Navigation>
+        </Navigation>,
       );
 
       const button = screen.getByRole('button');
@@ -488,7 +471,7 @@ describe('Navigation', () => {
       const { rerender } = render(
         <Navigation>
           <NavigationToggle isOpen={false} onToggle={() => {}} />
-        </Navigation>
+        </Navigation>,
       );
 
       let svg = screen.getByRole('button').querySelector('svg');
@@ -497,7 +480,7 @@ describe('Navigation', () => {
       rerender(
         <Navigation>
           <NavigationToggle isOpen={true} onToggle={() => {}} />
-        </Navigation>
+        </Navigation>,
       );
 
       svg = screen.getByRole('button').querySelector('svg');
@@ -508,14 +491,14 @@ describe('Navigation', () => {
       const { rerender } = render(
         <Navigation>
           <NavigationToggle size="sm" data-testid="toggle" />
-        </Navigation>
+        </Navigation>,
       );
       expect(screen.getByTestId('toggle')).toHaveClass('h-8', 'w-8');
 
       rerender(
         <Navigation>
           <NavigationToggle size="lg" data-testid="toggle" />
-        </Navigation>
+        </Navigation>,
       );
       expect(screen.getByTestId('toggle')).toHaveClass('h-10', 'w-10');
     });
@@ -525,7 +508,7 @@ describe('Navigation', () => {
       render(
         <Navigation>
           <NavigationToggle ref={ref} />
-        </Navigation>
+        </Navigation>,
       );
       expect(ref.current).toBeInstanceOf(HTMLButtonElement);
     });
@@ -539,7 +522,7 @@ describe('Navigation', () => {
             <button type="button">Login</button>
             <button type="button">Sign Up</button>
           </NavigationActions>
-        </Navigation>
+        </Navigation>,
       );
       expect(screen.getByText('Login')).toBeInTheDocument();
       expect(screen.getByText('Sign Up')).toBeInTheDocument();
@@ -549,10 +532,8 @@ describe('Navigation', () => {
       const ref = createRef<HTMLDivElement>();
       render(
         <Navigation>
-          <NavigationActions ref={ref}>
-            Actions
-          </NavigationActions>
-        </Navigation>
+          <NavigationActions ref={ref}>Actions</NavigationActions>
+        </Navigation>,
       );
       expect(ref.current).toBeInstanceOf(HTMLDivElement);
     });
@@ -563,7 +544,7 @@ describe('Navigation', () => {
           <NavigationActions className="custom-actions" data-testid="actions">
             Actions
           </NavigationActions>
-        </Navigation>
+        </Navigation>,
       );
       expect(screen.getByTestId('actions')).toHaveClass('custom-actions');
     });
@@ -584,10 +565,8 @@ describe('Navigation', () => {
             href: '/',
           }}
           items={items}
-          actions={
-            <button type="button">Login</button>
-          }
-        />
+          actions={<button type="button">Login</button>}
+        />,
       );
 
       expect(screen.getByText('My App')).toBeInTheDocument();
@@ -605,7 +584,7 @@ describe('Navigation', () => {
             text: 'My App',
           }}
           items={[]}
-        />
+        />,
       );
 
       expect(screen.getByAltText('Logo')).toBeInTheDocument();
@@ -613,26 +592,13 @@ describe('Navigation', () => {
     });
 
     it('renders without brand when not provided', () => {
-      render(
-        <CompoundNavigation
-          items={[
-            { label: 'Home', href: '/' },
-          ]}
-        />
-      );
+      render(<CompoundNavigation items={[{ label: 'Home', href: '/' }]} />);
 
       expect(screen.getByText('Home')).toBeInTheDocument();
     });
 
     it('hides toggle when showToggle is false', () => {
-      render(
-        <CompoundNavigation
-          showToggle={false}
-          items={[
-            { label: 'Home', href: '/' },
-          ]}
-        />
-      );
+      render(<CompoundNavigation showToggle={false} items={[{ label: 'Home', href: '/' }]} />);
 
       expect(screen.queryByRole('button')).not.toBeInTheDocument();
     });
@@ -641,20 +607,14 @@ describe('Navigation', () => {
       render(
         <CompoundNavigation items={[]}>
           <span>Custom Menu Item</span>
-        </CompoundNavigation>
+        </CompoundNavigation>,
       );
 
       expect(screen.getByText('Custom Menu Item')).toBeInTheDocument();
     });
 
     it('applies containerSpacing correctly', () => {
-      render(
-        <CompoundNavigation
-          containerSpacing="lg"
-          items={[]}
-          data-testid="nav"
-        />
-      );
+      render(<CompoundNavigation containerSpacing="lg" items={[]} data-testid="nav" />);
 
       // Check if the container has the correct spacing class
       const nav = screen.getByTestId('nav');
@@ -667,7 +627,7 @@ describe('Navigation', () => {
     it('throws error when NavigationMenu is used outside Navigation context', () => {
       // Suppress console.error for this test
       const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-      
+
       expect(() => {
         render(<NavigationMenu>Menu</NavigationMenu>);
       }).toThrow('Navigation components must be used within a Navigation');
@@ -678,7 +638,7 @@ describe('Navigation', () => {
     it('throws error when NavigationToggle is used outside Navigation context', () => {
       // Suppress console.error for this test
       const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-      
+
       expect(() => {
         render(<NavigationToggle />);
       }).toThrow('Navigation components must be used within a Navigation');
@@ -692,7 +652,7 @@ describe('Navigation', () => {
       render(
         <Navigation>
           <NavigationToggle />
-        </Navigation>
+        </Navigation>,
       );
 
       const button = screen.getByRole('button');
@@ -704,7 +664,7 @@ describe('Navigation', () => {
       render(
         <Navigation>
           <NavigationToggle />
-        </Navigation>
+        </Navigation>,
       );
 
       const button = screen.getByRole('button');
@@ -715,11 +675,7 @@ describe('Navigation', () => {
     });
 
     it('renders nav element with proper semantics', () => {
-      render(
-        <Navigation data-testid="nav">
-          Content
-        </Navigation>
-      );
+      render(<Navigation data-testid="nav">Content</Navigation>);
 
       const nav = screen.getByTestId('nav');
       expect(nav.tagName).toBe('NAV');

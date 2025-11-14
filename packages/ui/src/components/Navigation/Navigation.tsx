@@ -1,6 +1,6 @@
-import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '../../utils';
+import { type VariantProps, cva } from 'class-variance-authority';
 import React, { forwardRef, useState } from 'react';
+import { cn } from '../../utils';
 
 // Navigation Variants using CVA
 const navigationVariants = cva(
@@ -28,7 +28,7 @@ const navigationVariants = cva(
       size: 'md',
       position: 'sticky',
     },
-  }
+  },
 );
 
 const navigationContainerVariants = cva(
@@ -45,24 +45,21 @@ const navigationContainerVariants = cva(
     defaultVariants: {
       spacing: 'md',
     },
-  }
+  },
 );
 
-const navigationBrandVariants = cva(
-  'flex items-center space-x-2 font-semibold text-foreground',
-  {
-    variants: {
-      size: {
-        sm: 'text-sm',
-        md: 'text-base',
-        lg: 'text-lg',
-      },
+const navigationBrandVariants = cva('flex items-center space-x-2 font-semibold text-foreground', {
+  variants: {
+    size: {
+      sm: 'text-sm',
+      md: 'text-base',
+      lg: 'text-lg',
     },
-    defaultVariants: {
-      size: 'md',
-    },
-  }
-);
+  },
+  defaultVariants: {
+    size: 'md',
+  },
+});
 
 const navigationMenuVariants = cva('flex items-center', {
   variants: {
@@ -89,7 +86,8 @@ const navigationItemVariants = cva(
         default: 'text-foreground/60 hover:text-foreground hover:bg-accent',
         active: 'text-foreground bg-accent',
         ghost: 'text-foreground/60 hover:text-foreground hover:bg-transparent',
-        underline: 'text-foreground/60 hover:text-foreground border-b-2 border-transparent hover:border-foreground rounded-none',
+        underline:
+          'text-foreground/60 hover:text-foreground border-b-2 border-transparent hover:border-foreground rounded-none',
       },
       size: {
         sm: 'h-8 px-2 text-xs',
@@ -101,7 +99,7 @@ const navigationItemVariants = cva(
       variant: 'default',
       size: 'md',
     },
-  }
+  },
 );
 
 const navigationToggleVariants = cva(
@@ -117,24 +115,24 @@ const navigationToggleVariants = cva(
     defaultVariants: {
       size: 'md',
     },
-  }
+  },
 );
 
 // Navigation Interfaces
-export interface NavigationProps 
+export interface NavigationProps
   extends React.HTMLAttributes<HTMLElement>,
     VariantProps<typeof navigationVariants> {
   className?: string;
   children?: React.ReactNode;
 }
 
-export interface NavigationContainerProps 
+export interface NavigationContainerProps
   extends React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof navigationContainerVariants> {
   className?: string;
 }
 
-export interface NavigationBrandProps 
+export interface NavigationBrandProps
   extends React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof navigationBrandVariants> {
   className?: string;
@@ -144,14 +142,14 @@ export interface NavigationBrandProps
   as?: React.ElementType;
 }
 
-export interface NavigationMenuProps 
+export interface NavigationMenuProps
   extends React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof navigationMenuVariants> {
   className?: string;
   children?: React.ReactNode;
 }
 
-export interface NavigationItemProps 
+export interface NavigationItemProps
   extends React.AnchorHTMLAttributes<HTMLAnchorElement>,
     VariantProps<typeof navigationItemVariants> {
   className?: string;
@@ -160,7 +158,7 @@ export interface NavigationItemProps
   children: React.ReactNode;
 }
 
-export interface NavigationToggleProps 
+export interface NavigationToggleProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof navigationToggleVariants> {
   className?: string;
@@ -204,19 +202,15 @@ export const Navigation = forwardRef<HTMLElement, NavigationProps>(
         </nav>
       </NavigationContext.Provider>
     );
-  }
+  },
 );
 Navigation.displayName = 'Navigation';
 
 // Navigation Container Component
 export const NavigationContainer = forwardRef<HTMLDivElement, NavigationContainerProps>(
   ({ className, spacing, ...props }, ref) => (
-    <div
-      ref={ref}
-      className={cn(navigationContainerVariants({ spacing }), className)}
-      {...props}
-    />
-  )
+    <div ref={ref} className={cn(navigationContainerVariants({ spacing }), className)} {...props} />
+  ),
 );
 NavigationContainer.displayName = 'NavigationContainer';
 
@@ -244,15 +238,11 @@ export const NavigationBrand = forwardRef<HTMLDivElement, NavigationBrandProps>(
     }
 
     return (
-      <Component
-        ref={ref}
-        className={cn(navigationBrandVariants({ size }), className)}
-        {...props}
-      >
+      <Component ref={ref} className={cn(navigationBrandVariants({ size }), className)} {...props}>
         {brandContent}
       </Component>
     );
-  }
+  },
 );
 NavigationBrand.displayName = 'NavigationBrand';
 
@@ -269,14 +259,14 @@ export const NavigationMenu = forwardRef<HTMLDivElement, NavigationMenuProps>(
           // Mobile menu visibility
           'sm:flex',
           isOpen ? 'flex' : 'hidden',
-          className
+          className,
         )}
         {...props}
       >
         {children}
       </div>
     );
-  }
+  },
 );
 NavigationMenu.displayName = 'NavigationMenu';
 
@@ -302,7 +292,7 @@ export const NavigationItem = forwardRef<HTMLAnchorElement, NavigationItemProps>
         {children}
       </a>
     );
-  }
+  },
 );
 NavigationItem.displayName = 'NavigationItem';
 
@@ -310,19 +300,19 @@ NavigationItem.displayName = 'NavigationItem';
 export const NavigationToggle = forwardRef<HTMLButtonElement, NavigationToggleProps>(
   ({ className, size, isOpen: controlledIsOpen, onToggle, onClick, ...props }, ref) => {
     const { isOpen, setIsOpen } = useNavigation();
-    
+
     // Use controlled state if provided, otherwise use context
     const currentIsOpen = controlledIsOpen !== undefined ? controlledIsOpen : isOpen;
-    
+
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
       const newIsOpen = !currentIsOpen;
-      
+
       if (onToggle) {
         onToggle(newIsOpen);
       } else {
         setIsOpen(newIsOpen);
       }
-      
+
       onClick?.(event);
     };
 
@@ -354,19 +344,15 @@ export const NavigationToggle = forwardRef<HTMLButtonElement, NavigationTogglePr
         </svg>
       </button>
     );
-  }
+  },
 );
 NavigationToggle.displayName = 'NavigationToggle';
 
 // Navigation Actions Component
 export const NavigationActions = forwardRef<HTMLDivElement, NavigationActionsProps>(
   ({ className, ...props }, ref) => (
-    <div
-      ref={ref}
-      className={cn('flex items-center space-x-2', className)}
-      {...props}
-    />
-  )
+    <div ref={ref} className={cn('flex items-center space-x-2', className)} {...props} />
+  ),
 );
 NavigationActions.displayName = 'NavigationActions';
 
@@ -414,9 +400,9 @@ export const CompoundNavigation: React.FC<CompoundNavigationProps> = ({
 
         {/* Navigation Menu */}
         <NavigationMenu className="sm:flex-1 sm:justify-center">
-          {items.map((item, index) => (
+          {items.map((item) => (
             <NavigationItem
-              key={index}
+              key={item.href}
               href={item.href}
               active={item.active || false}
               variant={item.variant}
@@ -428,11 +414,7 @@ export const CompoundNavigation: React.FC<CompoundNavigationProps> = ({
         </NavigationMenu>
 
         {/* Actions Section */}
-        {actions && (
-          <NavigationActions className="hidden sm:flex">
-            {actions}
-          </NavigationActions>
-        )}
+        {actions && <NavigationActions className="hidden sm:flex">{actions}</NavigationActions>}
       </NavigationContainer>
     </Navigation>
   );

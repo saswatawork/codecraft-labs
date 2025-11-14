@@ -1,19 +1,19 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { 
-  Dialog, 
-  DialogTrigger,
-  DialogContent, 
-  DialogHeader, 
-  DialogTitle, 
+import { Badge } from '../components/Badge';
+import { Button } from '../components/Button';
+import {
+  CompoundDialog,
+  Dialog,
+  DialogClose,
+  DialogContent,
   DialogDescription,
   DialogFooter,
-  DialogClose,
-  CompoundDialog
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
 } from '../components/Dialog';
-import { Button } from '../components/Button';
 import { Input } from '../components/Input';
-import { Badge } from '../components/Badge';
 
 const meta: Meta<typeof CompoundDialog> = {
   title: 'Components/Dialog',
@@ -85,7 +85,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   render: () => {
     const [open, setOpen] = useState(false);
-    
+
     return (
       <CompoundDialog
         open={open}
@@ -98,14 +98,13 @@ export const Default: Story = {
             <Button variant="outline" onClick={() => setOpen(false)}>
               Cancel
             </Button>
-            <Button onClick={() => setOpen(false)}>
-              Confirm
-            </Button>
+            <Button onClick={() => setOpen(false)}>Confirm</Button>
           </div>
         }
       >
         <p className="text-sm text-muted-foreground">
-          This dialog demonstrates the basic functionality with a title, description, and action buttons.
+          This dialog demonstrates the basic functionality with a title, description, and action
+          buttons.
         </p>
       </CompoundDialog>
     );
@@ -124,7 +123,7 @@ export const Sizes: Story = {
   render: () => {
     const [activeSize, setActiveSize] = useState<string | null>(null);
     const sizes = ['sm', 'md', 'lg', 'xl', '2xl'] as const;
-    
+
     return (
       <div className="flex flex-wrap gap-2">
         {sizes.map((size) => (
@@ -136,16 +135,12 @@ export const Sizes: Story = {
             title={`${size.toUpperCase()} Dialog`}
             description={`This dialog uses the ${size} size variant.`}
             trigger={<Button variant="outline">{size.toUpperCase()}</Button>}
-            footer={
-              <Button onClick={() => setActiveSize(null)}>
-                Close
-              </Button>
-            }
+            footer={<Button onClick={() => setActiveSize(null)}>Close</Button>}
           >
             <div className="py-4">
               <p className="text-sm text-muted-foreground">
-                Content area for {size} sized dialog. The dialog will adjust its maximum width 
-                based on the size variant selected.
+                Content area for {size} sized dialog. The dialog will adjust its maximum width based
+                on the size variant selected.
               </p>
             </div>
           </CompoundDialog>
@@ -156,7 +151,8 @@ export const Sizes: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Dialog sizes from small (sm) to extra large (2xl) demonstrating different width constraints.',
+        story:
+          'Dialog sizes from small (sm) to extra large (2xl) demonstrating different width constraints.',
       },
     },
   },
@@ -167,7 +163,7 @@ export const Animations: Story = {
   render: () => {
     const [activeAnimation, setActiveAnimation] = useState<string | null>(null);
     const animations = ['fade', 'scale', 'slide'] as const;
-    
+
     return (
       <div className="flex gap-2">
         {animations.map((animation) => (
@@ -179,11 +175,7 @@ export const Animations: Story = {
             title={`${animation} Animation`}
             description={`This dialog uses the ${animation} animation effect.`}
             trigger={<Button variant="outline">{animation}</Button>}
-            footer={
-              <Button onClick={() => setActiveAnimation(null)}>
-                Close
-              </Button>
-            }
+            footer={<Button onClick={() => setActiveAnimation(null)}>Close</Button>}
           >
             <div className="py-4">
               <p className="text-sm text-muted-foreground">
@@ -209,7 +201,7 @@ export const ConfirmationDialog: Story = {
   render: () => {
     const [open, setOpen] = useState(false);
     const [result, setResult] = useState<string>('');
-    
+
     const handleConfirm = () => {
       setResult('Confirmed!');
       setOpen(false);
@@ -221,7 +213,7 @@ export const ConfirmationDialog: Story = {
       setOpen(false);
       setTimeout(() => setResult(''), 2000);
     };
-    
+
     return (
       <div className="text-center">
         <CompoundDialog
@@ -249,11 +241,7 @@ export const ConfirmationDialog: Story = {
             </p>
           </div>
         </CompoundDialog>
-        {result && (
-          <p className="mt-4 text-sm font-medium text-green-600">
-            Result: {result}
-          </p>
-        )}
+        {result && <p className="mt-4 text-sm font-medium text-green-600">Result: {result}</p>}
       </div>
     );
   },
@@ -271,14 +259,14 @@ export const FormDialog: Story = {
   render: () => {
     const [open, setOpen] = useState(false);
     const [formData, setFormData] = useState({ name: '', email: '' });
-    
+
     const handleSubmit = (e: React.FormEvent) => {
       e.preventDefault();
       console.log('Form submitted:', formData);
       setOpen(false);
       setFormData({ name: '', email: '' });
     };
-    
+
     return (
       <CompoundDialog
         open={open}
@@ -289,8 +277,8 @@ export const FormDialog: Story = {
         trigger={<Button>Add Contact</Button>}
         footer={
           <div className="flex justify-end space-x-2 w-full">
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               onClick={() => {
                 setOpen(false);
                 setFormData({ name: '', email: '' });
@@ -298,11 +286,7 @@ export const FormDialog: Story = {
             >
               Cancel
             </Button>
-            <Button 
-              type="submit" 
-              form="contact-form"
-              disabled={!formData.name || !formData.email}
-            >
+            <Button type="submit" form="contact-form" disabled={!formData.name || !formData.email}>
               Save Contact
             </Button>
           </div>
@@ -316,7 +300,7 @@ export const FormDialog: Story = {
             <Input
               id="name"
               value={formData.name}
-              onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+              onChange={(e) => setFormData((prev) => ({ ...prev, name: e.target.value }))}
               placeholder="Enter full name"
               required
             />
@@ -329,7 +313,7 @@ export const FormDialog: Story = {
               id="email"
               type="email"
               value={formData.email}
-              onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+              onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))}
               placeholder="Enter email address"
               required
             />
@@ -351,7 +335,7 @@ export const FormDialog: Story = {
 export const InformationDialog: Story = {
   render: () => {
     const [open, setOpen] = useState(false);
-    
+
     return (
       <CompoundDialog
         open={open}
@@ -361,10 +345,8 @@ export const InformationDialog: Story = {
         description="A new version of the application is ready to install."
         trigger={
           <div className="relative">
-            <Button variant="outline">
-              System Status
-            </Button>
-            <Badge 
+            <Button variant="outline">System Status</Button>
+            <Badge
               className="absolute -top-2 -right-2 animate-pulse"
               variant="destructive"
               size="sm"
@@ -382,9 +364,7 @@ export const InformationDialog: Story = {
               <Button variant="outline" onClick={() => setOpen(false)}>
                 Learn More
               </Button>
-              <Button onClick={() => setOpen(false)}>
-                Install Update
-              </Button>
+              <Button onClick={() => setOpen(false)}>Install Update</Button>
             </div>
           </div>
         }
@@ -400,9 +380,15 @@ export const InformationDialog: Story = {
             </ul>
           </div>
           <div className="text-sm text-muted-foreground">
-            <p><strong>Size:</strong> 24.5 MB</p>
-            <p><strong>Install Time:</strong> ~2 minutes</p>
-            <p><strong>Restart Required:</strong> Yes</p>
+            <p>
+              <strong>Size:</strong> 24.5 MB
+            </p>
+            <p>
+              <strong>Install Time:</strong> ~2 minutes
+            </p>
+            <p>
+              <strong>Restart Required:</strong> Yes
+            </p>
           </div>
         </div>
       </CompoundDialog>
@@ -421,7 +407,7 @@ export const InformationDialog: Story = {
 export const CompoundUsage: Story = {
   render: () => {
     const [open, setOpen] = useState(false);
-    
+
     return (
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
@@ -435,7 +421,7 @@ export const CompoundUsage: Story = {
               This dialog uses individual components for maximum flexibility.
             </DialogDescription>
           </DialogHeader>
-          
+
           <div className="grid grid-cols-2 gap-4 py-4">
             <div className="space-y-2">
               <h4 className="font-semibold">Features</h4>
@@ -459,9 +445,7 @@ export const CompoundUsage: Story = {
             <Button variant="outline" onClick={() => setOpen(false)}>
               Close
             </Button>
-            <Button onClick={() => setOpen(false)}>
-              Got it!
-            </Button>
+            <Button onClick={() => setOpen(false)}>Got it!</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -480,7 +464,7 @@ export const CompoundUsage: Story = {
 export const NoBackdropDialog: Story = {
   render: () => {
     const [open, setOpen] = useState(false);
-    
+
     return (
       <CompoundDialog
         open={open}
@@ -490,16 +474,12 @@ export const NoBackdropDialog: Story = {
         description="This dialog doesn't close when clicking outside."
         trigger={<Button variant="outline">Non-modal</Button>}
         closeOnOutsideClick={false}
-        footer={
-          <Button onClick={() => setOpen(false)}>
-            Close
-          </Button>
-        }
+        footer={<Button onClick={() => setOpen(false)}>Close</Button>}
       >
         <div className="py-2">
           <p className="text-sm text-muted-foreground">
-            This dialog requires explicit action to close. Clicking the backdrop 
-            or pressing Escape won't close it.
+            This dialog requires explicit action to close. Clicking the backdrop or pressing Escape
+            won't close it.
           </p>
         </div>
       </CompoundDialog>
@@ -519,15 +499,15 @@ export const LoadingDialog: Story = {
   render: () => {
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
-    
+
     const handleAction = async () => {
       setLoading(true);
       // Simulate async operation
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 2000));
       setLoading(false);
       setOpen(false);
     };
-    
+
     return (
       <CompoundDialog
         open={open}
@@ -556,9 +536,7 @@ export const LoadingDialog: Story = {
           {loading ? (
             <div className="text-center space-y-2">
               <div className="w-8 h-8 mx-auto border-2 border-primary border-t-transparent rounded-full animate-spin" />
-              <p className="text-sm text-muted-foreground">
-                Processing your request...
-              </p>
+              <p className="text-sm text-muted-foreground">Processing your request...</p>
             </div>
           ) : (
             <p className="text-sm text-muted-foreground">
@@ -591,23 +569,19 @@ export const Playground: Story = {
   },
   render: (args) => {
     const [open, setOpen] = useState(false);
-    
+
     return (
       <CompoundDialog
         {...args}
         open={open}
         onOpenChange={setOpen}
         trigger={<Button>Open Playground Dialog</Button>}
-        footer={
-          <Button onClick={() => setOpen(false)}>
-            Close
-          </Button>
-        }
+        footer={<Button onClick={() => setOpen(false)}>Close</Button>}
       >
         <div className="py-4">
           <p className="text-sm text-muted-foreground">
-            Use the Storybook controls to experiment with different dialog properties 
-            and see how they affect the behavior and appearance.
+            Use the Storybook controls to experiment with different dialog properties and see how
+            they affect the behavior and appearance.
           </p>
         </div>
       </CompoundDialog>

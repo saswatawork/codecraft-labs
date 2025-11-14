@@ -33,7 +33,7 @@ export const buttonVariants = cva(
       variant: 'default',
       size: 'default',
     },
-  }
+  },
 );
 
 /**
@@ -87,7 +87,7 @@ export const badgeVariants = cva(
       variant: 'default',
       size: 'md',
     },
-  }
+  },
 );
 
 /**
@@ -112,7 +112,7 @@ export const inputVariants = cva(
       variant: 'default',
       inputSize: 'md',
     },
-  }
+  },
 );
 
 // Export types for component props

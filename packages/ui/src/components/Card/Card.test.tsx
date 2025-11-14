@@ -14,7 +14,7 @@ describe('Card Component', () => {
         'border',
         'bg-card',
         'text-card-foreground',
-        'shadow-sm'
+        'shadow-sm',
       );
     });
 
@@ -27,7 +27,7 @@ describe('Card Component', () => {
       render(
         <Card className="custom-class" data-testid="card">
           Test
-        </Card>
+        </Card>,
       );
       const card = screen.getByTestId('card');
       expect(card).toHaveClass('custom-class');
@@ -44,7 +44,7 @@ describe('Card Component', () => {
         // biome-ignore lint/a11y/useSemanticElements: Testing role attribute functionality
         <Card data-testid="card" role="article" aria-label="Test card">
           Test
-        </Card>
+        </Card>,
       );
       const card = screen.getByTestId('card');
       expect(card).toHaveAttribute('role', 'article');
@@ -57,7 +57,7 @@ describe('Card Component', () => {
       render(
         <Card variant="default" data-testid="card">
           Test
-        </Card>
+        </Card>,
       );
       const card = screen.getByTestId('card');
       expect(card).toHaveClass('rounded-lg', 'border', 'bg-card');
@@ -67,7 +67,7 @@ describe('Card Component', () => {
       render(
         <Card variant="elevated" data-testid="card">
           Test
-        </Card>
+        </Card>,
       );
       const card = screen.getByTestId('card');
       expect(card).toHaveClass('shadow-lg');
@@ -77,7 +77,7 @@ describe('Card Component', () => {
       render(
         <Card variant="outlined" data-testid="card">
           Test
-        </Card>
+        </Card>,
       );
       const card = screen.getByTestId('card');
       expect(card).toHaveClass('border-2');
@@ -87,7 +87,7 @@ describe('Card Component', () => {
       render(
         <Card variant="filled" data-testid="card">
           Test
-        </Card>
+        </Card>,
       );
       const card = screen.getByTestId('card');
       expect(card).toHaveClass('bg-muted');
@@ -99,7 +99,7 @@ describe('Card Component', () => {
       render(
         <Card padding="none" data-testid="card">
           Test
-        </Card>
+        </Card>,
       );
       const card = screen.getByTestId('card');
       // Should not have padding classes
@@ -110,7 +110,7 @@ describe('Card Component', () => {
       render(
         <Card padding="sm" data-testid="card">
           Test
-        </Card>
+        </Card>,
       );
       const card = screen.getByTestId('card');
       expect(card).toHaveClass('p-4');
@@ -120,7 +120,7 @@ describe('Card Component', () => {
       render(
         <Card padding="md" data-testid="card">
           Test
-        </Card>
+        </Card>,
       );
       const card = screen.getByTestId('card');
       expect(card).toHaveClass('p-6');
@@ -130,7 +130,7 @@ describe('Card Component', () => {
       render(
         <Card padding="lg" data-testid="card">
           Test
-        </Card>
+        </Card>,
       );
       const card = screen.getByTestId('card');
       expect(card).toHaveClass('p-8');
@@ -150,7 +150,7 @@ describe('Card Component', () => {
       render(
         <CardHeader className="custom-header" data-testid="header">
           Test
-        </CardHeader>
+        </CardHeader>,
       );
       const header = screen.getByTestId('header');
       expect(header).toHaveClass('custom-header');
@@ -237,7 +237,7 @@ describe('Card Component', () => {
       render(
         <CardContent className="custom-content" data-testid="content">
           Test
-        </CardContent>
+        </CardContent>,
       );
       const content = screen.getByTestId('content');
       expect(content).toHaveClass('custom-content');
@@ -263,7 +263,7 @@ describe('Card Component', () => {
       render(
         <CardFooter className="custom-footer" data-testid="footer">
           Test
-        </CardFooter>
+        </CardFooter>,
       );
       const footer = screen.getByTestId('footer');
       expect(footer).toHaveClass('custom-footer');
@@ -290,7 +290,7 @@ describe('Card Component', () => {
           <CardFooter>
             <button type="button">Action</button>
           </CardFooter>
-        </Card>
+        </Card>,
       );
 
       expect(screen.getByTestId('card')).toBeInTheDocument();
@@ -304,7 +304,7 @@ describe('Card Component', () => {
       render(
         <Card>
           <CardContent>Just content, no header or footer</CardContent>
-        </Card>
+        </Card>,
       );
 
       expect(screen.getByText('Just content, no header or footer')).toBeInTheDocument();
@@ -324,7 +324,7 @@ describe('Card Component', () => {
               <p>Nested paragraph</p>
             </div>
           </CardContent>
-        </Card>
+        </Card>,
       );
 
       expect(screen.getByText('Complex')).toBeInTheDocument();
@@ -340,7 +340,7 @@ describe('Card Component', () => {
         // biome-ignore lint/a11y/useSemanticElements: Testing ARIA attribute functionality
         <Card role="article" aria-labelledby="card-title" data-testid="card">
           <CardTitle id="card-title">Accessible Card</CardTitle>
-        </Card>
+        </Card>,
       );
 
       const card = screen.getByTestId('card');
@@ -357,7 +357,7 @@ describe('Card Component', () => {
           <Card>
             <CardTitle as="h3">Sub Card</CardTitle>
           </Card>
-        </div>
+        </div>,
       );
 
       expect(screen.getByRole('heading', { level: 2, name: /main card/i })).toBeInTheDocument();

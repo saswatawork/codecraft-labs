@@ -1,7 +1,7 @@
-import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '../../utils';
+import { type VariantProps, cva } from 'class-variance-authority';
 import React, { forwardRef, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { cn } from '../../utils';
 
 // Dialog Variants using CVA
 const dialogOverlayVariants = cva(
@@ -17,7 +17,7 @@ const dialogOverlayVariants = cva(
     defaultVariants: {
       animation: 'fade',
     },
-  }
+  },
 );
 
 const dialogContentVariants = cva(
@@ -44,23 +44,19 @@ const dialogContentVariants = cva(
       size: 'md',
       animation: 'scale',
     },
-  }
+  },
 );
 
 const dialogHeaderVariants = cva('flex flex-col space-y-1.5 text-center sm:text-left');
 
-const dialogTitleVariants = cva(
-  'text-lg font-semibold leading-none tracking-tight'
-);
+const dialogTitleVariants = cva('text-lg font-semibold leading-none tracking-tight');
 
 const dialogDescriptionVariants = cva('text-sm text-muted-foreground');
 
-const dialogFooterVariants = cva(
-  'flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2'
-);
+const dialogFooterVariants = cva('flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2');
 
 const dialogCloseVariants = cva(
-  'absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none'
+  'absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none',
 );
 
 // Dialog Interfaces
@@ -75,13 +71,13 @@ export interface DialogTriggerProps extends React.ButtonHTMLAttributes<HTMLButto
   children: React.ReactNode;
 }
 
-export interface DialogOverlayProps 
+export interface DialogOverlayProps
   extends React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof dialogOverlayVariants> {
   className?: string;
 }
 
-export interface DialogContentProps 
+export interface DialogContentProps
   extends React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof dialogContentVariants> {
   className?: string;
@@ -128,11 +124,7 @@ const useDialog = () => {
 };
 
 // Dialog Root Component
-export const Dialog: React.FC<DialogProps> = ({ 
-  open = false, 
-  onOpenChange, 
-  children 
-}) => {
+export const Dialog: React.FC<DialogProps> = ({ open = false, onOpenChange, children }) => {
   const [isOpen, setIsOpen] = useState(open);
 
   useEffect(() => {
@@ -174,7 +166,7 @@ export const DialogTrigger = forwardRef<HTMLButtonElement, DialogTriggerProps>(
         {children}
       </button>
     );
-  }
+  },
 );
 DialogTrigger.displayName = 'DialogTrigger';
 
@@ -214,22 +206,25 @@ export const DialogOverlay = forwardRef<HTMLDivElement, DialogOverlayProps>(
         {...props}
       />
     );
-  }
+  },
 );
 DialogOverlay.displayName = 'DialogOverlay';
 
 // Dialog Content Component
 export const DialogContent = forwardRef<HTMLDivElement, DialogContentProps>(
-  ({ 
-    className, 
-    size, 
-    animation, 
-    children, 
-    onClose,
-    closeOnEscape = true,
-    closeOnOutsideClick = true,
-    ...props 
-  }, ref) => {
+  (
+    {
+      className,
+      size,
+      animation,
+      children,
+      onClose,
+      closeOnEscape = true,
+      closeOnOutsideClick = true,
+      ...props
+    },
+    ref,
+  ) => {
     const { open, onOpenChange } = useDialog();
 
     useEffect(() => {
@@ -276,6 +271,7 @@ export const DialogContent = forwardRef<HTMLDivElement, DialogContentProps>(
             ref={ref}
             className={cn(dialogContentVariants({ size, animation }), className)}
             onClick={(e) => e.stopPropagation()}
+            // biome-ignore lint/a11y/useSemanticElements: intentional role attribute for ARIA compliance
             role="dialog"
             aria-modal="true"
             {...props}
@@ -285,7 +281,7 @@ export const DialogContent = forwardRef<HTMLDivElement, DialogContentProps>(
         </div>
       </DialogPortal>
     );
-  }
+  },
 );
 DialogContent.displayName = 'DialogContent';
 
@@ -293,7 +289,7 @@ DialogContent.displayName = 'DialogContent';
 export const DialogHeader = forwardRef<HTMLDivElement, DialogHeaderProps>(
   ({ className, ...props }, ref) => (
     <div ref={ref} className={cn(dialogHeaderVariants(), className)} {...props} />
-  )
+  ),
 );
 DialogHeader.displayName = 'DialogHeader';
 
@@ -301,7 +297,7 @@ DialogHeader.displayName = 'DialogHeader';
 export const DialogTitle = forwardRef<HTMLHeadingElement, DialogTitleProps>(
   ({ className, as: Comp = 'h2', ...props }, ref) => (
     <Comp ref={ref} className={cn(dialogTitleVariants(), className)} {...props} />
-  )
+  ),
 );
 DialogTitle.displayName = 'DialogTitle';
 
@@ -309,7 +305,7 @@ DialogTitle.displayName = 'DialogTitle';
 export const DialogDescription = forwardRef<HTMLParagraphElement, DialogDescriptionProps>(
   ({ className, ...props }, ref) => (
     <p ref={ref} className={cn(dialogDescriptionVariants(), className)} {...props} />
-  )
+  ),
 );
 DialogDescription.displayName = 'DialogDescription';
 
@@ -317,7 +313,7 @@ DialogDescription.displayName = 'DialogDescription';
 export const DialogFooter = forwardRef<HTMLDivElement, DialogFooterProps>(
   ({ className, ...props }, ref) => (
     <div ref={ref} className={cn(dialogFooterVariants(), className)} {...props} />
-  )
+  ),
 );
 DialogFooter.displayName = 'DialogFooter';
 
@@ -339,12 +335,7 @@ export const DialogClose = forwardRef<HTMLButtonElement, DialogCloseProps>(
         {...props}
       >
         {children || (
-          <svg
-            className="h-4 w-4"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
+          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -356,7 +347,7 @@ export const DialogClose = forwardRef<HTMLButtonElement, DialogCloseProps>(
         <span className="sr-only">Close</span>
       </button>
     );
-  }
+  },
 );
 DialogClose.displayName = 'DialogClose';
 

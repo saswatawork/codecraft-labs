@@ -9,10 +9,7 @@ export function validateProjectName(name: string): {
   if (!validation.validForNewPackages) {
     return {
       valid: false,
-      problems: [
-        ...(validation.errors || []),
-        ...(validation.warnings || []),
-      ],
+      problems: [...(validation.errors || []), ...(validation.warnings || [])],
     };
   }
 

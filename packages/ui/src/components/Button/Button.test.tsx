@@ -88,7 +88,7 @@ describe('Button Component', () => {
       render(
         <Button size="icon">
           <MockIcon />
-        </Button>
+        </Button>,
       );
       const button = screen.getByRole('button');
       expect(button).toHaveClass('h-10', 'w-10');
@@ -116,7 +116,7 @@ describe('Button Component', () => {
       render(
         <Button loading leftIcon={<MockIcon />}>
           Loading
-        </Button>
+        </Button>,
       );
       // Should not show the left icon when loading
       expect(screen.queryByTestId('mock-icon')).not.toBeInTheDocument();
@@ -145,7 +145,7 @@ describe('Button Component', () => {
           rightIcon={<span data-testid="right-icon">R</span>}
         >
           Both Icons
-        </Button>
+        </Button>,
       );
       expect(screen.getByTestId('left-icon')).toBeInTheDocument();
       expect(screen.getByTestId('right-icon')).toBeInTheDocument();
@@ -167,7 +167,7 @@ describe('Button Component', () => {
       render(
         <Button onClick={handleClick} disabled>
           Disabled
-        </Button>
+        </Button>,
       );
 
       fireEvent.click(screen.getByRole('button'));
@@ -179,7 +179,7 @@ describe('Button Component', () => {
       render(
         <Button onClick={handleClick} loading>
           Loading
-        </Button>
+        </Button>,
       );
 
       fireEvent.click(screen.getByRole('button'));
@@ -199,7 +199,7 @@ describe('Button Component', () => {
       render(
         <Button asChild>
           <a href="/test">Link Button</a>
-        </Button>
+        </Button>,
       );
       const link = screen.getByRole('link');
       expect(link).toHaveAttribute('href', '/test');
@@ -217,7 +217,7 @@ describe('Button Component', () => {
       render(
         <Button aria-label="Close dialog" aria-describedby="tooltip">
           ×
-        </Button>
+        </Button>,
       );
       const button = screen.getByRole('button');
       expect(button).toHaveAttribute('aria-label', 'Close dialog');

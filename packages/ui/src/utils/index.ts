@@ -29,7 +29,7 @@ export function formatDate(
     year: 'numeric',
     month: 'long',
     day: 'numeric',
-  }
+  },
 ): string {
   const dateObj = new Date(date);
   return new Intl.DateTimeFormat('en-US', options).format(dateObj);
@@ -92,7 +92,7 @@ export function generateId(length = 8): string {
  */
 export function debounce<T extends (...args: unknown[]) => unknown>(
   func: T,
-  wait: number
+  wait: number,
 ): (...args: Parameters<T>) => void {
   let timeout: ReturnType<typeof setTimeout>;
 

@@ -93,7 +93,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       as: Component = 'button',
       ...props
     },
-    ref
+    ref,
   ) => {
     // Determine if button should be disabled
     const isDisabled = disabled || loading;
@@ -108,7 +108,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
               variant: variant as any,
               size: size as any,
             }),
-            className
+            className,
           )}
           {...props}
         >
@@ -129,7 +129,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             variant: variant as any,
             size: size as any,
           }),
-          className
+          className,
         )}
         disabled={isDisabled}
         {...props}
@@ -147,7 +147,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {rightIcon && <span className="ml-2 flex-shrink-0">{rightIcon}</span>}
       </ButtonComponent>
     );
-  }
+  },
 );
 
 Button.displayName = 'Button';

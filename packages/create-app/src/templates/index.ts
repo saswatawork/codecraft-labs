@@ -1,4 +1,6 @@
-import type { QuestionCollection } from 'inquirer';
+import type { DistinctQuestion } from 'inquirer';
+
+export type QuestionCollection = DistinctQuestion[];
 
 export interface TemplateConfig {
   name: string;

@@ -1,57 +1,58 @@
 'use client';
 
-import { CompoundNavigation, Button, Badge, Card, CardHeader, CardTitle, CardContent, Avatar } from '@ccl/ui';
-import { Github, Linkedin, Mail, ExternalLink, ArrowRight } from 'lucide-react';
+import {
+  Avatar,
+  Badge,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CompoundNavigation,
+} from '@/components/ui';
+import { ArrowRight, ExternalLink, Github, Linkedin, Mail } from 'lucide-react';
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-background">
-      {/* Navigation */}
       <CompoundNavigation
         variant="default"
         position="sticky"
         brand={{
-          text: '{{projectName}}',
+          text: 'portfolio',
           href: '/',
         }}
         items={[
           { label: 'Home', href: '/', active: true },
-          {{#if (includes sections "about")}}
           { label: 'About', href: '#about' },
-          {{/if}}
-          {{#if (includes sections "projects")}}
           { label: 'Projects', href: '#projects' },
-          {{/if}}
-          {{#if (includes sections "blog")}}
           { label: 'Blog', href: '/blog' },
-          {{/if}}
-          {{#if (includes sections "contact")}}
           { label: 'Contact', href: '#contact' },
-          {{/if}}
         ]}
         actions={
           <div className="flex items-center space-x-3">
             <Button variant="ghost" size="sm" asChild>
-              <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer">
+              <a href="https://github.com/saswatawork" target="_blank" rel="noopener noreferrer">
                 <Github className="h-4 w-4" />
               </a>
             </Button>
-            <Button size="sm">Get in Touch</Button>
+            <Button size="sm" asChild>
+              <a href="#contact">Get in Touch</a>
+            </Button>
           </div>
         }
       />
 
       <main>
-        {{#if (includes sections "hero")}}
         {/* Hero Section */}
         <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <div className="text-center">
             <Badge className="mb-6">Portfolio</Badge>
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6">
-              Hi, I'm <span className="text-blue-600">{{userName}}</span>
+              Hi, I'm <span className="text-blue-600">Saswata Pal</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto">
-              {{tagline}}
+              Staff Software Engineer crafting scalable systems & developer experiences.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg">
@@ -64,9 +65,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-        {{/if}}
 
-        {{#if (includes sections "about")}}
         {/* About Section */}
         <section id="about" className="bg-gray-50 py-20">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -75,22 +74,30 @@ export default function Home() {
                 <Badge className="mb-4">About Me</Badge>
                 <h2 className="text-4xl font-bold mb-6">Building digital products that matter</h2>
                 <p className="text-lg text-gray-600 mb-4">
-                  I'm a full-stack developer with a passion for creating intuitive and beautiful
-                  user experiences. With expertise in modern web technologies, I help bring ideas to life.
+                  I'm a full-stack engineer with deep experience in designing scalable platforms,
+                  developer tooling, and high-impact UI systems.
                 </p>
                 <p className="text-lg text-gray-600 mb-6">
-                  When I'm not coding, you can find me exploring new technologies, contributing to
-                  open source, or sharing knowledge with the developer community.
+                  I love blending product thinking with solid engineering fundamentals—performance,
+                  accessibility, DX, and maintainability.
                 </p>
                 <div className="flex gap-4">
                   <Button variant="outline" asChild>
-                    <a href="https://github.com/{{githubUsername}}" target="_blank" rel="noopener noreferrer">
+                    <a
+                      href="https://github.com/saswatawork"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       <Github className="mr-2 h-4 w-4" />
                       GitHub
                     </a>
                   </Button>
                   <Button variant="outline" asChild>
-                    <a href="https://linkedin.com/in/{{linkedinUsername}}" target="_blank" rel="noopener noreferrer">
+                    <a
+                      href="https://linkedin.com/in/saswata-pal"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       <Linkedin className="mr-2 h-4 w-4" />
                       LinkedIn
                     </a>
@@ -100,7 +107,7 @@ export default function Home() {
               <div className="relative">
                 <Avatar
                   src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face"
-                  fallback="YN"
+                  fallback="SP"
                   size="lg"
                   className="w-full h-auto max-w-md mx-auto"
                 />
@@ -108,18 +115,15 @@ export default function Home() {
             </div>
           </div>
         </section>
-        {{/if}}
 
-        {{#if (includes sections "projects")}}
         {/* Projects Section */}
         <section id="projects" className="py-20">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <Badge className="mb-4">Portfolio</Badge>
               <h2 className="text-4xl font-bold mb-4">Featured Projects</h2>
-              <p className="text-lg text-gray-600">Some of my recent work</p>
+              <p className="text-lg text-gray-600">Select recent work</p>
             </div>
-
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[1, 2, 3, 4, 5, 6].map((i) => (
                 <Card key={i} className="group hover:shadow-lg transition-shadow">
@@ -129,12 +133,18 @@ export default function Home() {
                   </CardHeader>
                   <CardContent>
                     <p className="text-gray-600 mb-4">
-                      A brief description of this amazing project and what it does.
+                      A concise summary of the project and impact.
                     </p>
                     <div className="flex flex-wrap gap-2 mb-4">
-                      <Badge variant="secondary" size="sm">React</Badge>
-                      <Badge variant="secondary" size="sm">TypeScript</Badge>
-                      <Badge variant="secondary" size="sm">Tailwind</Badge>
+                      <Badge variant="secondary" size="sm">
+                        React
+                      </Badge>
+                      <Badge variant="secondary" size="sm">
+                        TypeScript
+                      </Badge>
+                      <Badge variant="secondary" size="sm">
+                        Tailwind
+                      </Badge>
                     </div>
                     <div className="flex gap-3">
                       <Button variant="outline" size="sm" className="flex-1">
@@ -151,9 +161,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-        {{/if}}
 
-        {{#if (includes sections "skills")}}
         {/* Skills Section */}
         <section className="bg-gray-50 py-20">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -161,9 +169,17 @@ export default function Home() {
               <Badge className="mb-4">Skills & Technologies</Badge>
               <h2 className="text-4xl font-bold mb-4">What I Work With</h2>
             </div>
-
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {['React', 'Next.js', 'TypeScript', 'Node.js', 'Tailwind CSS', 'PostgreSQL', 'Docker', 'AWS'].map((skill) => (
+              {[
+                'React',
+                'Next.js',
+                'TypeScript',
+                'Node.js',
+                'Tailwind CSS',
+                'PostgreSQL',
+                'Docker',
+                'AWS',
+              ].map((skill) => (
                 <Card key={skill} className="text-center p-6">
                   <CardContent>
                     <p className="font-semibold">{skill}</p>
@@ -173,34 +189,30 @@ export default function Home() {
             </div>
           </div>
         </section>
-        {{/if}}
 
-        {{#if (includes sections "contact")}}
         {/* Contact Section */}
         <section id="contact" className="py-20">
           <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <Badge className="mb-4">Get In Touch</Badge>
             <h2 className="text-4xl font-bold mb-6">Let's Work Together</h2>
             <p className="text-lg text-gray-600 mb-8">
-              I'm always interested in hearing about new projects and opportunities.
+              Always open to interesting problems, collaboration, and impactful product ideas.
             </p>
             <Button size="lg" asChild>
-              <a href="mailto:{{emailAddress}}">
+              <a href="mailto:saswata.career@gmail.com">
                 <Mail className="mr-2 h-5 w-5" />
                 Send Me an Email
               </a>
             </Button>
           </div>
         </section>
-        {{/if}}
       </main>
 
-      {/* Footer */}
       <footer className="bg-gray-900 text-white py-12">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <p className="text-gray-400">
-              © {new Date().getFullYear()} {{projectName}}. Built with CodeCraft Labs.
+              © {new Date().getFullYear()} Saswata Pal. Built with CodeCraft Labs.
             </p>
           </div>
         </div>

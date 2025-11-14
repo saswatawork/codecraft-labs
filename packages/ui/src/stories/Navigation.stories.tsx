@@ -1,18 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { 
-  Navigation, 
-  NavigationContainer,
-  NavigationBrand,
-  NavigationMenu,
-  NavigationItem,
-  NavigationToggle,
-  NavigationActions,
-  CompoundNavigation
-} from '../components/Navigation';
-import { Button } from '../components/Button';
-import { Badge } from '../components/Badge';
 import { Avatar } from '../components/Avatar';
+import { Badge } from '../components/Badge';
+import { Button } from '../components/Button';
+import {
+  CompoundNavigation,
+  Navigation,
+  NavigationActions,
+  NavigationBrand,
+  NavigationContainer,
+  NavigationItem,
+  NavigationMenu,
+  NavigationToggle,
+} from '../components/Navigation';
 
 const meta: Meta<typeof CompoundNavigation> = {
   title: 'Components/Navigation',
@@ -85,7 +85,9 @@ export const Default: Story = {
     ],
     actions: (
       <div className="flex items-center space-x-2">
-        <Button variant="ghost" size="sm">Login</Button>
+        <Button variant="ghost" size="sm">
+          Login
+        </Button>
         <Button size="sm">Sign Up</Button>
       </div>
     ),
@@ -118,7 +120,7 @@ export const Variants: Story = {
             items={navigationItems}
           />
         </div>
-        
+
         <div>
           <h3 className="text-sm font-medium mb-2">Ghost</h3>
           <CompoundNavigation
@@ -127,7 +129,7 @@ export const Variants: Story = {
             items={navigationItems}
           />
         </div>
-        
+
         <div>
           <h3 className="text-sm font-medium mb-2">Floating</h3>
           <CompoundNavigation
@@ -142,7 +144,8 @@ export const Variants: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Different navigation variants: default with border, ghost without border, and floating with shadow.',
+        story:
+          'Different navigation variants: default with border, ghost without border, and floating with shadow.',
       },
     },
   },
@@ -160,29 +163,17 @@ export const Sizes: Story = {
       <div className="space-y-6">
         <div>
           <h3 className="text-sm font-medium mb-2">Small</h3>
-          <CompoundNavigation
-            size="sm"
-            brand={{ text: 'Small Nav' }}
-            items={navigationItems}
-          />
+          <CompoundNavigation size="sm" brand={{ text: 'Small Nav' }} items={navigationItems} />
         </div>
-        
+
         <div>
           <h3 className="text-sm font-medium mb-2">Medium (Default)</h3>
-          <CompoundNavigation
-            size="md"
-            brand={{ text: 'Medium Nav' }}
-            items={navigationItems}
-          />
+          <CompoundNavigation size="md" brand={{ text: 'Medium Nav' }} items={navigationItems} />
         </div>
-        
+
         <div>
           <h3 className="text-sm font-medium mb-2">Large</h3>
-          <CompoundNavigation
-            size="lg"
-            brand={{ text: 'Large Nav' }}
-            items={navigationItems}
-          />
+          <CompoundNavigation size="lg" brand={{ text: 'Large Nav' }} items={navigationItems} />
         </div>
       </div>
     );
@@ -215,7 +206,7 @@ export const Positions: Story = {
             <p className="text-muted-foreground">Content flows normally</p>
           </div>
         </div>
-        
+
         <div>
           <h3 className="text-sm font-medium mb-2">Sticky</h3>
           <CompoundNavigation
@@ -254,7 +245,8 @@ export const Positions: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Different navigation positions: static (normal flow), sticky (sticks on scroll), and fixed (overlays content).',
+        story:
+          'Different navigation positions: static (normal flow), sticky (sticks on scroll), and fixed (overlays content).',
       },
     },
   },
@@ -283,9 +275,7 @@ export const WithLogo: Story = {
         <Button variant="ghost" size="sm">
           Sign In
         </Button>
-        <Button size="sm">
-          Get Started
-        </Button>
+        <Button size="sm">Get Started</Button>
       </div>
     ),
   },
@@ -316,18 +306,33 @@ export const ECommerce: Story = {
       <div className="flex items-center space-x-2">
         <Button variant="ghost" size="sm" className="relative">
           <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            />
           </svg>
         </Button>
         <Button variant="ghost" size="sm" className="relative">
           <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+            />
           </svg>
           <Badge className="absolute -top-1 -right-1 h-4 w-4 p-0 text-xs">3</Badge>
         </Button>
         <Button variant="ghost" size="sm" className="relative">
           <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6m6 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6m6 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01"
+            />
           </svg>
           <Badge className="absolute -top-1 -right-1 h-4 w-4 p-0 text-xs">2</Badge>
         </Button>
@@ -367,11 +372,16 @@ export const Dashboard: Story = {
       <div className="flex items-center space-x-3">
         <Button variant="ghost" size="sm" className="relative">
           <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+            />
           </svg>
           <Badge className="absolute -top-1 -right-1 h-2 w-2 p-0 bg-red-500" />
         </Button>
-        <Avatar 
+        <Avatar
           src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop&crop=face"
           fallback="JD"
           size="sm"
@@ -401,7 +411,9 @@ export const MobileResponsive: Story = {
             <NavigationToggle isOpen={isOpen} onToggle={setIsOpen} />
             <NavigationMenu className="absolute top-full left-0 right-0 bg-background border-t sm:relative sm:top-auto sm:border-t-0">
               <div className="flex flex-col space-y-1 p-4 sm:flex-row sm:space-y-0 sm:space-x-1 sm:p-0">
-                <NavigationItem href="/" active>Home</NavigationItem>
+                <NavigationItem href="/" active>
+                  Home
+                </NavigationItem>
                 <NavigationItem href="/about">About</NavigationItem>
                 <NavigationItem href="/services">Services</NavigationItem>
                 <NavigationItem href="/contact">Contact</NavigationItem>
@@ -418,7 +430,8 @@ export const MobileResponsive: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Mobile-responsive navigation with collapsible menu. Resize viewport to see mobile behavior.',
+        story:
+          'Mobile-responsive navigation with collapsible menu. Resize viewport to see mobile behavior.',
       },
     },
   },
@@ -464,7 +477,7 @@ export const AdvancedComposition: Story = {
     return (
       <Navigation variant="floating" className="mx-4 mt-4">
         <NavigationContainer spacing="lg">
-          <NavigationBrand 
+          <NavigationBrand
             href="/"
             logo={
               <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-red-600 rounded-lg flex items-center justify-center">
@@ -475,11 +488,7 @@ export const AdvancedComposition: Story = {
             size="lg"
           />
 
-          <NavigationToggle 
-            size="lg" 
-            isOpen={isOpen} 
-            onToggle={setIsOpen}
-          />
+          <NavigationToggle size="lg" isOpen={isOpen} onToggle={setIsOpen} />
 
           <NavigationMenu orientation="horizontal" className="flex-1 justify-center">
             <NavigationItem href="/" variant="underline" active size="lg">
@@ -503,9 +512,7 @@ export const AdvancedComposition: Story = {
             <Button variant="outline" size="sm">
               Contact Sales
             </Button>
-            <Button size="sm">
-              Try Free
-            </Button>
+            <Button size="sm">Try Free</Button>
           </NavigationActions>
         </NavigationContainer>
       </Navigation>
@@ -514,7 +521,8 @@ export const AdvancedComposition: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Advanced composition using individual Navigation components for maximum customization.',
+        story:
+          'Advanced composition using individual Navigation components for maximum customization.',
       },
     },
   },
@@ -562,7 +570,9 @@ export const Playground: Story = {
     ],
     actions: (
       <div className="flex items-center space-x-2">
-        <Button variant="ghost" size="sm">Login</Button>
+        <Button variant="ghost" size="sm">
+          Login
+        </Button>
         <Button size="sm">Sign Up</Button>
       </div>
     ),

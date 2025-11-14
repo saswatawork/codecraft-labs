@@ -12,7 +12,7 @@ import { useEffect, useState } from 'react';
  */
 export function useLocalStorage<T>(
   key: string,
-  initialValue: T
+  initialValue: T,
 ): [T, (value: T | ((val: T) => T)) => void] {
   // State to store our value
   const [storedValue, setStoredValue] = useState<T>(() => {
@@ -116,7 +116,7 @@ export function useMediaQuery(query: string): boolean {
  */
 export function useClickOutside<T extends HTMLElement>(
   ref: React.RefObject<T>,
-  handler: () => void
+  handler: () => void,
 ): void {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {

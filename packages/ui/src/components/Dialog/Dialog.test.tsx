@@ -1,16 +1,16 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { createRef } from 'react';
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { 
-  Dialog, 
-  DialogTrigger,
-  DialogContent, 
-  DialogHeader, 
-  DialogTitle, 
+import { afterEach, beforeEach, describe, expect, it, test, vi } from 'vitest';
+import {
+  CompoundDialog,
+  Dialog,
+  DialogClose,
+  DialogContent,
   DialogDescription,
   DialogFooter,
-  DialogClose,
-  CompoundDialog
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
 } from './Dialog';
 
 // Mock createPortal for testing
@@ -38,7 +38,7 @@ describe('Dialog', () => {
       render(
         <Dialog open={false}>
           <div>Dialog content</div>
-        </Dialog>
+        </Dialog>,
       );
       expect(screen.queryByText('Dialog content')).toBeInTheDocument();
     });
@@ -48,7 +48,7 @@ describe('Dialog', () => {
       const { rerender } = render(
         <Dialog open={false} onOpenChange={onOpenChange}>
           <DialogContent>Content</DialogContent>
-        </Dialog>
+        </Dialog>,
       );
 
       expect(screen.queryByText('Content')).not.toBeInTheDocument();
@@ -56,26 +56,26 @@ describe('Dialog', () => {
       rerender(
         <Dialog open={true} onOpenChange={onOpenChange}>
           <DialogContent>Content</DialogContent>
-        </Dialog>
+        </Dialog>,
       );
 
       expect(screen.getByText('Content')).toBeInTheDocument();
     });
 
     test('calls onOpenChange when state changes', () => {
-    const onOpenChange = vi.fn();
-    
-    render(
-      <Dialog open={true} onOpenChange={onOpenChange}>
-        <DialogContent>
-          <DialogClose />
-        </DialogContent>
-      </Dialog>
-    );
+      const onOpenChange = vi.fn();
 
-    fireEvent.click(screen.getByRole('button', { name: /close/i }));
-    expect(onOpenChange).toHaveBeenCalledWith(false);
-  });
+      render(
+        <Dialog open={true} onOpenChange={onOpenChange}>
+          <DialogContent>
+            <DialogClose />
+          </DialogContent>
+        </Dialog>,
+      );
+
+      fireEvent.click(screen.getByRole('button', { name: /close/i }));
+      expect(onOpenChange).toHaveBeenCalledWith(false);
+    });
   });
 
   describe('DialogTrigger', () => {
@@ -85,7 +85,7 @@ describe('Dialog', () => {
         <Dialog open={false} onOpenChange={onOpenChange}>
           <DialogTrigger>Open Dialog</DialogTrigger>
           <DialogContent>Dialog Content</DialogContent>
-        </Dialog>
+        </Dialog>,
       );
 
       fireEvent.click(screen.getByText('Open Dialog'));
@@ -97,7 +97,7 @@ describe('Dialog', () => {
       render(
         <Dialog>
           <DialogTrigger ref={ref}>Trigger</DialogTrigger>
-        </Dialog>
+        </Dialog>,
       );
       expect(ref.current).toBeInstanceOf(HTMLButtonElement);
     });
@@ -109,7 +109,7 @@ describe('Dialog', () => {
           <DialogTrigger asChild>
             <button type="button">Custom Button</button>
           </DialogTrigger>
-        </Dialog>
+        </Dialog>,
       );
 
       fireEvent.click(screen.getByText('Custom Button'));
@@ -122,7 +122,7 @@ describe('Dialog', () => {
           <DialogTrigger data-testid="trigger" className="custom-trigger">
             Trigger
           </DialogTrigger>
-        </Dialog>
+        </Dialog>,
       );
 
       const trigger = screen.getByTestId('trigger');
@@ -135,7 +135,7 @@ describe('Dialog', () => {
       render(
         <Dialog open={true}>
           <DialogContent>Dialog Content</DialogContent>
-        </Dialog>
+        </Dialog>,
       );
 
       expect(screen.getByText('Dialog Content')).toBeInTheDocument();
@@ -145,7 +145,7 @@ describe('Dialog', () => {
       render(
         <Dialog open={false}>
           <DialogContent>Dialog Content</DialogContent>
-        </Dialog>
+        </Dialog>,
       );
 
       expect(screen.queryByText('Dialog Content')).not.toBeInTheDocument();
@@ -154,22 +154,28 @@ describe('Dialog', () => {
     it('applies size variants correctly', () => {
       const { rerender } = render(
         <Dialog open={true}>
-          <DialogContent size="sm" data-testid="dialog">Content</DialogContent>
-        </Dialog>
+          <DialogContent size="sm" data-testid="dialog">
+            Content
+          </DialogContent>
+        </Dialog>,
       );
       expect(screen.getByTestId('dialog')).toHaveClass('max-w-sm');
 
       rerender(
         <Dialog open={true}>
-          <DialogContent size="lg" data-testid="dialog">Content</DialogContent>
-        </Dialog>
+          <DialogContent size="lg" data-testid="dialog">
+            Content
+          </DialogContent>
+        </Dialog>,
       );
       expect(screen.getByTestId('dialog')).toHaveClass('max-w-lg');
 
       rerender(
         <Dialog open={true}>
-          <DialogContent size="full" data-testid="dialog">Content</DialogContent>
-        </Dialog>
+          <DialogContent size="full" data-testid="dialog">
+            Content
+          </DialogContent>
+        </Dialog>,
       );
       expect(screen.getByTestId('dialog')).toHaveClass('max-w-[95vw]');
     });
@@ -179,7 +185,7 @@ describe('Dialog', () => {
       render(
         <Dialog open={true} onOpenChange={onOpenChange}>
           <DialogContent closeOnEscape={true}>Content</DialogContent>
-        </Dialog>
+        </Dialog>,
       );
 
       fireEvent.keyDown(document, { key: 'Escape' });
@@ -193,7 +199,7 @@ describe('Dialog', () => {
       render(
         <Dialog open={true} onOpenChange={onOpenChange}>
           <DialogContent closeOnEscape={false}>Content</DialogContent>
-        </Dialog>
+        </Dialog>,
       );
 
       fireEvent.keyDown(document, { key: 'Escape' });
@@ -206,7 +212,7 @@ describe('Dialog', () => {
       const { unmount } = render(
         <Dialog open={true}>
           <DialogContent>Content</DialogContent>
-        </Dialog>
+        </Dialog>,
       );
 
       expect(document.body.style.overflow).toBe('hidden');
@@ -220,7 +226,7 @@ describe('Dialog', () => {
       render(
         <Dialog open={true}>
           <DialogContent ref={ref}>Content</DialogContent>
-        </Dialog>
+        </Dialog>,
       );
       expect(ref.current).toBeInstanceOf(HTMLDivElement);
     });
@@ -229,7 +235,7 @@ describe('Dialog', () => {
       render(
         <Dialog open={true}>
           <DialogContent data-testid="dialog">Content</DialogContent>
-        </Dialog>
+        </Dialog>,
       );
 
       const dialog = screen.getByTestId('dialog');
@@ -248,7 +254,7 @@ describe('Dialog', () => {
               <DialogDescription>Description</DialogDescription>
             </DialogHeader>
           </DialogContent>
-        </Dialog>
+        </Dialog>,
       );
 
       expect(screen.getByTestId('header')).toBeInTheDocument();
@@ -263,7 +269,7 @@ describe('Dialog', () => {
           <DialogContent>
             <DialogHeader ref={ref}>Header</DialogHeader>
           </DialogContent>
-        </Dialog>
+        </Dialog>,
       );
       expect(ref.current).toBeInstanceOf(HTMLDivElement);
     });
@@ -276,7 +282,7 @@ describe('Dialog', () => {
               Header
             </DialogHeader>
           </DialogContent>
-        </Dialog>
+        </Dialog>,
       );
 
       expect(screen.getByTestId('header')).toHaveClass('custom-header');
@@ -290,7 +296,7 @@ describe('Dialog', () => {
           <DialogContent>
             <DialogTitle>Dialog Title</DialogTitle>
           </DialogContent>
-        </Dialog>
+        </Dialog>,
       );
 
       const title = screen.getByText('Dialog Title');
@@ -303,7 +309,7 @@ describe('Dialog', () => {
           <DialogContent>
             <DialogTitle as="h1">Dialog Title</DialogTitle>
           </DialogContent>
-        </Dialog>
+        </Dialog>,
       );
 
       const title = screen.getByText('Dialog Title');
@@ -317,7 +323,7 @@ describe('Dialog', () => {
           <DialogContent>
             <DialogTitle ref={ref}>Title</DialogTitle>
           </DialogContent>
-        </Dialog>
+        </Dialog>,
       );
       expect(ref.current).toBeInstanceOf(HTMLHeadingElement);
     });
@@ -328,7 +334,7 @@ describe('Dialog', () => {
           <DialogContent>
             <DialogTitle className="custom-title">Title</DialogTitle>
           </DialogContent>
-        </Dialog>
+        </Dialog>,
       );
 
       expect(screen.getByText('Title')).toHaveClass('custom-title');
@@ -342,7 +348,7 @@ describe('Dialog', () => {
           <DialogContent>
             <DialogDescription>This is a description</DialogDescription>
           </DialogContent>
-        </Dialog>
+        </Dialog>,
       );
 
       expect(screen.getByText('This is a description')).toBeInTheDocument();
@@ -355,7 +361,7 @@ describe('Dialog', () => {
           <DialogContent>
             <DialogDescription ref={ref}>Description</DialogDescription>
           </DialogContent>
-        </Dialog>
+        </Dialog>,
       );
       expect(ref.current).toBeInstanceOf(HTMLParagraphElement);
     });
@@ -366,7 +372,7 @@ describe('Dialog', () => {
           <DialogContent>
             <DialogDescription className="custom-desc">Description</DialogDescription>
           </DialogContent>
-        </Dialog>
+        </Dialog>,
       );
 
       expect(screen.getByText('Description')).toHaveClass('custom-desc');
@@ -383,7 +389,7 @@ describe('Dialog', () => {
               <button type="button">Confirm</button>
             </DialogFooter>
           </DialogContent>
-        </Dialog>
+        </Dialog>,
       );
 
       expect(screen.getByTestId('footer')).toBeInTheDocument();
@@ -398,7 +404,7 @@ describe('Dialog', () => {
           <DialogContent>
             <DialogFooter ref={ref}>Footer</DialogFooter>
           </DialogContent>
-        </Dialog>
+        </Dialog>,
       );
       expect(ref.current).toBeInstanceOf(HTMLDivElement);
     });
@@ -412,7 +418,7 @@ describe('Dialog', () => {
           <DialogContent>
             <DialogClose>Close</DialogClose>
           </DialogContent>
-        </Dialog>
+        </Dialog>,
       );
 
       fireEvent.click(screen.getByRole('button', { name: 'Close Close' }));
@@ -425,7 +431,7 @@ describe('Dialog', () => {
           <DialogContent>
             <DialogClose data-testid="close" />
           </DialogContent>
-        </Dialog>
+        </Dialog>,
       );
 
       const closeButton = screen.getByTestId('close');
@@ -440,7 +446,7 @@ describe('Dialog', () => {
           <DialogContent>
             <DialogClose ref={ref}>Close</DialogClose>
           </DialogContent>
-        </Dialog>
+        </Dialog>,
       );
       expect(ref.current).toBeInstanceOf(HTMLButtonElement);
     });
@@ -458,7 +464,7 @@ describe('Dialog', () => {
           footer={<button type="button">Confirm</button>}
         >
           <p>Dialog content</p>
-        </CompoundDialog>
+        </CompoundDialog>,
       );
 
       expect(screen.getByText('Confirm Action')).toBeInTheDocument();
@@ -476,7 +482,7 @@ describe('Dialog', () => {
           trigger={<button type="button">Open Dialog</button>}
         >
           Content
-        </CompoundDialog>
+        </CompoundDialog>,
       );
 
       expect(screen.getByText('Open Dialog')).toBeInTheDocument();
@@ -484,14 +490,9 @@ describe('Dialog', () => {
 
     it('can hide close button', () => {
       render(
-        <CompoundDialog
-          open={true}
-          onOpenChange={() => {}}
-          title="Dialog"
-          showClose={false}
-        >
+        <CompoundDialog open={true} onOpenChange={() => {}} title="Dialog" showClose={false}>
           Content
-        </CompoundDialog>
+        </CompoundDialog>,
       );
 
       // Close button should not be present
@@ -509,7 +510,7 @@ describe('Dialog', () => {
           data-testid="compound-dialog"
         >
           Content
-        </CompoundDialog>
+        </CompoundDialog>,
       );
 
       const dialog = screen.getByTestId('compound-dialog');
@@ -523,7 +524,7 @@ describe('Dialog', () => {
       render(
         <Dialog open={true} onOpenChange={onOpenChange}>
           <DialogContent>Content</DialogContent>
-        </Dialog>
+        </Dialog>,
       );
 
       fireEvent.keyDown(document, { key: 'Escape' });
@@ -537,7 +538,7 @@ describe('Dialog', () => {
       render(
         <Dialog open={true} onOpenChange={onOpenChange}>
           <DialogContent>Content</DialogContent>
-        </Dialog>
+        </Dialog>,
       );
 
       fireEvent.keyDown(document, { key: 'Enter' });
@@ -551,7 +552,7 @@ describe('Dialog', () => {
     it('throws error when dialog components are used outside Dialog context', () => {
       // Suppress console.error for this test
       const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-      
+
       expect(() => {
         render(<DialogTrigger>Trigger</DialogTrigger>);
       }).toThrow('Dialog components must be used within a Dialog');

@@ -107,7 +107,7 @@ describe('Badge Component', () => {
       render(
         <Badge interactive onClick={handleClick}>
           Clickable Badge
-        </Badge>
+        </Badge>,
       );
 
       fireEvent.click(screen.getByText('Clickable Badge'));
