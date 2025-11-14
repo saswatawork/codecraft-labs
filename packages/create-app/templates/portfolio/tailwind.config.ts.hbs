@@ -1,0 +1,33 @@
+import type { Config } from 'tailwindcss';
+
+const config: Config = {
+  content: [
+    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './node_modules/@ccl/ui/**/*.{js,ts,jsx,tsx}',
+  ],
+  theme: {
+    extend: {
+      {{#if_eq theme "dark"}}
+      colors: {
+        background: 'hsl(0 0% 3.9%)',
+        foreground: 'hsl(0 0% 98%)',
+      },
+      {{else if_eq theme "light"}}
+      colors: {
+        background: 'hsl(0 0% 100%)',
+        foreground: 'hsl(0 0% 3.9%)',
+      },
+      {{else}}
+      colors: {
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
+      },
+      {{/if_eq}}
+    },
+  },
+  plugins: [],
+};
+
+export default config;

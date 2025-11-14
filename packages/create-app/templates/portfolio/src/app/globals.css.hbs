@@ -1,0 +1,27 @@
+@import 'tailwindcss';
+
+:root {
+  {{#if_eq theme "auto"}}
+  --background: 0 0% 100%;
+  --foreground: 0 0% 3.9%;
+
+  @media (prefers-color-scheme: dark) {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+  }
+  {{else if_eq theme "dark"}}
+  --background: 0 0% 3.9%;
+  --foreground: 0 0% 98%;
+  {{else if_eq theme "light"}}
+  --background: 0 0% 100%;
+  --foreground: 0 0% 3.9%;
+  {{else}}
+  --background: 0 0% 100%;
+  --foreground: 0 0% 3.9%;
+  {{/if_eq}}
+}
+
+body {
+  color: hsl(var(--foreground));
+  background: hsl(var(--background));
+}

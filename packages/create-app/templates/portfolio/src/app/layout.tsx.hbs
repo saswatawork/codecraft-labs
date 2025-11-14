@@ -1,0 +1,45 @@
+import type { Metadata } from 'next';
+import { GeistSans } from 'geist/font/sans';
+import { GeistMono } from 'geist/font/mono';
+import './globals.css';{{#if analytics}}
+import { Analytics } from '@vercel/analytics/react';{{/if}}{{#if_eq authProvider "clerk"}}
+import { ClerkProvider } from '@clerk/nextjs';{{/if_eq}}
+
+export const metadata: Metadata = {
+  title: '{{projectName}} - Portfolio',
+  description: '{{description}}',{{#if seo}}
+  keywords: ['portfolio', 'web developer', 'designer', 'projects'],
+  authors: [{ name: 'Your Name' }],
+  creator: 'Your Name',
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://yoursite.com',
+    title: '{{projectName}} - Portfolio',
+    description: '{{description}}',
+    siteName: '{{projectName}}',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: '{{projectName}} - Portfolio',
+    description: '{{description}}',
+    creator: '@yourusername',
+  },{{/if}}
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    {{#if_eq authProvider "clerk"}}<ClerkProvider>{{/if_eq}}
+    <html lang="en" className={\`\${GeistSans.variable} \${GeistMono.variable}\`}>
+      <body className="antialiased">
+        {children}{{#if analytics}}
+        <Analytics />{{/if}}
+      </body>
+    </html>
+    {{#if_eq authProvider "clerk"}}</ClerkProvider>{{/if_eq}}
+  );
+}

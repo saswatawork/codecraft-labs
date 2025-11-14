@@ -1,0 +1,31 @@
+import type { NextConfig } from 'next';
+
+const nextConfig: NextConfig = {
+  {{#if_eq cms "mdx"}}
+  pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
+  {{/if_eq}}
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },{{#if_eq cms "contentful"}}
+      {
+        protocol: 'https',
+        hostname: 'images.ctfassets.net',
+      },{{/if_eq}}{{#if_eq cms "sanity"}}
+      {
+        protocol: 'https',
+        hostname: 'cdn.sanity.io',
+      },{{/if_eq}}
+    ],
+  },
+  {{#if analytics}}
+  // Vercel Analytics
+  experimental: {
+    analytics: true,
+  },
+  {{/if}}
+};
+
+export default nextConfig;
