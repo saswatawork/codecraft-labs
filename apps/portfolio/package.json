@@ -4,9 +4,9 @@
   "private": true,
   "description": "My portfolio website built with CodeCraft Labs",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 4500",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 4500",
     "lint": "next lint",
     "type-check": "tsc --noEmit"
   },
