@@ -55,12 +55,10 @@ jobs:
               run: pnpm turbo run build --filter=portfolio
 
             - name: Pull Vercel Environment Info
-              run: npx vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
-              working-directory: ./apps/portfolio
+              run: npx vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }} --cwd=./apps/portfolio
 
             - name: Deploy Preview
-              run: npx vercel deploy --token=${{ secrets.VERCEL_TOKEN }} --build-env VERCEL_ORG_ID=$VERCEL_ORG_ID --build-env VERCEL_PROJECT_ID=$VERCEL_PROJECT_ID --env VERCEL_ORG_ID=$VERCEL_ORG_ID --env VERCEL_PROJECT_ID=$VERCEL_PROJECT_ID --prod=false
-              working-directory: ./apps/portfolio
+              run: npx vercel deploy --token=${{ secrets.VERCEL_TOKEN }} --cwd=./apps/portfolio --build-env VERCEL_ORG_ID=$VERCEL_ORG_ID --build-env VERCEL_PROJECT_ID=$VERCEL_PROJECT_ID --env VERCEL_ORG_ID=$VERCEL_ORG_ID --env VERCEL_PROJECT_ID=$VERCEL_PROJECT_ID
 
     production:
         if: github.event_name == 'push'
@@ -105,9 +103,7 @@ jobs:
               run: pnpm turbo run build --filter=portfolio
 
             - name: Pull Vercel Environment Info
-              run: npx vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
-              working-directory: ./apps/portfolio
+              run: npx vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }} --cwd=./apps/portfolio
 
             - name: Deploy Production
-              run: npx vercel deploy --token=${{ secrets.VERCEL_TOKEN }} --prod --build-env VERCEL_ORG_ID=$VERCEL_ORG_ID --build-env VERCEL_PROJECT_ID=$VERCEL_PROJECT_ID --env VERCEL_ORG_ID=$VERCEL_ORG_ID --env VERCEL_PROJECT_ID=$VERCEL_PROJECT_ID
-              working-directory: ./apps/portfolio
+              run: npx vercel deploy --token=${{ secrets.VERCEL_TOKEN }} --prod --cwd=./apps/portfolio --build-env VERCEL_ORG_ID=$VERCEL_ORG_ID --build-env VERCEL_PROJECT_ID=$VERCEL_PROJECT_ID --env VERCEL_ORG_ID=$VERCEL_ORG_ID --env VERCEL_PROJECT_ID=$VERCEL_PROJECT_ID
