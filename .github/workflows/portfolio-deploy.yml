@@ -1,0 +1,103 @@
+name: Portfolio Deploy
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    paths:
+      - 'apps/portfolio/**'
+      - 'packages/ui/**'
+      - 'turbo.json'
+      - 'pnpm-lock.yaml'
+
+jobs:
+  preview:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PORTFOLIO_PROJECT_ID }}
+      # Optional: If you have environment variable groups pulled via vercel pull
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install pnpm
+        run: npm i -g pnpm@9
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Cache turbo
+        uses: actions/cache@v4
+        with:
+          path: .turbo
+          key: turbo-${{ runner.os }}-${{ hashFiles('**/*.lock') }}
+          restore-keys: |
+            turbo-${{ runner.os }}-
+
+      - name: Type check
+        run: pnpm --filter portfolio type-check
+
+      - name: Lint (optional)
+        run: pnpm --filter portfolio lint || echo 'Lint skipped or non-zero'
+
+      - name: Build (affected)
+        run: pnpm turbo run build --filter=portfolio
+
+      - name: Pull Vercel Environment Info
+        run: npx vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Deploy Preview
+        run: npx vercel deploy apps/portfolio --token=${{ secrets.VERCEL_TOKEN }} --build-env VERCEL_ORG_ID=$VERCEL_ORG_ID --build-env VERCEL_PROJECT_ID=$VERCEL_PROJECT_ID --env VERCEL_ORG_ID=$VERCEL_ORG_ID --env VERCEL_PROJECT_ID=$VERCEL_PROJECT_ID --prod=false
+
+  production:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PORTFOLIO_PROJECT_ID }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install pnpm
+        run: npm i -g pnpm@9
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Cache turbo
+        uses: actions/cache@v4
+        with:
+          path: .turbo
+          key: turbo-${{ runner.os }}-${{ hashFiles('**/*.lock') }}
+          restore-keys: |
+            turbo-${{ runner.os }}-
+
+      - name: Type check
+        run: pnpm --filter portfolio type-check
+
+      - name: Lint (optional)
+        run: pnpm --filter portfolio lint || echo 'Lint skipped or non-zero'
+
+      - name: Build
+        run: pnpm turbo run build --filter=portfolio
+
+      - name: Pull Vercel Environment Info
+        run: npx vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Deploy Production
+        run: npx vercel deploy apps/portfolio --token=${{ secrets.VERCEL_TOKEN }} --prod --build-env VERCEL_ORG_ID=$VERCEL_ORG_ID --build-env VERCEL_PROJECT_ID=$VERCEL_PROJECT_ID --env VERCEL_ORG_ID=$VERCEL_ORG_ID --env VERCEL_PROJECT_ID=$VERCEL_PROJECT_ID

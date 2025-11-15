@@ -1,15 +1,15 @@
 'use client';
 
 import {
-  Avatar,
   Badge,
   Button,
   Card,
   CardContent,
   CardHeader,
   CardTitle,
+  CompoundAvatar,
   CompoundNavigation,
-} from '@/components/ui';
+} from '@ccl/ui';
 import { ArrowRight, ExternalLink, Github, Linkedin, Mail } from 'lucide-react';
 
 export default function Home() {
@@ -105,7 +105,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="relative">
-                <Avatar
+                <CompoundAvatar
                   src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face"
                   fallback="SP"
                   size="lg"
@@ -128,7 +128,7 @@ export default function Home() {
               {[1, 2, 3, 4, 5, 6].map((i) => (
                 <Card key={i} className="group hover:shadow-lg transition-shadow">
                   <CardHeader>
-                    <div className="w-full h-48 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg mb-4" />
+                    <div className="w-full h-48 bg-linear-to-br from-blue-500 to-purple-600 rounded-lg mb-4" />
                     <CardTitle>Project {i}</CardTitle>
                   </CardHeader>
                   <CardContent>

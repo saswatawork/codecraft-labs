@@ -1,3 +1,4 @@
+'use client';
 // CodeCraft Labs UI Library
 // Modern React component library with TypeScript and Tailwind CSS
 

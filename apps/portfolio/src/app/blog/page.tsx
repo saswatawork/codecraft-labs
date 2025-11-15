@@ -1,4 +1,5 @@
-import { Badge, Card, CardContent, CardHeader, CardTitle } from '@/components/ui';
+'use client';
+import { Badge, Card, CardContent, CardHeader, CardTitle } from '@ccl/ui';
 
 export default function BlogPage() {
   return (
