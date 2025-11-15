@@ -56,13 +56,13 @@ jobs:
 
             - name: Pull Vercel Environment Info
               run: |
-                cd apps/portfolio
-                npx vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+                  cd apps/portfolio
+                  npx vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
 
             - name: Deploy Preview
               run: |
-                cd apps/portfolio
-                npx vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
+                  cd apps/portfolio
+                  npx vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
 
     production:
         if: github.event_name == 'push'
@@ -108,10 +108,10 @@ jobs:
 
             - name: Pull Vercel Environment Info
               run: |
-                cd apps/portfolio
-                npx vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+                  cd apps/portfolio
+                  npx vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
 
             - name: Deploy Production
               run: |
-                cd apps/portfolio
-                npx vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+                  cd apps/portfolio
+                  npx vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
