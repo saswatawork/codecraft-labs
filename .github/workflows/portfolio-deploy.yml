@@ -59,6 +59,11 @@ jobs:
                   cd apps/portfolio
                   npx vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
 
+            - name: Build for Vercel
+              run: |
+                  cd apps/portfolio
+                  npx vercel build --token=${{ secrets.VERCEL_TOKEN }}
+
             - name: Deploy Preview
               run: |
                   cd apps/portfolio
@@ -110,6 +115,11 @@ jobs:
               run: |
                   cd apps/portfolio
                   npx vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+
+            - name: Build for Vercel
+              run: |
+                  cd apps/portfolio
+                  npx vercel build --token=${{ secrets.VERCEL_TOKEN }}
 
             - name: Deploy Production
               run: |
