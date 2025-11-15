@@ -1,6 +1,6 @@
 {
   "framework": "nextjs",
-  "buildCommand": "cd ../.. && pnpm turbo run build --filter=portfolio",
+  "buildCommand": "cd ../.. && pnpm install && pnpm --filter @ccl/ui build && pnpm --filter portfolio build",
   "installCommand": "cd ../.. && pnpm install",
   "outputDirectory": ".next"
 }

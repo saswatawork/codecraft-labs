@@ -51,23 +51,9 @@ jobs:
             - name: Lint (optional)
               run: pnpm --filter portfolio lint || echo 'Lint skipped or non-zero'
 
-            - name: Build (affected)
-              run: pnpm turbo run build --filter=portfolio
-
-            - name: Pull Vercel Environment Info
-              run: |
-                  cd apps/portfolio
-                  npx vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
-
-            - name: Build for Vercel
-              run: |
-                  cd apps/portfolio
-                  npx vercel build --token=${{ secrets.VERCEL_TOKEN }}
-
             - name: Deploy Preview
-              run: |
-                  cd apps/portfolio
-                  npx vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
+              run: npx vercel deploy --token=${{ secrets.VERCEL_TOKEN }} --yes
+              working-directory: ./apps/portfolio
 
     production:
         if: github.event_name == 'push'
@@ -108,20 +94,6 @@ jobs:
             - name: Lint (optional)
               run: pnpm --filter portfolio lint || echo 'Lint skipped or non-zero'
 
-            - name: Build
-              run: pnpm turbo run build --filter=portfolio
-
-            - name: Pull Vercel Environment Info
-              run: |
-                  cd apps/portfolio
-                  npx vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
-
-            - name: Build for Vercel
-              run: |
-                  cd apps/portfolio
-                  npx vercel build --token=${{ secrets.VERCEL_TOKEN }}
-
             - name: Deploy Production
-              run: |
-                  cd apps/portfolio
-                  npx vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+              run: npx vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }} --yes
+              working-directory: ./apps/portfolio
