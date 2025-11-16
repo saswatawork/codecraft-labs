@@ -1,101 +1,101 @@
 name: Portfolio Deploy
 
 on:
-    push:
-        branches: [main]
-    pull_request:
-        paths:
-            - "apps/portfolio/**"
-            - "packages/ui/**"
-            - "turbo.json"
-            - "pnpm-lock.yaml"
+  push:
+    branches: [main]
+  pull_request:
+    paths:
+      - "apps/portfolio/**"
+      - "packages/ui/**"
+      - "turbo.json"
+      - "pnpm-lock.yaml"
 
 jobs:
-    preview:
-        if: github.event_name == 'pull_request'
-        runs-on: ubuntu-latest
-        env:
-            VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-            VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PORTFOLIO_PROJECT_ID }}
-            # Optional: If you have environment variable groups pulled via vercel pull
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v4
+  preview:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PORTFOLIO_PROJECT_ID }}
+      # Optional: If you have environment variable groups pulled via vercel pull
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-            - name: Install pnpm
-              uses: pnpm/action-setup@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
 
-            - name: Setup Node
-              uses: actions/setup-node@v4
-              with:
-                  node-version: "20"
-                  cache: "pnpm"
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "pnpm"
 
-            - name: Install dependencies
-              run: pnpm install --frozen-lockfile
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
-            - name: Build UI package
-              run: pnpm --filter @ccl/ui build
+      - name: Build UI package
+        run: pnpm --filter @ccl/ui build
 
-            - name: Cache turbo
-              uses: actions/cache@v4
-              with:
-                  path: .turbo
-                  key: turbo-${{ runner.os }}-${{ hashFiles('**/*.lock') }}
-                  restore-keys: |
-                      turbo-${{ runner.os }}-
+      - name: Cache turbo
+        uses: actions/cache@v4
+        with:
+          path: .turbo
+          key: turbo-${{ runner.os }}-${{ hashFiles('**/*.lock') }}
+          restore-keys: |
+            turbo-${{ runner.os }}-
 
-            - name: Type check
-              run: pnpm --filter portfolio type-check
+      - name: Type check
+        run: pnpm --filter portfolio type-check
 
-            - name: Lint (optional)
-              run: pnpm --filter portfolio lint || echo 'Lint skipped or non-zero'
+      - name: Lint (optional)
+        run: pnpm --filter portfolio lint || echo 'Lint skipped or non-zero'
 
-            - name: Deploy Preview
-              run: |
-                  # Root Directory in Vercel is already apps/portfolio; omit path to avoid duplication
-                  npx vercel deploy --token=${{ secrets.VERCEL_TOKEN }} --yes
+      - name: Deploy Preview
+        run: |
+          # Root Directory in Vercel is already apps/portfolio; omit path to avoid duplication
+          npx vercel deploy --token=${{ secrets.VERCEL_TOKEN }} --yes
 
-    production:
-        if: github.event_name == 'push'
-        runs-on: ubuntu-latest
-        env:
-            VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-            VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PORTFOLIO_PROJECT_ID }}
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v4
+  production:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PORTFOLIO_PROJECT_ID }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-            - name: Install pnpm
-              uses: pnpm/action-setup@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
 
-            - name: Setup Node
-              uses: actions/setup-node@v4
-              with:
-                  node-version: "20"
-                  cache: "pnpm"
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "pnpm"
 
-            - name: Install dependencies
-              run: pnpm install --frozen-lockfile
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
-            - name: Build UI package
-              run: pnpm --filter @ccl/ui build
+      - name: Build UI package
+        run: pnpm --filter @ccl/ui build
 
-            - name: Cache turbo
-              uses: actions/cache@v4
-              with:
-                  path: .turbo
-                  key: turbo-${{ runner.os }}-${{ hashFiles('**/*.lock') }}
-                  restore-keys: |
-                      turbo-${{ runner.os }}-
+      - name: Cache turbo
+        uses: actions/cache@v4
+        with:
+          path: .turbo
+          key: turbo-${{ runner.os }}-${{ hashFiles('**/*.lock') }}
+          restore-keys: |
+            turbo-${{ runner.os }}-
 
-            - name: Type check
-              run: pnpm --filter portfolio type-check
+      - name: Type check
+        run: pnpm --filter portfolio type-check
 
-            - name: Lint (optional)
-              run: pnpm --filter portfolio lint || echo 'Lint skipped or non-zero'
+      - name: Lint (optional)
+        run: pnpm --filter portfolio lint || echo 'Lint skipped or non-zero'
 
-            - name: Deploy Production
-              run: |
-                  # Production deploy without redundant path argument
-                  npx vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }} --yes
+      - name: Deploy Production
+        run: |
+          # Production deploy without redundant path argument
+          npx vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }} --yes

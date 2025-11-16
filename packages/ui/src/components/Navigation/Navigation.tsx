@@ -4,18 +4,18 @@ import { cn } from '../../utils';
 
 // Navigation Variants using CVA
 const navigationVariants = cva(
-  'flex w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60',
+  'flex w-full border-b bg-white/80 backdrop-blur-md supports-[backdrop-filter]:bg-white/80 shadow-sm',
   {
     variants: {
       variant: {
-        default: 'border-border',
-        ghost: 'border-transparent',
-        floating: 'rounded-lg border shadow-sm mx-4 mt-4',
+        default: 'border-gray-200',
+        ghost: 'border-transparent shadow-none',
+        floating: 'rounded-lg border shadow-md mx-4 mt-4',
       },
       size: {
-        sm: 'h-12 px-3',
-        md: 'h-14 px-4',
-        lg: 'h-16 px-6',
+        sm: 'h-14 px-4',
+        md: 'h-16 px-6',
+        lg: 'h-18 px-8',
       },
       position: {
         static: 'relative',
@@ -48,18 +48,21 @@ const navigationContainerVariants = cva(
   },
 );
 
-const navigationBrandVariants = cva('flex items-center space-x-2 font-semibold text-foreground', {
-  variants: {
-    size: {
-      sm: 'text-sm',
-      md: 'text-base',
-      lg: 'text-lg',
+const navigationBrandVariants = cva(
+  'flex items-center space-x-2 font-bold text-gray-900 tracking-tight',
+  {
+    variants: {
+      size: {
+        sm: 'text-base',
+        md: 'text-lg',
+        lg: 'text-xl',
+      },
+    },
+    defaultVariants: {
+      size: 'md',
     },
   },
-  defaultVariants: {
-    size: 'md',
-  },
-});
+);
 
 const navigationMenuVariants = cva('flex items-center', {
   variants: {
@@ -79,20 +82,20 @@ const navigationMenuVariants = cva('flex items-center', {
 });
 
 const navigationItemVariants = cva(
-  'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
+  'inline-flex items-center justify-center whitespace-nowrap rounded-md font-medium ring-offset-background transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {
-        default: 'text-foreground/60 hover:text-foreground hover:bg-accent',
-        active: 'text-foreground bg-accent',
-        ghost: 'text-foreground/60 hover:text-foreground hover:bg-transparent',
+        default: 'text-gray-600 hover:text-gray-900 hover:bg-gray-100',
+        active: 'text-gray-900 bg-gray-100 font-semibold',
+        ghost: 'text-gray-600 hover:text-gray-900 hover:bg-transparent',
         underline:
-          'text-foreground/60 hover:text-foreground border-b-2 border-transparent hover:border-foreground rounded-none',
+          'text-gray-600 hover:text-gray-900 border-b-2 border-transparent hover:border-gray-900 rounded-none',
       },
       size: {
-        sm: 'h-8 px-2 text-xs',
-        md: 'h-9 px-3 text-sm',
-        lg: 'h-10 px-4 text-base',
+        sm: 'h-8 px-3 text-sm',
+        md: 'h-9 px-4 text-sm',
+        lg: 'h-10 px-5 text-base',
       },
     },
     defaultVariants: {

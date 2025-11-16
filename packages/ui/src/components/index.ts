@@ -8,12 +8,20 @@ export * from './Card';
 export * from './Avatar';
 export * from './Dialog';
 export * from './Navigation';
+export * from './Container';
+export * from './SectionHeading';
+export * from './Stat';
+export * from './ProjectCard';
 
 // Re-exports for convenience
 export { default as Button } from './Button';
 export { default as Input } from './Input';
 export { default as Badge } from './Badge';
 export { Avatar as default } from './Avatar';
+export { default as Container } from './Container';
+export { default as SectionHeading } from './SectionHeading';
+export { default as Stat } from './Stat';
+export { default as ProjectCard } from './ProjectCard';
 
 // Molecules - Component combinations
 // export * from './molecules/Card'
