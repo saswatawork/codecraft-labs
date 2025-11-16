@@ -52,7 +52,7 @@ jobs:
               run: pnpm --filter portfolio lint || echo 'Lint skipped or non-zero'
 
             - name: Deploy Preview
-              run: npx vercel deploy apps/portfolio --token=${{ secrets.VERCEL_TOKEN }} --yes
+              run: npx vercel deploy --token=${{ secrets.VERCEL_TOKEN }} --yes
 
     production:
         if: github.event_name == 'push'
@@ -94,4 +94,4 @@ jobs:
               run: pnpm --filter portfolio lint || echo 'Lint skipped or non-zero'
 
             - name: Deploy Production
-              run: npx vercel deploy apps/portfolio --prod --token=${{ secrets.VERCEL_TOKEN }} --yes
+              run: npx vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }} --yes
