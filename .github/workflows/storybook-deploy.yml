@@ -1,0 +1,43 @@
+name: Storybook Deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    paths:
+      - "packages/ui/**"
+      - "pnpm-lock.yaml"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      VERCEL_ORG_ID: team_rln3ZLZpVPsyISrPIMv1JbAO
+      VERCEL_PROJECT_ID: prj_haBovtwfPI4AjzNXFXV4wFhsG3Ev
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build Storybook
+        run: pnpm --filter @ccl/ui build-storybook
+
+      - name: Deploy to Vercel
+        run: |
+          cd packages/ui
+          if [ "${{ github.event_name }}" == "push" ]; then
+            npx vercel deploy storybook-static --prod --token=${{ secrets.VERCEL_TOKEN }} --yes
+          else
+            npx vercel deploy storybook-static --token=${{ secrets.VERCEL_TOKEN }} --yes
+          fi

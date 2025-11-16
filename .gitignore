@@ -83,3 +83,7 @@ storybook-static
 tmp/
 temp/
 *storybook.log
+
+# Vercel
+.vercel
+storybook-static/.vercel
