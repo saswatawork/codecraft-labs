@@ -33,11 +33,15 @@ jobs:
       - name: Build Storybook
         run: pnpm --filter @ccl/ui build-storybook
 
+      - name: Copy Vercel config to storybook-static
+        run: |
+          cp packages/ui/.vercel/project.json packages/ui/storybook-static/.vercel/project.json
+
       - name: Deploy to Vercel
         run: |
-          cd packages/ui
+          cd packages/ui/storybook-static
           if [ "${{ github.event_name }}" == "push" ]; then
-            npx vercel deploy storybook-static --prod --token=${{ secrets.VERCEL_TOKEN }} --yes
+            npx vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }} --yes
           else
-            npx vercel deploy storybook-static --token=${{ secrets.VERCEL_TOKEN }} --yes
+            npx vercel deploy --token=${{ secrets.VERCEL_TOKEN }} --yes
           fi
