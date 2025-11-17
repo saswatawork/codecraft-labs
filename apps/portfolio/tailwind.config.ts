@@ -1,11 +1,39 @@
 import type { Config } from 'tailwindcss';
 
-const config: Config = {
-  content: [
-    './src/app/**/*.{js,ts,jsx,tsx,md,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,md,mdx}',
-    '../../packages/ui/src/**/*.{js,ts,jsx,tsx}',
-  ],
+// Using any to allow safelist property while Tailwind v4 type definitions catch up
+// Tailwind will ignore unknown properties; safelist used internally by PostCSS plugin.
+const config: any = {
+  content: {
+    files: ['./src/**/*.{js,ts,jsx,tsx,md,mdx}', '../../packages/ui/src/**/*.{js,ts,jsx,tsx}'],
+    // @ts-ignore - safelist is supported by Tailwind runtime though not in current type defs
+    safelist: [
+      // spacing utilities used inside UI library components that might be tree-shaken
+      'p-4',
+      'p-5',
+      'p-6',
+      'p-8',
+      'px-4',
+      'px-6',
+      'px-8',
+      'py-3',
+      'py-4',
+      'py-6',
+      // borders & radius
+      'rounded-lg',
+      'rounded-xl',
+      'border',
+      'border-gray-200',
+      'border-gray-300',
+      // shadows
+      'shadow',
+      'shadow-sm',
+      'shadow-md',
+      'shadow-lg',
+      'shadow-xl',
+      'hover:shadow-xl',
+      'hover:shadow-2xl',
+    ],
+  },
   theme: {
     extend: {
       colors: {

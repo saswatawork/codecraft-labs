@@ -6,7 +6,7 @@
 'use client';
 
 import React, { Component, type ReactNode } from 'react';
-import { errorLogger, type ErrorInfo } from '../utils/error-handling';
+import { type ErrorInfo, errorLogger } from '../../utils/error-handling';
 
 interface Props {
   children: ReactNode;
@@ -22,7 +22,7 @@ interface State {
 
 /**
  * ErrorBoundary Component
- * 
+ *
  * @example
  * ```tsx
  * <ErrorBoundary
@@ -43,17 +43,17 @@ export class ErrorBoundary extends Component<Props, State> {
     return { hasError: true, error };
   }
 
-  componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
+  override componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
     errorLogger.log(error, errorInfo);
     this.props.onError?.(error, errorInfo);
   }
 
-  componentDidUpdate(prevProps: Props): void {
+  override componentDidUpdate(prevProps: Props): void {
     if (this.state.hasError && this.props.resetKeys) {
       const hasResetKeyChanged = this.props.resetKeys.some(
-        (key, index) => key !== prevProps.resetKeys?.[index]
+        (key, index) => key !== prevProps.resetKeys?.[index],
       );
-      
+
       if (hasResetKeyChanged) {
         this.reset();
       }
@@ -64,16 +64,16 @@ export class ErrorBoundary extends Component<Props, State> {
     this.setState({ hasError: false, error: null });
   };
 
-  render(): ReactNode {
+  override render(): ReactNode {
     if (this.state.hasError && this.state.error) {
       if (typeof this.props.fallback === 'function') {
         return this.props.fallback(this.state.error, this.reset);
       }
-      
+
       if (this.props.fallback) {
         return this.props.fallback;
       }
-      
+
       // Default fallback
       return <DefaultErrorFallback error={this.state.error} reset={this.reset} />;
     }
@@ -101,9 +101,7 @@ function DefaultErrorFallback({ error, reset }: { error: Error; reset: () => voi
         Something went wrong
       </h2>
       <details style={{ marginBottom: '1rem' }}>
-        <summary style={{ cursor: 'pointer', marginBottom: '0.5rem' }}>
-          Error details
-        </summary>
+        <summary style={{ cursor: 'pointer', marginBottom: '0.5rem' }}>Error details</summary>
         <pre
           style={{
             padding: '1rem',
@@ -118,6 +116,7 @@ function DefaultErrorFallback({ error, reset }: { error: Error; reset: () => voi
         </pre>
       </details>
       <button
+        type="button"
         onClick={reset}
         style={{
           padding: '0.5rem 1rem',

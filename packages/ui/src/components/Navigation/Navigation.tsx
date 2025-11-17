@@ -162,7 +162,7 @@ export interface NavigationItemProps
 }
 
 export interface NavigationToggleProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+  extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'onToggle'>,
     VariantProps<typeof navigationToggleVariants> {
   className?: string;
   isOpen?: boolean;
