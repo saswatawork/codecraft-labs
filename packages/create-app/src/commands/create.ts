@@ -7,14 +7,21 @@ import Handlebars from 'handlebars';
 import ora from 'ora';
 import '../utils/handlebars-helpers.js';
 
+export interface TemplateOptions {
+  install: boolean;
+  git: boolean;
+  authProvider?: string;
+  cms?: string;
+  theme?: string;
+  seo?: boolean;
+  analytics?: boolean;
+  [key: string]: string | boolean | undefined;
+}
+
 export interface CreateProjectOptions {
   projectName: string;
   template: string;
-  options: {
-    install: boolean;
-    git: boolean;
-    [key: string]: any;
-  };
+  options: TemplateOptions;
 }
 
 export async function createProject({
@@ -77,7 +84,7 @@ export async function createProject({
 async function copyTemplate(
   templateDir: string,
   targetDir: string,
-  data: Record<string, any>,
+  data: Record<string, string | boolean | string[] | undefined>,
 ): Promise<void> {
   const files = await fs.readdir(templateDir, { withFileTypes: true });
 

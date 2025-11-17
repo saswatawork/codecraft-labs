@@ -35,10 +35,23 @@ program
   .option('--linkedin <slug>', 'LinkedIn profile slug')
   .option('--email <address>', 'Public contact email address')
   .option('--tagline <tagline>', 'Hero subtitle / tagline text')
-  .action(async (projectName?: string, options?: any) => {
+  .action(async (projectName?: string, options?: Record<string, unknown>) => {
     console.log(chalk.bold.cyan('\n✨ Welcome to CodeCraft Labs Project Generator\n'));
 
-    let answers: any = {};
+    interface ProjectAnswers {
+      projectName: string;
+      template: string;
+      authProvider?: string;
+      cms?: string;
+      theme?: string;
+      analytics?: boolean;
+      seo?: boolean;
+      install?: boolean;
+      git?: boolean;
+      confirm?: boolean;
+    }
+
+    let answers: Partial<ProjectAnswers> = {};
 
     // Get project name
     if (!projectName) {

@@ -12,23 +12,13 @@ export * from './Container';
 export * from './SectionHeading';
 export * from './Stat';
 export * from './ProjectCard';
+export * from './ErrorBoundary';
 
-// Re-exports for convenience
+// Re-exports for convenience (default exports)
 export { default as Button } from './Button';
 export { default as Input } from './Input';
 export { default as Badge } from './Badge';
-export { Avatar as default } from './Avatar';
 export { default as Container } from './Container';
 export { default as SectionHeading } from './SectionHeading';
 export { default as Stat } from './Stat';
 export { default as ProjectCard } from './ProjectCard';
-
-// Molecules - Component combinations
-// export * from './molecules/Card'
-// export * from './molecules/Modal'
-
-// Organisms - Complex components
-// export * from './organisms/DataTable'
-
-// Placeholder export to prevent module resolution errors
-export const placeholder = 'Components will be exported from here';

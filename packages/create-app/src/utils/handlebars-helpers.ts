@@ -1,29 +1,41 @@
-import Handlebars from 'handlebars';
+import type Handlebars from 'handlebars';
+import HandlebarsLib from 'handlebars';
+
+type HelperOptions = Handlebars.HelperOptions;
 
 // Helper to check if a value equals another
-Handlebars.registerHelper('if_eq', function (this: any, a: any, b: any, opts: any) {
-  if (a === b) {
-    return opts.fn(this);
-  }
-  return opts.inverse(this);
-});
+HandlebarsLib.registerHelper(
+  'if_eq',
+  function (this: unknown, a: unknown, b: unknown, opts: HelperOptions) {
+    if (a === b) {
+      return opts.fn(this);
+    }
+    return opts.inverse(this);
+  },
+);
 
 // Helper to check if an array includes a value
-Handlebars.registerHelper('includes', function (this: any, array: any[], value: any, opts: any) {
-  if (Array.isArray(array) && array.includes(value)) {
-    return opts.fn(this);
-  }
-  return opts.inverse(this);
-});
+HandlebarsLib.registerHelper(
+  'includes',
+  function (this: unknown, array: unknown, value: unknown, opts: HelperOptions) {
+    if (Array.isArray(array) && array.includes(value)) {
+      return opts.fn(this);
+    }
+    return opts.inverse(this);
+  },
+);
 
 // Helper to iterate over an array
-Handlebars.registerHelper('each', function (this: any, context: any, options: any) {
-  let ret = '';
-  for (let i = 0, j = context.length; i < j; i++) {
-    ret = ret + options.fn(context[i]);
-  }
-  return ret;
-});
+HandlebarsLib.registerHelper(
+  'each',
+  function (this: unknown, context: unknown[], options: HelperOptions) {
+    let ret = '';
+    for (let i = 0, j = context.length; i < j; i++) {
+      ret = ret + options.fn(context[i]);
+    }
+    return ret;
+  },
+);
 
 export function registerHelpers() {
   // Helpers are registered when this module is imported

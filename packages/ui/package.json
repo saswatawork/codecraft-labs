@@ -23,12 +23,13 @@
     "lint": "biome check src/",
     "format": "biome format --write src/",
     "typecheck": "tsc --noEmit",
-    "test": "vitest",
+    "test": "vitest run",
     "test:watch": "vitest --watch",
     "test:ui": "vitest --ui",
+    "test:coverage": "vitest run --coverage",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "clean": "rm -rf dist .turbo node_modules/.cache storybook-static"
+    "clean": "rm -rf dist .turbo node_modules/.cache storybook-static coverage"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.1.2",
