@@ -54,7 +54,7 @@ export interface CardHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
  */
 const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
   ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn('flex flex-col space-y-1.5 p-6', className)} {...props} />
+    <div ref={ref} className={cn('flex flex-col space-y-1.5', className)} {...props} />
   ),
 );
 
@@ -115,9 +115,7 @@ export interface CardContentProps extends React.HTMLAttributes<HTMLDivElement> {
  * CardContent - Main content area of the card
  */
 const CardContent = React.forwardRef<HTMLDivElement, CardContentProps>(
-  ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn('p-6 pt-0', className)} {...props} />
-  ),
+  ({ className, ...props }, ref) => <div ref={ref} className={className} {...props} />,
 );
 
 CardContent.displayName = 'CardContent';

@@ -59,12 +59,12 @@ export const ProjectCard = React.forwardRef<HTMLDivElement, ProjectCardProps>(
             )}
           </div>
         )}
-        <CardHeader className="pb-4 pt-6 px-6">
-          <CardTitle className="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors leading-snug mb-3">
+        <CardHeader className="p-6 pb-3">
+          <CardTitle className="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors leading-snug mb-2">
             {heading}
           </CardTitle>
           {meta && meta.length > 0 && (
-            <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500">
+            <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 mt-2">
               {meta.map((m) => (
                 <span key={String(m.text)} className="flex items-center gap-1.5">
                   {m.icon}
@@ -74,12 +74,10 @@ export const ProjectCard = React.forwardRef<HTMLDivElement, ProjectCardProps>(
             </div>
           )}
         </CardHeader>
-        <CardContent className="pt-0 px-6 pb-6">
-          {description && (
-            <p className="text-gray-600 leading-relaxed text-sm mb-4">{description}</p>
-          )}
+        <CardContent className="px-6 pb-6 pt-0 space-y-4">
+          {description && <p className="text-gray-600 leading-relaxed text-sm">{description}</p>}
           {tech && tech.length > 0 && (
-            <div className="flex flex-wrap gap-2 mb-5">
+            <div className="flex flex-wrap gap-2">
               {tech.map((t) => (
                 <Badge
                   key={t}
@@ -93,7 +91,7 @@ export const ProjectCard = React.forwardRef<HTMLDivElement, ProjectCardProps>(
             </div>
           )}
           {(primaryAction || secondaryAction) && (
-            <div className="flex gap-3">
+            <div className="flex gap-3 pt-2">
               {primaryAction && (
                 <Button variant="default" size="sm" className="flex-1 font-medium" asChild>
                   <a
