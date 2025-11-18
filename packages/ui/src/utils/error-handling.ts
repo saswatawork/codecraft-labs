@@ -13,7 +13,7 @@ export interface ErrorInfo {
 export const errorLogger = {
   log: (error: Error, errorInfo?: ErrorInfo): void => {
     // Log to console in development
-    if (typeof process !== 'undefined' && process.env?.NODE_ENV === 'development') {
+    if (typeof process !== 'undefined' && process.env?.['NODE_ENV'] === 'development') {
       console.error('Error logged:', error);
       if (errorInfo) {
         console.error('Component stack:', errorInfo.componentStack);
@@ -25,7 +25,7 @@ export const errorLogger = {
   },
 
   logWarning: (message: string, context?: Record<string, unknown>): void => {
-    if (typeof process !== 'undefined' && process.env?.NODE_ENV === 'development') {
+    if (typeof process !== 'undefined' && process.env?.['NODE_ENV'] === 'development') {
       console.warn(message, context);
     }
     // Send warnings to tracking service if needed
@@ -160,7 +160,7 @@ export function sanitizeError(error: unknown): {
   code?: string | undefined;
 } {
   if (error instanceof Error) {
-    const isDev = typeof process !== 'undefined' && process.env?.NODE_ENV === 'development';
+    const isDev = typeof process !== 'undefined' && process.env?.['NODE_ENV'] === 'development';
     return {
       message: error.message,
       stack: isDev ? error.stack : undefined,

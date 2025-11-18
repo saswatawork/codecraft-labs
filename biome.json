@@ -17,7 +17,7 @@
       "recommended": true,
       "complexity": {
         "noExtraBooleanCast": "error",
-        "useLiteralKeys": "error"
+        "useLiteralKeys": "off"
       },
       "correctness": {
         "useExhaustiveDependencies": "warn"

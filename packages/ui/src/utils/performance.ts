@@ -26,7 +26,7 @@ export function reportWebVitals(metric: WebVitalMetric): void {
   }
 
   // Log in development
-  if (typeof process !== 'undefined' && process.env?.NODE_ENV === 'development') {
+  if (typeof process !== 'undefined' && process.env?.['NODE_ENV'] === 'development') {
     console.log(`[Web Vitals] ${metric.name}:`, {
       value: metric.value,
       rating: metric.rating,
