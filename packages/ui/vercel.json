@@ -1,7 +1,7 @@
 {
-  "buildCommand": "pnpm build-storybook",
+  "buildCommand": "cd ../.. && pnpm install && pnpm --filter=@ccl/ui build-storybook",
   "outputDirectory": "storybook-static",
-  "installCommand": "pnpm install --frozen-lockfile",
+  "installCommand": "cd ../.. && pnpm install",
   "framework": null,
   "public": false
 }

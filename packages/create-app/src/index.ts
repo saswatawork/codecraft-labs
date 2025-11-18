@@ -44,11 +44,18 @@ program
       authProvider?: string;
       cms?: string;
       theme?: string;
+      sections?: string[] | string;
       analytics?: boolean;
       seo?: boolean;
       install?: boolean;
       git?: boolean;
       confirm?: boolean;
+      description?: string;
+      userName?: string;
+      githubUsername?: string;
+      linkedinUsername?: string;
+      emailAddress?: string;
+      tagline?: string;
     }
 
     let answers: Partial<ProjectAnswers> = {};
@@ -109,7 +116,7 @@ program
       ]);
       answers.template = templateAnswer.template;
     } else {
-      answers.template = options.template;
+      answers.template = String(options.template);
     }
 
     // Template-specific configuration
@@ -148,31 +155,36 @@ program
 
       answers = {
         ...answers,
-        description: options.description || 'My portfolio website built with CodeCraft Labs',
-        theme: options.theme || 'auto',
+        description: String(
+          options.description || 'My portfolio website built with CodeCraft Labs',
+        ),
+        theme: String(options.theme || 'auto'),
         sections: sections.length ? sections : ['hero', 'about', 'projects', 'skills', 'contact'],
-        authProvider: options.auth || 'none',
-        cms: options.cms || 'mdx',
+        authProvider: String(options.auth || 'none'),
+        cms: String(options.cms || 'mdx'),
         analytics: typeof options.analytics !== 'undefined',
         seo: typeof options.seo !== 'undefined',
-        userName: options.userName || 'Your Name',
-        githubUsername: options.github || 'yourusername',
-        linkedinUsername: options.linkedin || 'yourusername',
-        emailAddress: options.email || 'your.email@example.com',
-        tagline:
+        userName: String(options.userName || 'Your Name'),
+        githubUsername: String(options.github || 'yourusername'),
+        linkedinUsername: String(options.linkedin || 'yourusername'),
+        emailAddress: String(options.email || 'your.email@example.com'),
+        tagline: String(
           options.tagline ||
-          'A passionate developer creating beautiful and functional web experiences',
+            'A passionate developer creating beautiful and functional web experiences',
+        ),
       };
     } else {
       // Interactive mode (original behavior)
       const customization = await inquirer.prompt(templateConfig.questions);
-      answers = { ...answers, ...customization };
-      // Derive optional defaults
-      answers.userName = 'Your Name';
-      answers.githubUsername = 'yourusername';
-      answers.linkedinUsername = 'yourusername';
-      answers.emailAddress = 'your.email@example.com';
-      answers.tagline = 'A passionate developer creating beautiful and functional web experiences';
+      answers = {
+        ...answers,
+        ...customization,
+        userName: 'Your Name',
+        githubUsername: 'yourusername',
+        linkedinUsername: 'yourusername',
+        emailAddress: 'your.email@example.com',
+        tagline: 'A passionate developer creating beautiful and functional web experiences',
+      };
     }
 
     // Confirm and create
@@ -216,11 +228,17 @@ program
     const spinner = ora('Creating project...').start();
 
     try {
+      // Ensure required fields are present
+      if (!answers.projectName || !answers.template) {
+        throw new Error('Project name and template are required');
+      }
+
       await createProject({
         projectName: answers.projectName,
         template: answers.template,
         options: {
           ...answers,
+          sections: Array.isArray(answers.sections) ? answers.sections.join(',') : answers.sections,
           install: options?.install !== false,
           git: options?.git !== false,
         },
