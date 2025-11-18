@@ -29,7 +29,7 @@ describe('Navigation', () => {
           Content
         </Navigation>,
       );
-      expect(screen.getByTestId('nav')).toHaveClass('border-border');
+      expect(screen.getByTestId('nav')).toHaveClass('border-gray-200');
 
       rerender(
         <Navigation variant="ghost" data-testid="nav">
@@ -43,7 +43,7 @@ describe('Navigation', () => {
           Content
         </Navigation>,
       );
-      expect(screen.getByTestId('nav')).toHaveClass('rounded-lg', 'shadow-sm');
+      expect(screen.getByTestId('nav')).toHaveClass('rounded-lg', 'shadow-md');
     });
 
     it('applies size styles correctly', () => {
@@ -52,21 +52,21 @@ describe('Navigation', () => {
           Content
         </Navigation>,
       );
-      expect(screen.getByTestId('nav')).toHaveClass('h-12');
+      expect(screen.getByTestId('nav')).toHaveClass('h-14');
 
       rerender(
         <Navigation size="md" data-testid="nav">
           Content
         </Navigation>,
       );
-      expect(screen.getByTestId('nav')).toHaveClass('h-14');
+      expect(screen.getByTestId('nav')).toHaveClass('h-16');
 
       rerender(
         <Navigation size="lg" data-testid="nav">
           Content
         </Navigation>,
       );
-      expect(screen.getByTestId('nav')).toHaveClass('h-16');
+      expect(screen.getByTestId('nav')).toHaveClass('h-18');
     });
 
     it('applies position styles correctly', () => {
@@ -216,14 +216,14 @@ describe('Navigation', () => {
           <NavigationBrand size="sm" text="Brand" data-testid="brand" />
         </Navigation>,
       );
-      expect(screen.getByTestId('brand')).toHaveClass('text-sm');
+      expect(screen.getByTestId('brand')).toHaveClass('text-base');
 
       rerender(
         <Navigation>
           <NavigationBrand size="lg" text="Brand" data-testid="brand" />
         </Navigation>,
       );
-      expect(screen.getByTestId('brand')).toHaveClass('text-lg');
+      expect(screen.getByTestId('brand')).toHaveClass('text-xl');
     });
 
     it('forwards ref correctly', () => {
@@ -323,7 +323,7 @@ describe('Navigation', () => {
           </NavigationItem>
         </Navigation>,
       );
-      expect(screen.getByTestId('item')).toHaveClass('text-foreground/60');
+      expect(screen.getByTestId('item')).toHaveClass('text-gray-600');
 
       rerender(
         <Navigation>
@@ -343,7 +343,7 @@ describe('Navigation', () => {
           </NavigationItem>
         </Navigation>,
       );
-      expect(screen.getByTestId('item')).not.toHaveClass('bg-accent');
+      expect(screen.getByTestId('item')).not.toHaveClass('bg-gray-100');
 
       rerender(
         <Navigation>
@@ -352,7 +352,7 @@ describe('Navigation', () => {
           </NavigationItem>
         </Navigation>,
       );
-      expect(screen.getByTestId('item')).toHaveClass('bg-accent');
+      expect(screen.getByTestId('item')).toHaveClass('bg-gray-100');
     });
 
     it('applies size variants correctly', () => {

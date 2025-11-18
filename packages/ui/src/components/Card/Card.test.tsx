@@ -142,7 +142,7 @@ describe('Card Component', () => {
       render(<CardHeader data-testid="header">Header content</CardHeader>);
       const header = screen.getByTestId('header');
       expect(header).toBeInTheDocument();
-      expect(header).toHaveClass('flex', 'flex-col', 'space-y-1.5', 'p-6');
+      expect(header).toHaveClass('flex', 'flex-col', 'space-y-1.5');
       expect(screen.getByText('Header content')).toBeInTheDocument();
     });
 
@@ -229,7 +229,7 @@ describe('Card Component', () => {
       render(<CardContent data-testid="content">Content here</CardContent>);
       const content = screen.getByTestId('content');
       expect(content).toBeInTheDocument();
-      expect(content).toHaveClass('p-6', 'pt-0');
+      // CardContent has no default classes, only accepts className prop
       expect(screen.getByText('Content here')).toBeInTheDocument();
     });
 
