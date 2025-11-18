@@ -13,15 +13,15 @@ export interface ValidationResult {
  */
 export function validateEmail(email: string): ValidationResult {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  
+
   if (!email) {
     return { isValid: false, error: 'Email is required' };
   }
-  
+
   if (!emailRegex.test(email)) {
     return { isValid: false, error: 'Invalid email format' };
   }
-  
+
   return { isValid: true };
 }
 
@@ -94,15 +94,15 @@ export function validateUrl(url: string): ValidationResult {
  */
 export function validatePhone(phone: string): ValidationResult {
   const phoneRegex = /^\+?1?\s*\(?([0-9]{3})\)?[-.\s]?([0-9]{3})[-.\s]?([0-9]{4})$/;
-  
+
   if (!phone) {
     return { isValid: false, error: 'Phone number is required' };
   }
-  
+
   if (!phoneRegex.test(phone)) {
     return { isValid: false, error: 'Invalid phone number format' };
   }
-  
+
   return { isValid: true };
 }
 
@@ -113,7 +113,7 @@ export function validateRequired(value: string | number | boolean): ValidationRe
   if (value === '' || value === null || value === undefined) {
     return { isValid: false, error: 'This field is required' };
   }
-  
+
   return { isValid: true };
 }
 
@@ -124,11 +124,11 @@ export function validateMinLength(value: string, minLength: number): ValidationR
   if (!value) {
     return { isValid: false, error: 'This field is required' };
   }
-  
+
   if (value.length < minLength) {
     return { isValid: false, error: `Must be at least ${minLength} characters` };
   }
-  
+
   return { isValid: true };
 }
 
@@ -139,37 +139,37 @@ export function validateMaxLength(value: string, maxLength: number): ValidationR
   if (value && value.length > maxLength) {
     return { isValid: false, error: `Must be no more than ${maxLength} characters` };
   }
-  
+
   return { isValid: true };
 }
 
 /**
  * Number range validation
  */
-export function validateRange(
-  value: number,
-  min: number,
-  max: number,
-): ValidationResult {
+export function validateRange(value: number, min: number, max: number): ValidationResult {
   if (value < min || value > max) {
     return { isValid: false, error: `Must be between ${min} and ${max}` };
   }
-  
+
   return { isValid: true };
 }
 
 /**
  * Pattern matching validation
  */
-export function validatePattern(value: string, pattern: RegExp, errorMessage: string): ValidationResult {
+export function validatePattern(
+  value: string,
+  pattern: RegExp,
+  errorMessage: string,
+): ValidationResult {
   if (!value) {
     return { isValid: false, error: 'This field is required' };
   }
-  
+
   if (!pattern.test(value)) {
     return { isValid: false, error: errorMessage };
   }
-  
+
   return { isValid: true };
 }
 
@@ -178,37 +178,37 @@ export function validatePattern(value: string, pattern: RegExp, errorMessage: st
  */
 export function validateCreditCard(cardNumber: string): ValidationResult {
   const sanitized = cardNumber.replace(/\s/g, '');
-  
+
   if (!/^\d+$/.test(sanitized)) {
     return { isValid: false, error: 'Card number must contain only digits' };
   }
-  
+
   if (sanitized.length < 13 || sanitized.length > 19) {
     return { isValid: false, error: 'Invalid card number length' };
   }
-  
+
   // Luhn algorithm
   let sum = 0;
   let isEven = false;
-  
+
   for (let i = sanitized.length - 1; i >= 0; i--) {
     let digit = Number.parseInt(sanitized[i] ?? '0', 10);
-    
+
     if (isEven) {
       digit *= 2;
       if (digit > 9) {
         digit -= 9;
       }
     }
-    
+
     sum += digit;
     isEven = !isEven;
   }
-  
+
   if (sum % 10 !== 0) {
     return { isValid: false, error: 'Invalid card number' };
   }
-  
+
   return { isValid: true };
 }
 
@@ -217,11 +217,11 @@ export function validateCreditCard(cardNumber: string): ValidationResult {
  */
 export function validateDate(date: string | Date): ValidationResult {
   const dateObj = date instanceof Date ? date : new Date(date);
-  
+
   if (Number.isNaN(dateObj.getTime())) {
     return { isValid: false, error: 'Invalid date' };
   }
-  
+
   return { isValid: true };
 }
 
@@ -233,12 +233,12 @@ export function validateFutureDate(date: string | Date): ValidationResult {
   if (!dateValidation.isValid) {
     return dateValidation;
   }
-  
+
   const dateObj = date instanceof Date ? date : new Date(date);
   if (dateObj <= new Date()) {
     return { isValid: false, error: 'Date must be in the future' };
   }
-  
+
   return { isValid: true };
 }
 
@@ -266,18 +266,21 @@ export function validateUsername(username: string): ValidationResult {
   if (!username) {
     return { isValid: false, error: 'Username is required' };
   }
-  
+
   if (username.length < 3) {
     return { isValid: false, error: 'Username must be at least 3 characters' };
   }
-  
+
   if (username.length > 20) {
     return { isValid: false, error: 'Username must be no more than 20 characters' };
   }
-  
+
   if (!/^[a-zA-Z0-9_-]+$/.test(username)) {
-    return { isValid: false, error: 'Username can only contain letters, numbers, hyphens, and underscores' };
+    return {
+      isValid: false,
+      error: 'Username can only contain letters, numbers, hyphens, and underscores',
+    };
   }
-  
+
   return { isValid: true };
 }

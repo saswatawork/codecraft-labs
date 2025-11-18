@@ -63,7 +63,7 @@ export async function retryOperation<T>(
   maxRetries = 3,
   delay = 1000,
 ): Promise<T> {
-  let lastError: Error;
+  let lastError: Error = new Error('Max retries exceeded');
 
   for (let i = 0; i < maxRetries; i++) {
     try {
@@ -78,16 +78,14 @@ export async function retryOperation<T>(
     }
   }
 
-  throw lastError!;
+  throw lastError;
 }
 
 /**
  * Safe async wrapper
  * Returns [error, data] tuple
  */
-export async function safeAsync<T>(
-  promise: Promise<T>,
-): Promise<[Error | null, T | null]> {
+export async function safeAsync<T>(promise: Promise<T>): Promise<[Error | null, T | null]> {
   try {
     const data = await promise;
     return [null, data];
@@ -130,14 +128,7 @@ export class ErrorBoundaryManager {
  * Check if error is recoverable
  */
 export function isRecoverableError(error: Error): boolean {
-  const recoverableErrors = [
-    'network',
-    'timeout',
-    'fetch',
-    'abort',
-    'ECONNREFUSED',
-    'ETIMEDOUT',
-  ];
+  const recoverableErrors = ['network', 'timeout', 'fetch', 'abort', 'ECONNREFUSED', 'ETIMEDOUT'];
 
   return recoverableErrors.some((keyword) =>
     error.message.toLowerCase().includes(keyword.toLowerCase()),
@@ -153,10 +144,10 @@ export function createContextualError(
   originalError?: Error,
 ): Error {
   const error = new Error(message);
-  
+
   // Add context as custom properties
   Object.assign(error, { context, originalError });
-  
+
   return error;
 }
 

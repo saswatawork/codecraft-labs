@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { Avatar } from '../components/Avatar';
+import { CompoundAvatar } from '../components/Avatar';
 import { Badge } from '../components/Badge';
 import { Button } from '../components/Button';
 import {
@@ -336,7 +336,7 @@ export const ECommerce: Story = {
           </svg>
           <Badge className="absolute -top-1 -right-1 h-4 w-4 p-0 text-xs">2</Badge>
         </Button>
-        <Avatar size="sm" />
+        <CompoundAvatar size="sm" fallback="U" />
       </div>
     ),
   },
@@ -381,11 +381,7 @@ export const Dashboard: Story = {
           </svg>
           <Badge className="absolute -top-1 -right-1 h-2 w-2 p-0 bg-red-500" />
         </Button>
-        <Avatar
-          src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop&crop=face"
-          fallback="JD"
-          size="sm"
-        />
+        <CompoundAvatar fallback="JD" size="sm" />
       </div>
     ),
   },

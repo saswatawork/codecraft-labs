@@ -30,9 +30,6 @@ const mockUsers = [
   },
 ] as const;
 
-// Helper to safely get user data
-const getUser = (index: number) => mockUsers[index] || mockUsers[0];
-
 const meta: Meta<typeof CompoundAvatar> = {
   title: 'Components/Avatar',
   component: CompoundAvatar,

@@ -445,6 +445,6 @@ export const Playground: Story = {
   args: {
     children: 'Playground Badge',
     variant: 'default',
-    size: 'default',
+    size: 'md',
   },
 };
