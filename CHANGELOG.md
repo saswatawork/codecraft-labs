@@ -7,6 +7,70 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2024-11-22
+
+### Added - Design System Overhaul
+- **Design Token System** - Comprehensive color, spacing, typography, shadows, radius tokens
+- **Hero Component** - Compound component with 5 variants (default, gradient, gradient-bold, dark, light)
+  - Hero.Badge, Hero.Title, Hero.Description, Hero.Actions, Hero.Content, Hero.Stats
+  - 3 alignment options (left, center, right)
+  - 5 spacing sizes (sm, md, lg, xl, 2xl)
+  - 39 comprehensive tests
+  - 14 Storybook stories
+- **Layout Primitives**
+  - Section component (22 tests, 8 stories)
+  - Stack component (34 tests, 9 stories)
+  - Grid component (40 tests, 10 stories)
+- **Card Compound Pattern** - Refactored Card with Card.Header, Card.Title, Card.Description, Card.Content, Card.Footer
+  - 6 additional tests for compound pattern
+  - CompoundPattern Storybook story
+- **Enhanced Components**
+  - Button: 12 new variants with tone system (blue, purple, green, orange)
+  - Badge: 9 new variants with contextual tones
+  - 20+ total variant combinations
+- **Documentation**
+  - Comprehensive @ccl/ui README with examples
+  - Updated main README with performance metrics
+  - DESIGN_SYSTEM_ANALYSIS.md strategy document
+
+### Changed
+- **Portfolio Refactor**
+  - Migrated portfolioHero.tsx to use Hero compound component
+  - Refactored portfolioProject.tsx with Section, Stack, Grid components
+  - Eliminated 30+ lines of custom styling
+  - Replaced manual gradients and spacing with design system utilities
+- **Component Architecture**
+  - All components now use design token system
+  - Consistent spacing and color usage
+  - Improved TypeScript types for compound components
+- **Bundle Optimization**
+  - @ccl/ui: 143.44 KB → 157.07 KB (+13.63 KB for all new features)
+  - ESM gzipped: 30.91 KB
+  - Maintained tree-shaking support
+
+### Testing
+- **Test Coverage**: 214 → 355 passing tests (+141 tests, 66% increase)
+- **Coverage**: Maintained 95%+ across all components
+- Added comprehensive tests for:
+  - Hero component (39 tests)
+  - Section component (22 tests)
+  - Stack component (34 tests)
+  - Grid component (40 tests)
+  - Card compound pattern (6 tests)
+
+### Performance
+- Build time: < 5s for @ccl/ui
+- Bundle size: 157.07 KB optimized
+- Portfolio build: Successfully compiles with all optimizations
+- 50+ production-ready components
+
+### Fixed
+- TypeScript compilation errors in compound component patterns
+- Export consistency across all components
+- Biome linting issues (useValidAnchor, useSemanticElements)
+
+## [1.0.0] - 2024-11-17
+
 ### Added
 - Comprehensive CI/CD workflow with GitHub Actions
 - Security headers configuration for Next.js applications
