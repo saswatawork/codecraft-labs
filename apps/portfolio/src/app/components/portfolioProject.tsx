@@ -1,16 +1,18 @@
-import { Badge, Container, ProjectCard, SectionHeading } from '@ccl/ui';
+import { Badge, Grid, ProjectCard, Section, SectionHeading, Stack } from '@ccl/ui';
 import { Clock, Code, Database, ExternalLink, Github, Globe, Server, Users } from 'lucide-react';
 
 export const PortfolioProject = () => {
   return (
-    <section
+    <Section
       id="projects"
-      className="py-20 md:py-24 lg:py-28 bg-linear-to-b from-gray-50 via-white to-blue-50/30"
+      spacing="2xl"
+      width="wide"
+      className="bg-gradient-to-b from-gray-50 via-white to-blue-50/30"
     >
-      <Container size="xl">
+      <Stack spacing="xl">
         <SectionHeading
           eyebrow={
-            <Badge className="bg-blue-100 text-blue-700 border-blue-300 px-5 py-2 text-sm font-bold shadow-sm">
+            <Badge variant="soft" tone="blue">
               Portfolio
             </Badge>
           }
@@ -26,7 +28,7 @@ export const PortfolioProject = () => {
           align="center"
         />
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 mb-16">
+        <Grid columns={2} gap="lg">
           {/* Featured Project 1 */}
           <ProjectCard
             heading="Enterprise Analytics Platform"
@@ -82,17 +84,17 @@ export const PortfolioProject = () => {
             secondaryAction={{ href: '#', icon: <Github className="h-4 w-4" /> }}
             className="shadow-lg hover:shadow-2xl"
           />
-        </div>
+        </Grid>
 
         {/* Section Divider */}
-        <div className="flex items-center gap-4 mb-12">
+        <div className="flex items-center gap-4">
           <div className="flex-1 h-px bg-linear-to-r from-transparent via-gray-300 to-transparent" />
           <h3 className="text-lg font-bold text-gray-700">More Projects</h3>
           <div className="flex-1 h-px bg-linear-to-r from-transparent via-gray-300 to-transparent" />
         </div>
 
         {/* Additional Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+        <Grid columns={3} gap="lg">
           <ProjectCard
             heading="Developer CLI Tool"
             gradient="bg-linear-to-br from-orange-500 to-red-500"
@@ -135,8 +137,8 @@ export const PortfolioProject = () => {
             secondaryAction={{ href: '#', icon: <Github className="h-4 w-4" /> }}
             className="text-sm"
           />
-        </div>
-      </Container>
-    </section>
+        </Grid>
+      </Stack>
+    </Section>
   );
 };
