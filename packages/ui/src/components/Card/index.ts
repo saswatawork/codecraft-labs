@@ -1,5 +1,10 @@
+// Compound component pattern (recommended)
+export { CardRoot as Card } from './Card';
+export { default } from './Card';
+
+// Individual components (backward compatibility)
 export {
-  Card,
+  Card as CardBase,
   CardHeader,
   CardTitle,
   CardDescription,

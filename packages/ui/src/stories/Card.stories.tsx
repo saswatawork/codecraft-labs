@@ -449,3 +449,64 @@ export const Playground: Story = {
     </Card>
   ),
 };
+
+/**
+ * Compound Component Pattern
+ * Demonstrates the new Card.Header, Card.Title, etc. syntax
+ */
+export const CompoundPattern: Story = {
+  args: {
+    variant: 'default',
+    className: 'w-80',
+  },
+  render: () => (
+    <div className="space-y-6">
+      <Card className="w-80">
+        <Card.Header>
+          <Card.Title>Compound Pattern</Card.Title>
+          <Card.Description>Using Card.Header, Card.Title syntax</Card.Description>
+        </Card.Header>
+        <Card.Content>
+          <p className="text-sm text-gray-600">
+            This demonstrates the new compound component pattern similar to Radix UI components.
+          </p>
+        </Card.Content>
+        <Card.Footer>
+          <Button>Try it out</Button>
+        </Card.Footer>
+      </Card>
+
+      <Card variant="elevated" className="w-80">
+        <Card.Header>
+          <Card.Title as="h2">Elevated Card</Card.Title>
+          <Card.Description>With compound component pattern</Card.Description>
+        </Card.Header>
+        <Card.Content>
+          <div className="space-y-2">
+            <div className="flex items-center gap-2 text-sm">
+              <UserIcon />
+              <span>User Profile</span>
+            </div>
+            <div className="flex items-center gap-2 text-sm">
+              <StarIcon />
+              <span>Featured Item</span>
+            </div>
+          </div>
+        </Card.Content>
+        <Card.Footer className="justify-between">
+          <Button>View</Button>
+          <Button>Edit</Button>
+        </Card.Footer>
+      </Card>
+
+      <Card variant="outlined" className="w-80">
+        <Card.Header>
+          <Card.Title>Outlined Style</Card.Title>
+        </Card.Header>
+        <Card.Content>
+          <p className="text-sm">Clean and minimal compound card.</p>
+        </Card.Content>
+      </Card>
+    </div>
+  ),
+};

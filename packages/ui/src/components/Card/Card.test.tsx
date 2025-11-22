@@ -364,4 +364,82 @@ describe('Card Component', () => {
       expect(screen.getByRole('heading', { level: 3, name: /sub card/i })).toBeInTheDocument();
     });
   });
+
+  describe('Compound Component Pattern', () => {
+    it('supports Card.Header notation', () => {
+      const CardCompound = Card as typeof Card & { Header: typeof CardHeader };
+      render(
+        <CardCompound data-testid="card">
+          <CardCompound.Header>
+            <h3>Compound Header</h3>
+          </CardCompound.Header>
+        </CardCompound>,
+      );
+      expect(screen.getByText('Compound Header')).toBeInTheDocument();
+    });
+
+    it('supports Card.Title notation', () => {
+      const CardCompound = Card as typeof Card & { Title: typeof CardTitle };
+      render(
+        <CardCompound>
+          <CardCompound.Title>Compound Title</CardCompound.Title>
+        </CardCompound>,
+      );
+      expect(screen.getByRole('heading', { name: /compound title/i })).toBeInTheDocument();
+    });
+
+    it('supports Card.Description notation', () => {
+      const CardCompound = Card as typeof Card & { Description: typeof CardDescription };
+      render(
+        <CardCompound>
+          <CardCompound.Description>Compound Description</CardCompound.Description>
+        </CardCompound>,
+      );
+      expect(screen.getByText('Compound Description')).toBeInTheDocument();
+    });
+
+    it('supports Card.Content notation', () => {
+      const CardCompound = Card as typeof Card & { Content: typeof CardContent };
+      render(
+        <CardCompound>
+          <CardCompound.Content>Compound Content</CardCompound.Content>
+        </CardCompound>,
+      );
+      expect(screen.getByText('Compound Content')).toBeInTheDocument();
+    });
+
+    it('supports Card.Footer notation', () => {
+      const CardCompound = Card as typeof Card & { Footer: typeof CardFooter };
+      render(
+        <CardCompound>
+          <CardCompound.Footer>Compound Footer</CardCompound.Footer>
+        </CardCompound>,
+      );
+      expect(screen.getByText('Compound Footer')).toBeInTheDocument();
+    });
+
+    it('supports full compound composition', () => {
+      const CardCompound = Card as typeof Card & {
+        Header: typeof CardHeader;
+        Title: typeof CardTitle;
+        Description: typeof CardDescription;
+        Content: typeof CardContent;
+        Footer: typeof CardFooter;
+      };
+      render(
+        <CardCompound data-testid="card">
+          <CardCompound.Header>
+            <CardCompound.Title>Full Card</CardCompound.Title>
+            <CardCompound.Description>Card description</CardCompound.Description>
+          </CardCompound.Header>
+          <CardCompound.Content>Card content</CardCompound.Content>
+          <CardCompound.Footer>Card footer</CardCompound.Footer>
+        </CardCompound>,
+      );
+      expect(screen.getByRole('heading', { name: /full card/i })).toBeInTheDocument();
+      expect(screen.getByText('Card description')).toBeInTheDocument();
+      expect(screen.getByText('Card content')).toBeInTheDocument();
+      expect(screen.getByText('Card footer')).toBeInTheDocument();
+    });
+  });
 });

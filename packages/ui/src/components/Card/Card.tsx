@@ -138,4 +138,26 @@ const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps>(
 
 CardFooter.displayName = 'CardFooter';
 
+/**
+ * CardRoot with compound component pattern
+ * Provides Card.Header, Card.Title, Card.Description, Card.Content, Card.Footer
+ */
+export const CardRoot = Object.assign(Card, {
+  Header: CardHeader,
+  Title: CardTitle,
+  Description: CardDescription,
+  Content: CardContent,
+  Footer: CardFooter,
+}) as typeof Card & {
+  Header: typeof CardHeader;
+  Title: typeof CardTitle;
+  Description: typeof CardDescription;
+  Content: typeof CardContent;
+  Footer: typeof CardFooter;
+};
+
+// Keep backward compatibility - export individual components
 export { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter };
+
+// Export as default for compound usage
+export default CardRoot;
