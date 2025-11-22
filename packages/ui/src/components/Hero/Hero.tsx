@@ -116,7 +116,7 @@ const HeroBadge = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivE
       <div
         ref={ref}
         className={cn(
-          'inline-block px-4 py-1.5 text-xs md:text-sm font-semibold rounded-full',
+          'inline-block px-4 py-1.5 text-xs md:text-sm font-semibold rounded-full shadow-sm',
           'bg-blue-100 text-blue-800 border border-blue-200',
           className,
         )}

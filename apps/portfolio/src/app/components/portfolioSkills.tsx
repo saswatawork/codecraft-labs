@@ -3,7 +3,7 @@ import { Code, Database, Server } from 'lucide-react';
 
 export const PortfolioSkills = () => {
   return (
-    <section className="bg-linear-to-b from-gray-50 to-white py-12 md:py-16 lg:py-20">
+    <section className="bg-gradient-to-b from-gray-50 to-white py-12 md:py-16 lg:py-20">
       <Container size="xl">
         <SectionHeading
           eyebrow={

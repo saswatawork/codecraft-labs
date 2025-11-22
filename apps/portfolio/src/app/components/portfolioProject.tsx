@@ -19,7 +19,7 @@ export const PortfolioProject = () => {
           heading={
             <span className="text-gray-900">
               Featured{' '}
-              <span className="bg-linear-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
                 Projects
               </span>
             </span>
@@ -88,16 +88,16 @@ export const PortfolioProject = () => {
 
         {/* Section Divider */}
         <div className="flex items-center gap-4">
-          <div className="flex-1 h-px bg-linear-to-r from-transparent via-gray-300 to-transparent" />
+          <div className="flex-1 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent" />
           <h3 className="text-lg font-bold text-gray-700">More Projects</h3>
-          <div className="flex-1 h-px bg-linear-to-r from-transparent via-gray-300 to-transparent" />
+          <div className="flex-1 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent" />
         </div>
 
         {/* Additional Projects Grid */}
         <Grid columns={3} gap="lg">
           <ProjectCard
             heading="Developer CLI Tool"
-            gradient="bg-linear-to-br from-orange-500 to-red-500"
+            gradient="bg-gradient-to-br from-orange-500 to-red-500"
             icon={<Server className="h-12 w-12 text-white opacity-80" />}
             description="Open-source CLI reducing deployment time by 60%"
             tech={['Go', 'Cobra', 'Docker']}
@@ -111,7 +111,7 @@ export const PortfolioProject = () => {
           />
           <ProjectCard
             heading="Real-time Chat App"
-            gradient="bg-linear-to-br from-purple-500 to-pink-500"
+            gradient="bg-gradient-to-br from-purple-500 to-pink-500"
             icon={<Users className="h-12 w-12 text-white opacity-80" />}
             description="WebSocket-based chat supporting 10K concurrent users"
             tech={['Socket.io', 'React', 'MongoDB']}
@@ -125,7 +125,7 @@ export const PortfolioProject = () => {
           />
           <ProjectCard
             heading="Data Visualization Tool"
-            gradient="bg-linear-to-br from-cyan-500 to-blue-500"
+            gradient="bg-gradient-to-br from-cyan-500 to-blue-500"
             icon={<Database className="h-12 w-12 text-white opacity-80" />}
             description="Interactive dashboards for complex dataset analysis"
             tech={['D3.js', 'Python', 'FastAPI']}

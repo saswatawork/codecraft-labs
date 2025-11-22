@@ -5,17 +5,17 @@ export const PortfolioAbout = () => {
   return (
     <section
       id="about"
-      className="bg-linear-to-b from-white via-gray-50/50 to-white py-12 md:py-16 lg:py-20"
+      className="bg-gradient-to-b from-white via-gray-50/50 to-white py-12 md:py-16 lg:py-20"
     >
       <Container size="xl">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           <div className="space-y-4 md:space-y-6">
-            <Badge className="bg-blue-50 text-blue-700 border-blue-200 px-4 py-1.5 text-sm font-semibold shadow-subtle">
+            <Badge className="bg-blue-50 text-blue-700 border-blue-200 px-4 py-1.5 text-sm font-semibold shadow-sm">
               About Me
             </Badge>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-black leading-tight text-gray-900 text-balance">
               Building digital products that{' '}
-              <span className="bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 matter
               </span>
             </h2>
@@ -62,7 +62,7 @@ export const PortfolioAbout = () => {
             </div>
           </div>
           <div className="relative lg:order-first">
-            <div className="absolute inset-0 bg-linear-to-br from-blue-500/10 to-purple-500/10 rounded-3xl transform rotate-3" />
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-3xl transform rotate-3" />
             <div className="relative">
               <CompoundAvatar
                 src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600&h=600&fit=crop&crop=face"

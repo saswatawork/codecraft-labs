@@ -8,7 +8,7 @@ export const PortfolioHero = () => {
 
       <Hero.Title className="text-gray-900">
         Crafting scalable solutions for{' '}
-        <span className="bg-linear-to-r from-blue-600 via-purple-600 to-blue-700 bg-clip-text text-transparent">
+        <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 bg-clip-text text-transparent">
           modern web
         </span>
       </Hero.Title>

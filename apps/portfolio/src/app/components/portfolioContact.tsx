@@ -14,7 +14,7 @@ export const PortfolioContact = () => {
   return (
     <section
       id="contact"
-      className="py-12 md:py-16 lg:py-20 bg-linear-to-br from-gray-900 to-blue-900 text-white"
+      className="py-12 md:py-16 lg:py-20 bg-gradient-to-br from-gray-900 to-blue-900 text-white"
     >
       <Container>
         <SectionHeading
