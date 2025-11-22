@@ -19,6 +19,9 @@ export * from './Section';
 export * from './Stack';
 export * from './Grid';
 
+// Composition components
+export * from './Hero';
+
 // Re-exports for convenience (default exports)
 export { default as Button } from './Button';
 export { default as Input } from './Input';
@@ -30,3 +33,4 @@ export { default as ProjectCard } from './ProjectCard';
 export { default as Section } from './Section';
 export { default as Stack } from './Stack';
 export { default as Grid } from './Grid';
+export { Hero } from './Hero';
