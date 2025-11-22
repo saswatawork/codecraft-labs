@@ -17,6 +17,7 @@ export * from './ErrorBoundary';
 // Layout primitives
 export * from './Section';
 export * from './Stack';
+export * from './Grid';
 
 // Re-exports for convenience (default exports)
 export { default as Button } from './Button';
@@ -28,3 +29,4 @@ export { default as Stat } from './Stat';
 export { default as ProjectCard } from './ProjectCard';
 export { default as Section } from './Section';
 export { default as Stack } from './Stack';
+export { default as Grid } from './Grid';
