@@ -63,11 +63,19 @@ const Spinner: React.FC<{ className?: string }> = ({ className }) => (
  * // Basic button
  * <Button>Click me</Button>
  *
- * // Button as link
- * <Button as="a" href="/login">Login</Button>
- *
  * // Button with variants
- * <Button variant="secondary" size="lg">Large Secondary</Button>
+ * <Button variant="primary">Primary</Button>
+ * <Button variant="soft">Soft</Button>
+ * <Button variant="outline-primary">Outlined</Button>
+ * <Button variant="ghost-primary">Ghost</Button>
+ *
+ * // Button with tone colors
+ * <Button tone="blue">Blue Button</Button>
+ * <Button variant="soft" tone="purple">Purple Soft</Button>
+ *
+ * // Button with sizes
+ * <Button size="xs">Extra Small</Button>
+ * <Button size="lg">Large</Button>
  *
  * // Button with loading state
  * <Button loading>Processing...</Button>
@@ -76,6 +84,9 @@ const Spinner: React.FC<{ className?: string }> = ({ className }) => (
  * <Button leftIcon={<Icon />} rightIcon={<ArrowIcon />}>
  *   With Icons
  * </Button>
+ *
+ * // Button as link
+ * <Button as="a" href="/login">Login</Button>
  * ```
  */
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -84,6 +95,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       className,
       variant = 'default',
       size = 'default',
+      tone,
       asChild = false,
       loading = false,
       leftIcon,
@@ -107,6 +119,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             buttonVariants({
               variant: variant as any,
               size: size as any,
+              tone: tone as any,
             }),
             className,
           )}
@@ -128,6 +141,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           buttonVariants({
             variant: variant as any,
             size: size as any,
+            tone: tone as any,
           }),
           className,
         )}
@@ -135,16 +149,16 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
         {/* Loading spinner */}
-        {loading && <Spinner className="mr-2" />}
+        {loading && <Spinner />}
 
         {/* Left icon */}
-        {leftIcon && !loading && <span className="mr-2 flex-shrink-0">{leftIcon}</span>}
+        {leftIcon && !loading && <span className="flex-shrink-0">{leftIcon}</span>}
 
         {/* Button content */}
         {children}
 
         {/* Right icon */}
-        {rightIcon && <span className="ml-2 flex-shrink-0">{rightIcon}</span>}
+        {rightIcon && <span className="flex-shrink-0">{rightIcon}</span>}
       </ButtonComponent>
     );
   },

@@ -55,7 +55,13 @@ const BadgeDot: React.FC<{ className?: string }> = ({ className }) => (
  *
  * // Badge with variants
  * <Badge variant="success">Active</Badge>
+ * <Badge variant="soft">Soft Badge</Badge>
+ * <Badge variant="outline-primary">Outlined</Badge>
  * <Badge variant="destructive" size="lg">Error</Badge>
+ *
+ * // Badge with tone colors
+ * <Badge tone="blue">Blue Badge</Badge>
+ * <Badge variant="soft" tone="purple">Purple Soft</Badge>
  *
  * // Badge with icons
  * <Badge leftIcon={<CheckIcon />}>Verified</Badge>
@@ -82,6 +88,7 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
       className,
       variant = 'default',
       size = 'md',
+      tone,
       leftIcon,
       rightIcon,
       dot = false,
@@ -103,6 +110,7 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
           badgeVariants({
             variant: variant as any,
             size: size as any,
+            tone: tone as any,
           }),
           interactive && 'cursor-pointer hover:opacity-80 active:opacity-90',
           loading && 'animate-pulse',

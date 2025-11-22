@@ -80,13 +80,34 @@ import { Badge } from '@ccl/ui'
   argTypes: {
     variant: {
       control: { type: 'select' },
-      options: ['default', 'secondary', 'destructive', 'outline'],
+      options: [
+        'default',
+        'secondary',
+        'destructive',
+        'success',
+        'warning',
+        'info',
+        'soft',
+        'soft-secondary',
+        'soft-destructive',
+        'soft-success',
+        'soft-warning',
+        'soft-info',
+        'outline',
+        'outline-primary',
+        'outline-destructive',
+      ],
       description: 'The visual style of the badge',
     },
     size: {
       control: { type: 'select' },
-      options: ['sm', 'default'],
+      options: ['sm', 'md', 'lg'],
       description: 'The size of the badge',
+    },
+    tone: {
+      control: { type: 'select' },
+      options: ['default', 'blue', 'purple', 'green', 'orange'],
+      description: 'Contextual tone color for the badge',
     },
     dot: {
       control: { type: 'boolean' },
@@ -220,39 +241,99 @@ export const WithIcons: Story = {
 // All Variants Overview
 export const AllVariants: Story = {
   render: () => (
-    <div className="space-y-4">
-      <div className="space-y-2">
-        <h3 className="text-sm font-medium">Text Badges</h3>
+    <div className="space-y-6">
+      <div>
+        <h3 className="text-sm font-medium mb-3 text-gray-600">Solid Variants</h3>
         <div className="flex flex-wrap gap-2">
           <Badge>Default</Badge>
           <Badge variant="secondary">Secondary</Badge>
           <Badge variant="destructive">Destructive</Badge>
-          <Badge variant="outline">Outline</Badge>
+          <Badge variant="success">Success</Badge>
+          <Badge variant="warning">Warning</Badge>
+          <Badge variant="info">Info</Badge>
         </div>
       </div>
 
-      <div className="space-y-2">
-        <h3 className="text-sm font-medium">Dot Indicators</h3>
+      <div>
+        <h3 className="text-sm font-medium mb-3 text-gray-600">Soft Variants</h3>
         <div className="flex flex-wrap gap-2">
-          <Badge dot />
-          <Badge dot variant="secondary" />
-          <Badge dot variant="destructive" />
-          <Badge dot variant="outline" />
+          <Badge variant="soft">Soft Primary</Badge>
+          <Badge variant="soft-secondary">Soft Secondary</Badge>
+          <Badge variant="soft-destructive">Soft Destructive</Badge>
+          <Badge variant="soft-success">Soft Success</Badge>
+          <Badge variant="soft-warning">Soft Warning</Badge>
+          <Badge variant="soft-info">Soft Info</Badge>
         </div>
       </div>
 
-      <div className="space-y-2">
-        <h3 className="text-sm font-medium">Interactive Badges</h3>
+      <div>
+        <h3 className="text-sm font-medium mb-3 text-gray-600">Outline Variants</h3>
+        <div className="flex flex-wrap gap-2">
+          <Badge variant="outline">Outline</Badge>
+          <Badge variant="outline-primary">Outline Primary</Badge>
+          <Badge variant="outline-destructive">Outline Destructive</Badge>
+        </div>
+      </div>
+
+      <div>
+        <h3 className="text-sm font-medium mb-3 text-gray-600">Dot Indicators</h3>
+        <div className="flex flex-wrap gap-2">
+          <Badge dot>Online</Badge>
+          <Badge dot variant="soft-success">
+            Active
+          </Badge>
+          <Badge dot variant="soft-warning">
+            Away
+          </Badge>
+          <Badge dot variant="soft-destructive">
+            Offline
+          </Badge>
+        </div>
+      </div>
+
+      <div>
+        <h3 className="text-sm font-medium mb-3 text-gray-600">Interactive Badges</h3>
         <div className="flex flex-wrap gap-2">
           <Badge interactive>Hoverable</Badge>
-          <Badge interactive variant="secondary">
-            Hoverable
+          <Badge interactive variant="soft">
+            Hoverable Soft
           </Badge>
-          <Badge interactive variant="destructive">
-            Hoverable
+          <Badge interactive variant="outline-primary">
+            Hoverable Outline
           </Badge>
-          <Badge interactive variant="outline">
-            Hoverable
+        </div>
+      </div>
+    </div>
+  ),
+};
+
+export const ToneVariations: Story = {
+  render: () => (
+    <div className="space-y-6">
+      <div>
+        <h3 className="text-sm font-medium mb-3 text-gray-600">Solid with Tones</h3>
+        <div className="flex flex-wrap gap-2">
+          <Badge tone="blue">Blue</Badge>
+          <Badge tone="purple">Purple</Badge>
+          <Badge tone="green">Green</Badge>
+          <Badge tone="orange">Orange</Badge>
+        </div>
+      </div>
+
+      <div>
+        <h3 className="text-sm font-medium mb-3 text-gray-600">Soft with Tones</h3>
+        <div className="flex flex-wrap gap-2">
+          <Badge variant="soft" tone="blue">
+            Soft Blue
+          </Badge>
+          <Badge variant="soft" tone="purple">
+            Soft Purple
+          </Badge>
+          <Badge variant="soft" tone="green">
+            Soft Green
+          </Badge>
+          <Badge variant="soft" tone="orange">
+            Soft Orange
           </Badge>
         </div>
       </div>

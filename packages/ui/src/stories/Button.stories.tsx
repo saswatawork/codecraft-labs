@@ -51,17 +51,34 @@ Built with TypeScript, Tailwind CSS, and Radix UI for maximum flexibility and ac
         'secondary',
         'destructive',
         'outline',
+        'outline-primary',
+        'outline-destructive',
         'ghost',
+        'ghost-primary',
+        'ghost-destructive',
+        'ghost-success',
+        'soft',
+        'soft-secondary',
+        'soft-destructive',
+        'soft-success',
+        'soft-warning',
+        'soft-info',
         'link',
         'success',
         'warning',
+        'info',
       ],
       description: 'The visual style variant of the button',
     },
     size: {
       control: { type: 'select' },
-      options: ['sm', 'default', 'lg', 'xl', 'icon'],
+      options: ['xs', 'sm', 'default', 'md', 'lg', 'xl', 'icon', 'icon-sm', 'icon-lg'],
       description: 'The size of the button',
+    },
+    tone: {
+      control: { type: 'select' },
+      options: ['default', 'blue', 'purple', 'green', 'orange'],
+      description: 'Contextual tone color for the button',
     },
     loading: {
       control: { type: 'boolean' },
@@ -199,15 +216,88 @@ export const Disabled: Story = {
 // Interactive examples
 export const AllVariants: Story = {
   render: () => (
-    <div className="grid grid-cols-2 gap-4 max-w-md">
-      <Button variant="primary">Primary</Button>
-      <Button variant="secondary">Secondary</Button>
-      <Button variant="destructive">Destructive</Button>
-      <Button variant="outline">Outline</Button>
-      <Button variant="ghost">Ghost</Button>
-      <Button variant="link">Link</Button>
-      <Button variant="success">Success</Button>
-      <Button variant="warning">Warning</Button>
+    <div className="space-y-8">
+      <div>
+        <h3 className="text-sm font-medium mb-3 text-gray-600">Solid Variants</h3>
+        <div className="grid grid-cols-2 gap-3 max-w-md">
+          <Button variant="primary">Primary</Button>
+          <Button variant="secondary">Secondary</Button>
+          <Button variant="destructive">Destructive</Button>
+          <Button variant="success">Success</Button>
+          <Button variant="warning">Warning</Button>
+          <Button variant="info">Info</Button>
+        </div>
+      </div>
+
+      <div>
+        <h3 className="text-sm font-medium mb-3 text-gray-600">Soft Variants</h3>
+        <div className="grid grid-cols-2 gap-3 max-w-md">
+          <Button variant="soft">Soft Primary</Button>
+          <Button variant="soft-secondary">Soft Secondary</Button>
+          <Button variant="soft-destructive">Soft Destructive</Button>
+          <Button variant="soft-success">Soft Success</Button>
+          <Button variant="soft-warning">Soft Warning</Button>
+          <Button variant="soft-info">Soft Info</Button>
+        </div>
+      </div>
+
+      <div>
+        <h3 className="text-sm font-medium mb-3 text-gray-600">Outline Variants</h3>
+        <div className="grid grid-cols-2 gap-3 max-w-md">
+          <Button variant="outline">Outline</Button>
+          <Button variant="outline-primary">Outline Primary</Button>
+          <Button variant="outline-destructive">Outline Destructive</Button>
+        </div>
+      </div>
+
+      <div>
+        <h3 className="text-sm font-medium mb-3 text-gray-600">Ghost Variants</h3>
+        <div className="grid grid-cols-2 gap-3 max-w-md">
+          <Button variant="ghost">Ghost</Button>
+          <Button variant="ghost-primary">Ghost Primary</Button>
+          <Button variant="ghost-destructive">Ghost Destructive</Button>
+          <Button variant="ghost-success">Ghost Success</Button>
+        </div>
+      </div>
+
+      <div>
+        <h3 className="text-sm font-medium mb-3 text-gray-600">Link Variant</h3>
+        <Button variant="link">Link Button</Button>
+      </div>
+    </div>
+  ),
+};
+
+export const ToneVariations: Story = {
+  render: () => (
+    <div className="space-y-6">
+      <div>
+        <h3 className="text-sm font-medium mb-3 text-gray-600">Solid with Tones</h3>
+        <div className="flex gap-3 flex-wrap">
+          <Button tone="blue">Blue</Button>
+          <Button tone="purple">Purple</Button>
+          <Button tone="green">Green</Button>
+          <Button tone="orange">Orange</Button>
+        </div>
+      </div>
+
+      <div>
+        <h3 className="text-sm font-medium mb-3 text-gray-600">Soft with Tones</h3>
+        <div className="flex gap-3 flex-wrap">
+          <Button variant="soft" tone="blue">
+            Soft Blue
+          </Button>
+          <Button variant="soft" tone="purple">
+            Soft Purple
+          </Button>
+          <Button variant="soft" tone="green">
+            Soft Green
+          </Button>
+          <Button variant="soft" tone="orange">
+            Soft Orange
+          </Button>
+        </div>
+      </div>
     </div>
   ),
 };
