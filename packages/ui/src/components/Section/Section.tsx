@@ -5,7 +5,7 @@ import { cn } from '../../utils';
 
 /**
  * Section component variants using CVA
- * Provides consistent spacing and container widths for page sections
+ * Provides consistent spacing, container widths, and background variants for page sections
  */
 const sectionVariants = cva('w-full', {
   variants: {
@@ -25,10 +25,21 @@ const sectionVariants = cva('w-full', {
       wide: 'mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl',
       ultra: 'mx-auto px-4 sm:px-6 lg:px-8 max-w-[1920px]',
     },
+    variant: {
+      default: '',
+      light: 'bg-white dark:bg-gray-900',
+      'light-gray': 'bg-gray-50 dark:bg-gray-800',
+      'gradient-light':
+        'bg-gradient-to-b from-gray-50 to-white dark:from-gray-800 dark:to-gray-900',
+      'gradient-dark': 'bg-gradient-to-br from-gray-900 to-blue-900 text-white',
+      'gradient-purple': 'bg-gradient-to-br from-purple-900 to-indigo-900 text-white',
+      dark: 'bg-gray-900 text-white dark:bg-black',
+    },
   },
   defaultVariants: {
     spacing: 'lg',
     width: 'wide',
+    variant: 'default',
   },
 });
 
@@ -82,7 +93,7 @@ export interface SectionProps
  * ```
  */
 export const Section = React.forwardRef<HTMLElement, SectionProps>(
-  ({ className, spacing, width, as: Component = 'section', children, ...props }, ref) => {
+  ({ className, spacing, width, variant, as: Component = 'section', children, ...props }, ref) => {
     const SectionComponent = Component as any;
 
     return (
@@ -92,6 +103,7 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
           sectionVariants({
             spacing,
             width,
+            variant,
           }),
           className,
         )}

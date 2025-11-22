@@ -14,13 +14,25 @@ export * from './Stat';
 export * from './ProjectCard';
 export * from './ErrorBoundary';
 
+// Typography
+export * from './Heading';
+export * from './Text';
+
 // Layout primitives
 export * from './Section';
 export * from './Stack';
 export * from './Grid';
+export * from './Divider';
+export * from './IconBox';
 
 // Composition components
 export * from './Hero';
+
+// Specialized Cards
+export * from './SkillCard';
+export * from './TestimonialCard';
+export * from './ContactCard';
+export * from './Rating';
 
 // Re-exports for convenience (default exports)
 export { default as Button } from './Button';

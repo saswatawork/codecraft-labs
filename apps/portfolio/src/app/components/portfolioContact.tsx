@@ -1,116 +1,106 @@
-import {
-  Badge,
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  Container,
-  SectionHeading,
-} from '@ccl/ui';
+import { Badge, Button, ContactCard, Heading, Section, Stack, Text } from '@ccl/ui';
 import { Calendar, Download, Linkedin, Mail, MapPin } from 'lucide-react';
 
 export const PortfolioContact = () => {
   return (
-    <section
-      id="contact"
-      className="py-12 md:py-16 lg:py-20 bg-gradient-to-br from-gray-900 to-blue-900 text-white"
-    >
-      <Container>
-        <SectionHeading
-          eyebrow={<Badge className="bg-white/20 text-white border-white/30">Let's Connect</Badge>}
-          heading="Ready to Start Your Project?"
-          subtitle={
-            <span className="text-gray-300">
-              I'm always excited to tackle challenging problems and create impactful solutions.
-              Let's discuss how I can help bring your vision to life.
-            </span>
-          }
-          align="center"
-        />
+    <Section id="contact" variant="gradient-dark" spacing="2xl">
+      <Stack spacing="2xl">
+        <Stack spacing="md" align="center">
+          <Badge
+            variant="soft"
+            tone="blue"
+            className="text-sm bg-blue-500/20 text-blue-200 border-blue-400/30"
+          >
+            Let's Connect
+          </Badge>
+          <Heading
+            level={2}
+            align="center"
+            weight="extrabold"
+            className="text-3xl md:text-4xl lg:text-5xl text-white"
+          >
+            Ready to Start Your Project?
+          </Heading>
+          <Text
+            size="xl"
+            align="center"
+            className="text-gray-200 max-w-3xl mx-auto leading-relaxed"
+          >
+            I'm always excited to tackle challenging problems and create impactful solutions. Let's
+            discuss how I can help bring your vision to life.
+          </Text>
+        </Stack>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-8">
-          <Card className="bg-white/10 border-white/20 text-white hover:bg-white/20 transition-colors">
-            <CardHeader className="text-center pb-4">
-              <Mail className="h-8 w-8 mx-auto mb-3 text-blue-300" />
-              <CardTitle className="text-lg">Email</CardTitle>
-            </CardHeader>
-            <CardContent className="text-center">
-              <p className="text-gray-300 mb-4">Drop me a line</p>
-              <Button
-                variant="outline"
-                size="sm"
-                className="border-white/30 text-white hover:bg-white hover:text-gray-900 transition-colors"
-                asChild
-              >
-                <a href="mailto:saswata.career@gmail.com">Send Email</a>
-              </Button>
-            </CardContent>
-          </Card>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 pt-4">
+          <ContactCard
+            icon={<Mail className="h-8 w-8" />}
+            title="Email"
+            description="Drop me a line"
+            action={{
+              label: 'Send Email',
+              href: 'mailto:saswata.career@gmail.com',
+            }}
+            tone="blue"
+            className="bg-white/10 backdrop-blur-sm border-white/30 hover:bg-white/20 hover:border-white/40 text-white transition-all"
+          />
 
-          <Card className="bg-white/10 border-white/20 text-white hover:bg-white/20 transition-colors">
-            <CardHeader className="text-center pb-4">
-              <Calendar className="h-8 w-8 mx-auto mb-3 text-green-300" />
-              <CardTitle className="text-lg">Schedule Call</CardTitle>
-            </CardHeader>
-            <CardContent className="text-center">
-              <p className="text-gray-300 mb-4">Book a meeting</p>
-              <Button
-                variant="outline"
-                size="sm"
-                className="border-white/30 text-white hover:bg-white hover:text-gray-900"
-                asChild
-              >
-                <a href="https://cal.com" target="_blank" rel="noopener noreferrer">
-                  Book Now
-                </a>
-              </Button>
-            </CardContent>
-          </Card>
+          <ContactCard
+            icon={<Calendar className="h-8 w-8" />}
+            title="Schedule Call"
+            description="Book a meeting"
+            action={{
+              label: 'Book Now',
+              href: 'https://cal.com',
+            }}
+            tone="green"
+            className="bg-white/10 backdrop-blur-sm border-white/30 hover:bg-white/20 hover:border-white/40 text-white transition-all"
+          />
 
-          <Card className="bg-white/10 border-white/20 text-white hover:bg-white/20 transition-colors">
-            <CardHeader className="text-center pb-4">
-              <Linkedin className="h-8 w-8 mx-auto mb-3 text-blue-400" />
-              <CardTitle className="text-lg">LinkedIn</CardTitle>
-            </CardHeader>
-            <CardContent className="text-center">
-              <p className="text-gray-300 mb-4">Professional network</p>
-              <Button
-                variant="outline"
-                size="sm"
-                className="border-white/30 text-white hover:bg-white hover:text-gray-900"
-                asChild
-              >
-                <a
-                  href="https://linkedin.com/in/saswata-pal"
-                  target="_blank"
-                  rel="noopener noreferrer"
+          <ContactCard
+            icon={<Linkedin className="h-8 w-8" />}
+            title="LinkedIn"
+            description="Professional network"
+            action={{
+              label: 'Connect',
+              href: 'https://linkedin.com/in/saswata-pal',
+            }}
+            tone="blue"
+            className="bg-white/10 backdrop-blur-sm border-white/30 hover:bg-white/20 hover:border-white/40 text-white transition-all"
+          />
+
+          <div className="p-6 rounded-lg border border-white/30 bg-white/10 backdrop-blur-sm hover:bg-white/20 hover:border-white/40 transition-all">
+            <Stack spacing="md" align="center">
+              <div className="h-12 w-12 rounded-lg bg-purple-500/30 flex items-center justify-center">
+                <MapPin className="h-8 w-8 text-purple-200" />
+              </div>
+              <Stack spacing="xs" align="center">
+                <Heading
+                  level={3}
+                  size="lg"
+                  weight="semibold"
+                  align="center"
+                  className="text-white"
                 >
-                  Connect
-                </a>
-              </Button>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-white/10 border-white/20 text-white hover:bg-white/20 transition-colors">
-            <CardHeader className="text-center pb-4">
-              <MapPin className="h-8 w-8 mx-auto mb-3 text-purple-300" />
-              <CardTitle className="text-lg">Location</CardTitle>
-            </CardHeader>
-            <CardContent className="text-center">
-              <p className="text-gray-300 mb-4">Remote worldwide</p>
-              <div className="text-sm text-green-400 font-medium">Available 24/7</div>
-            </CardContent>
-          </Card>
+                  Location
+                </Heading>
+                <Text size="sm" align="center" className="text-gray-200">
+                  Remote worldwide
+                </Text>
+              </Stack>
+              <Text size="sm" weight="semibold" className="text-green-300">
+                Available 24/7
+              </Text>
+            </Stack>
+          </div>
         </div>
 
-        <div className="text-center">
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+        <Stack spacing="lg" align="center">
+          <div className="flex flex-col sm:flex-row gap-4 pt-4">
             <Button
               size="lg"
               variant="primary"
-              leftIcon={<Mail className="h-4 w-4" />}
-              className="shadow-strong font-semibold"
+              leftIcon={<Mail className="h-5 w-5" />}
+              className="text-base font-semibold px-8 py-6"
               asChild
             >
               <a href="mailto:saswata.career@gmail.com">Start a Project</a>
@@ -118,16 +108,18 @@ export const PortfolioContact = () => {
             <Button
               size="lg"
               variant="outline"
-              leftIcon={<Download className="h-4 w-4" />}
-              className="border-white/30 text-white hover:bg-white hover:text-gray-900 transition-all font-semibold"
+              leftIcon={<Download className="h-5 w-5" />}
+              className="border-white/40 text-white hover:bg-white hover:text-gray-900 hover:border-white text-base font-semibold px-8 py-6 transition-all"
               asChild
             >
               <a href="/resume.pdf">Download Resume</a>
             </Button>
           </div>
-          <p className="text-gray-400 mt-6">Response time: Usually within 24 hours</p>
-        </div>
-      </Container>
-    </section>
+          <Text size="base" className="text-gray-300">
+            Response time: Usually within 24 hours
+          </Text>
+        </Stack>
+      </Stack>
+    </Section>
   );
 };

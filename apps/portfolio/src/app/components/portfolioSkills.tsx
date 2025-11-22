@@ -1,114 +1,77 @@
-import { Badge, Card, CardContent, Container, SectionHeading } from '@ccl/ui';
+import { Badge, Heading, Section, SkillCard, Stack, Text } from '@ccl/ui';
 import { Code, Database, Server } from 'lucide-react';
 
 export const PortfolioSkills = () => {
   return (
-    <section className="bg-gradient-to-b from-gray-50 to-white py-12 md:py-16 lg:py-20">
-      <Container size="xl">
-        <SectionHeading
-          eyebrow={
-            <Badge className="bg-blue-100 text-blue-800 border-blue-200">Technical Expertise</Badge>
-          }
-          heading="Skills & Technologies"
-          subtitle="Comprehensive technical stack for modern development"
-          align="center"
-        />
+    <Section variant="gradient-light" spacing="2xl">
+      <Stack spacing="2xl">
+        <Stack spacing="md" align="center">
+          <Badge variant="soft" tone="blue" className="text-sm">
+            Technical Expertise
+          </Badge>
+          <Heading
+            level={2}
+            align="center"
+            weight="extrabold"
+            className="text-3xl md:text-4xl lg:text-5xl"
+          >
+            Skills & Technologies
+          </Heading>
+          <Text size="xl" className="text-gray-600 dark:text-gray-300 max-w-2xl" align="center">
+            Comprehensive technical stack for modern development
+          </Text>
+        </Stack>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
-          {/* Frontend */}
-          <div>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 mb-6">
-              <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
-                <Code className="h-5 w-5 text-blue-600" />
-              </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-blue-600">Frontend</h3>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              {[
-                'React',
-                'Next.js',
-                'TypeScript',
-                'Vue.js',
-                'Tailwind CSS',
-                'Styled Components',
-                'Redux',
-                'Zustand',
-              ].map((skill) => (
-                <Card
-                  key={skill}
-                  className="text-center py-3 px-2 border shadow-sm hover:shadow-md hover:border-blue-200 transition-all bg-white"
-                >
-                  <CardContent className="p-0">
-                    <p className="font-semibold text-gray-800 text-sm">{skill}</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-10 pt-4">
+          <SkillCard
+            title="Frontend"
+            icon={<Code className="h-5 w-5" />}
+            skills={[
+              'React',
+              'Next.js',
+              'TypeScript',
+              'Vue.js',
+              'Tailwind CSS',
+              'Styled Components',
+              'Redux',
+              'Zustand',
+            ]}
+            tone="blue"
+          />
 
-          {/* Backend */}
-          <div>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 mb-6">
-              <div className="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center">
-                <Server className="h-5 w-5 text-green-600" />
-              </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-green-600">Backend</h3>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              {[
-                'Node.js',
-                'Express',
-                'NestJS',
-                'GraphQL',
-                'Prisma',
-                'PostgreSQL',
-                'MongoDB',
-                'Redis',
-              ].map((skill) => (
-                <Card
-                  key={skill}
-                  className="text-center py-3 px-2 border shadow-sm hover:shadow-md hover:border-green-200 transition-all bg-white"
-                >
-                  <CardContent className="p-0">
-                    <p className="font-semibold text-gray-800 text-sm">{skill}</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
+          <SkillCard
+            title="Backend"
+            icon={<Server className="h-5 w-5" />}
+            skills={[
+              'Node.js',
+              'Express',
+              'NestJS',
+              'GraphQL',
+              'Prisma',
+              'PostgreSQL',
+              'MongoDB',
+              'Redis',
+            ]}
+            tone="green"
+          />
 
-          {/* Tools & DevOps */}
-          <div>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 mb-6">
-              <div className="w-10 h-10 rounded-lg bg-purple-100 flex items-center justify-center">
-                <Database className="h-5 w-5 text-purple-600" />
-              </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-purple-600">Tools & DevOps</h3>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              {[
-                'Docker',
-                'Kubernetes',
-                'AWS',
-                'Vercel',
-                'CI/CD',
-                'Playwright',
-                'Vitest',
-                'Storybook',
-              ].map((skill) => (
-                <Card
-                  key={skill}
-                  className="text-center py-3 px-2 border shadow-sm hover:shadow-md hover:border-purple-200 transition-all bg-white"
-                >
-                  <CardContent className="p-0">
-                    <p className="font-semibold text-gray-800 text-sm">{skill}</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
+          <SkillCard
+            title="Tools & DevOps"
+            icon={<Database className="h-5 w-5" />}
+            skills={[
+              'Docker',
+              'Kubernetes',
+              'AWS',
+              'Vercel',
+              'CI/CD',
+              'Playwright',
+              'Vitest',
+              'Storybook',
+            ]}
+            tone="purple"
+          />
         </div>
-      </Container>
-    </section>
+      </Stack>
+    </Section>
   );
 };

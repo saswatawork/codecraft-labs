@@ -165,4 +165,69 @@ describe('Section', () => {
       expect(section).toHaveClass('py-16', 'md:py-20', 'mx-auto', 'bg-gray-100');
     });
   });
+
+  describe('Background Variants', () => {
+    it('applies default variant (no background)', () => {
+      const { container } = render(<Section>Content</Section>);
+      const section = container.querySelector('section');
+      expect(section).toHaveClass('w-full');
+      expect(section).not.toHaveClass('bg-white');
+    });
+
+    it('applies light variant', () => {
+      const { container } = render(<Section variant="light">Content</Section>);
+      const section = container.querySelector('section');
+      expect(section).toHaveClass('bg-white');
+    });
+
+    it('applies light-gray variant', () => {
+      const { container } = render(<Section variant="light-gray">Content</Section>);
+      const section = container.querySelector('section');
+      expect(section).toHaveClass('bg-gray-50');
+    });
+
+    it('applies gradient-light variant', () => {
+      const { container } = render(<Section variant="gradient-light">Content</Section>);
+      const section = container.querySelector('section');
+      expect(section).toHaveClass('bg-gradient-to-b', 'from-gray-50', 'to-white');
+    });
+
+    it('applies gradient-dark variant', () => {
+      const { container } = render(<Section variant="gradient-dark">Content</Section>);
+      const section = container.querySelector('section');
+      expect(section).toHaveClass(
+        'bg-gradient-to-br',
+        'from-gray-900',
+        'to-blue-900',
+        'text-white',
+      );
+    });
+
+    it('applies gradient-purple variant', () => {
+      const { container } = render(<Section variant="gradient-purple">Content</Section>);
+      const section = container.querySelector('section');
+      expect(section).toHaveClass(
+        'bg-gradient-to-br',
+        'from-purple-900',
+        'to-indigo-900',
+        'text-white',
+      );
+    });
+
+    it('applies dark variant', () => {
+      const { container } = render(<Section variant="dark">Content</Section>);
+      const section = container.querySelector('section');
+      expect(section).toHaveClass('bg-gray-900', 'text-white');
+    });
+
+    it('combines background variant with spacing and width', () => {
+      const { container } = render(
+        <Section variant="gradient-light" spacing="xl" width="narrow">
+          Content
+        </Section>,
+      );
+      const section = container.querySelector('section');
+      expect(section).toHaveClass('bg-gradient-to-b', 'py-24', 'md:py-28', 'max-w-4xl');
+    });
+  });
 });
