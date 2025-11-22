@@ -6,14 +6,14 @@ export const PortfolioHero = () => {
     <Hero variant="gradient" spacing="xl">
       <Hero.Badge>Full-Stack Engineer & Technical Architect</Hero.Badge>
 
-      <Hero.Title>
+      <Hero.Title className="text-gray-900">
         Crafting scalable solutions for{' '}
         <span className="bg-linear-to-r from-blue-600 via-purple-600 to-blue-700 bg-clip-text text-transparent">
           modern web
         </span>
       </Hero.Title>
 
-      <Hero.Description>
+      <Hero.Description className="text-gray-600">
         Specialized in building high-performance platforms, developer tools, and design systems that
         scale with your business needs.
       </Hero.Description>

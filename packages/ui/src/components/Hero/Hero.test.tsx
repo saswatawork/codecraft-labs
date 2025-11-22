@@ -135,7 +135,7 @@ describe('Hero', () => {
     it('applies title styling', () => {
       const { container } = render(<Hero.Title>Title</Hero.Title>);
       const title = container.querySelector('h1');
-      expect(title).toHaveClass('font-black', 'text-gray-900');
+      expect(title).toHaveClass('font-black', 'text-balance');
     });
 
     it('accepts custom className', () => {
@@ -154,7 +154,7 @@ describe('Hero', () => {
     it('applies description styling', () => {
       const { container } = render(<Hero.Description>Text</Hero.Description>);
       const description = container.firstChild;
-      expect(description).toHaveClass('text-gray-600', 'leading-relaxed');
+      expect(description).toHaveClass('leading-relaxed', 'max-w-2xl');
     });
 
     it('accepts custom className', () => {

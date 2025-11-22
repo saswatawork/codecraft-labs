@@ -97,7 +97,9 @@ export const Hero = React.forwardRef<HTMLElement, HeroProps>(
         )}
         {...props}
       >
-        {children}
+        <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-7xl">
+          <div className="space-y-8 md:space-y-10">{children}</div>
+        </div>
       </HeroComponent>
     );
   },
@@ -147,8 +149,8 @@ const HeroTitle = React.forwardRef<
     <Heading
       ref={ref}
       className={cn(
-        'text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight',
-        'text-gray-900 text-balance',
+        'text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-[1.15]',
+        'text-balance',
         className,
       )}
       {...props}
@@ -171,7 +173,7 @@ const HeroDescription = React.forwardRef<
     <p
       ref={ref}
       className={cn(
-        'text-base md:text-lg lg:text-xl text-gray-600 leading-relaxed',
+        'text-base md:text-lg lg:text-xl leading-relaxed',
         'max-w-2xl mx-auto',
         className,
       )}
