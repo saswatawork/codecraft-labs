@@ -5,6 +5,9 @@
 // Components
 export * from './components';
 
+// Design Tokens
+export * from './tokens';
+
 // Utilities
 export * from './utils';
 export {
