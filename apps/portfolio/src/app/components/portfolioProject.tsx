@@ -5,11 +5,11 @@ export const PortfolioProject = () => {
   return (
     <Section
       id="projects"
-      spacing="3xl"
+      spacing="xl"
       width="comfortable"
       className="bg-gradient-to-b from-gray-50 via-white to-blue-50/30"
     >
-      <Stack spacing="2xl">
+      <Stack spacing="xl">
         <SectionHeading
           eyebrow={
             <Badge variant="soft" tone="blue" className="text-base font-medium px-4 py-2">

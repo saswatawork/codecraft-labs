@@ -3,8 +3,8 @@ import { Calendar, Download, Linkedin, Mail, MapPin } from 'lucide-react';
 
 export const PortfolioContact = () => {
   return (
-    <Section id="contact" variant="gradient-dark" spacing="3xl" width="comfortable">
-      <Stack spacing="2xl">
+    <Section id="contact" variant="gradient-dark" spacing="xl" width="full">
+      <Stack spacing="xl">
         <Stack spacing="xl" align="center">
           <Badge
             variant="soft"

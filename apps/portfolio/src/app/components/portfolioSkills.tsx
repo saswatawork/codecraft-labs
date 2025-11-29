@@ -3,8 +3,8 @@ import { Code, Database, Server } from 'lucide-react';
 
 export const PortfolioSkills = () => {
   return (
-    <Section variant="gradient-light" spacing="3xl" width="comfortable">
-      <Stack spacing="2xl">
+    <Section id="skills" variant="gradient-light" spacing="xl" width="comfortable">
+      <Stack spacing="xl">
         <Stack spacing="xl" align="center">
           <Badge variant="soft" tone="blue" className="text-base font-medium px-4 py-2">
             Technical Expertise

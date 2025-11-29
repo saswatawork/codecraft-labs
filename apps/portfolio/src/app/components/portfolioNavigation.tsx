@@ -12,6 +12,7 @@ export const PortfolioNavigation = () => {
       }}
       items={[
         { label: 'Home', href: '/', active: true },
+        { label: 'About', href: '#about' },
         { label: 'Projects', href: '#projects' },
         { label: 'Skills', href: '#skills' },
         { label: 'Testimonials', href: '#testimonials' },

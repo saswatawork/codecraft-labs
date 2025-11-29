@@ -3,10 +3,10 @@ import { Github, Linkedin } from 'lucide-react';
 
 export const PortfolioAbout = () => {
   return (
-    <Section id="about" variant="gradient-light" spacing="3xl" width="comfortable">
+    <Section id="about" variant="gradient-light" spacing="xl" width="comfortable">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
         {/* Content Column */}
-        <Stack spacing="2xl">
+        <Stack spacing="xl">
           <Badge variant="soft" tone="blue" className="text-base font-medium px-4 py-2">
             About Me
           </Badge>

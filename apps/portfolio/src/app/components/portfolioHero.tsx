@@ -3,7 +3,7 @@ import { ArrowRight, Download } from 'lucide-react';
 
 export const PortfolioHero = () => {
   return (
-    <Hero variant="gradient" spacing="3xl" className="min-h-screen flex items-center">
+    <Hero variant="gradient" spacing="xl" className="min-h-screen flex items-center">
       <div className="w-full space-y-10 md:space-y-12 lg:space-y-16">
         <Hero.Badge className="text-base font-medium">
           Full-Stack Engineer & Technical Architect
