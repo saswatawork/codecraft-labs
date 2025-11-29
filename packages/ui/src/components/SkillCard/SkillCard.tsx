@@ -42,14 +42,15 @@ export const SkillCard: React.FC<SkillCardProps> = ({
   return (
     <div
       className={cn(
-        'p-8 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800',
-        'hover:shadow-lg hover:border-gray-300 dark:hover:border-gray-600 transition-all duration-200',
+        'p-10 rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800',
+        'hover:shadow-xl hover:border-gray-300 dark:hover:border-gray-600 hover:-translate-y-1',
+        'transition-all duration-300',
         className,
       )}
     >
-      <Stack spacing="lg">
-        <Stack spacing="md" align="start">
-          <IconBox tone={tone} size="lg">
+      <Stack spacing="xl">
+        <Stack spacing="lg" align="start">
+          <IconBox tone={tone} size="xl" className="p-4">
             {icon}
           </IconBox>
           <Heading level={3} size="2xl" weight="bold">
@@ -57,9 +58,14 @@ export const SkillCard: React.FC<SkillCardProps> = ({
           </Heading>
         </Stack>
 
-        <div className="grid grid-cols-2 gap-3 pt-2">
+        <div className="grid grid-cols-2 gap-3 pt-4">
           {skills.map((skill) => (
-            <Badge key={skill} variant="soft" tone={tone} className="justify-center text-sm py-2">
+            <Badge
+              key={skill}
+              variant="soft"
+              tone={tone}
+              className="justify-center text-sm py-2.5 font-medium"
+            >
               {skill}
             </Badge>
           ))}

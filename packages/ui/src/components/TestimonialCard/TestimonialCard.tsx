@@ -55,18 +55,21 @@ export const TestimonialCard: React.FC<TestimonialCardProps> = ({
   return (
     <Card
       variant={variant}
-      className={cn('h-full hover:shadow-xl transition-shadow duration-200', className)}
+      className={cn(
+        'h-full hover:shadow-2xl hover:-translate-y-1 transition-all duration-300',
+        className,
+      )}
     >
-      <Card.Content className="p-8">
-        <Stack spacing="lg">
+      <Card.Content className="p-10">
+        <Stack spacing="xl">
           {rating !== undefined && <Rating value={rating} size="md" />}
 
-          <Text size="lg" leading="relaxed" className="text-gray-700 dark:text-gray-300">
+          <Text size="xl" leading="loose" className="text-gray-700 dark:text-gray-300">
             "{quote}"
           </Text>
 
-          <div className="flex items-center gap-4 pt-4">
-            <CompoundAvatar src={avatar} alt={name} fallback={name.charAt(0)} size="md" />
+          <div className="flex items-center gap-4 pt-6 border-t border-gray-100">
+            <CompoundAvatar src={avatar} alt={name} fallback={name.charAt(0)} size="lg" />
             <div>
               <Text size="base" weight="semibold" className="text-gray-900 dark:text-white">
                 {name}

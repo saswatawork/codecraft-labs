@@ -1,8 +1,10 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   content: ['./src/**/*.{js,ts,jsx,tsx}', './stories/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      // Tailwind v4 auto-detects CSS custom properties from your CSS files
+      // Keep only what needs explicit configuration
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
@@ -57,7 +59,6 @@ module.exports = {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
-        // Contextual tones
         blue: {
           50: 'hsl(var(--blue-50))',
           100: 'hsl(var(--blue-100))',

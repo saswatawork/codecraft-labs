@@ -60,19 +60,26 @@ export const ContactCard: React.FC<ContactCardProps> = ({
   return (
     <Card
       variant={variant}
-      className={cn('h-full hover:shadow-lg transition-all duration-200', className)}
+      className={cn(
+        'h-full hover:shadow-xl hover:-translate-y-1 transition-all duration-300',
+        className,
+      )}
     >
-      <Card.Content className="p-8">
-        <Stack spacing="lg" align="center">
-          <IconBox tone={tone} size="xl" className="mb-2">
+      <Card.Content className="p-10">
+        <Stack spacing="xl" align="center">
+          <IconBox tone={tone} size="xl" className="mb-2 p-4">
             {icon}
           </IconBox>
 
-          <Stack spacing="sm" align="center">
+          <Stack spacing="md" align="center">
             <Heading level={3} size="xl" weight="bold" align="center">
               {title}
             </Heading>
-            <Text size="base" align="center" className="text-gray-600 dark:text-gray-300">
+            <Text
+              size="base"
+              align="center"
+              className="text-gray-600 dark:text-gray-300 leading-relaxed"
+            >
               {description}
             </Text>
           </Stack>
@@ -82,7 +89,7 @@ export const ContactCard: React.FC<ContactCardProps> = ({
               variant="outline"
               size="default"
               onClick={action.onClick}
-              className="mt-2"
+              className="mt-4 px-6 py-3 font-medium"
               asChild={!!action.href}
             >
               {action.href ? (

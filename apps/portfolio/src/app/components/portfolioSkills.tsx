@@ -3,26 +3,25 @@ import { Code, Database, Server } from 'lucide-react';
 
 export const PortfolioSkills = () => {
   return (
-    <Section variant="gradient-light" spacing="2xl">
+    <Section variant="gradient-light" spacing="3xl" width="comfortable">
       <Stack spacing="2xl">
-        <Stack spacing="md" align="center">
-          <Badge variant="soft" tone="blue" className="text-sm">
+        <Stack spacing="xl" align="center">
+          <Badge variant="soft" tone="blue" className="text-base font-medium px-4 py-2">
             Technical Expertise
           </Badge>
-          <Heading
-            level={2}
-            align="center"
-            weight="extrabold"
-            className="text-3xl md:text-4xl lg:text-5xl"
-          >
+          <Heading level={2} align="center" weight="extrabold">
             Skills & Technologies
           </Heading>
-          <Text size="xl" className="text-gray-600 dark:text-gray-300 max-w-2xl" align="center">
+          <Text
+            size="xl"
+            className="text-gray-600 dark:text-gray-300 max-w-3xl leading-loose"
+            align="center"
+          >
             Comprehensive technical stack for modern development
           </Text>
         </Stack>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-10 pt-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 lg:gap-12 pt-8">
           <SkillCard
             title="Frontend"
             icon={<Code className="h-5 w-5" />}

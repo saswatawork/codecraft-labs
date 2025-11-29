@@ -3,35 +3,26 @@ import { Calendar, Download, Linkedin, Mail, MapPin } from 'lucide-react';
 
 export const PortfolioContact = () => {
   return (
-    <Section id="contact" variant="gradient-dark" spacing="2xl">
+    <Section id="contact" variant="gradient-dark" spacing="3xl" width="comfortable">
       <Stack spacing="2xl">
-        <Stack spacing="md" align="center">
+        <Stack spacing="xl" align="center">
           <Badge
             variant="soft"
             tone="blue"
-            className="text-sm bg-blue-500/20 text-blue-200 border-blue-400/30"
+            className="text-base font-medium px-4 py-2 bg-blue-500/20 text-blue-200 border-blue-400/30"
           >
             Let's Connect
           </Badge>
-          <Heading
-            level={2}
-            align="center"
-            weight="extrabold"
-            className="text-3xl md:text-4xl lg:text-5xl text-white"
-          >
+          <Heading level={2} align="center" weight="extrabold" className="text-white">
             Ready to Start Your Project?
           </Heading>
-          <Text
-            size="xl"
-            align="center"
-            className="text-gray-200 max-w-3xl mx-auto leading-relaxed"
-          >
+          <Text size="xl" align="center" className="text-gray-200 max-w-3xl mx-auto leading-loose">
             I'm always excited to tackle challenging problems and create impactful solutions. Let's
             discuss how I can help bring your vision to life.
           </Text>
         </Stack>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 pt-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 pt-8">
           <ContactCard
             icon={<Mail className="h-8 w-8" />}
             title="Email"

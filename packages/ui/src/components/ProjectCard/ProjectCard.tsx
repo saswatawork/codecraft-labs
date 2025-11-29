@@ -35,7 +35,7 @@ export const ProjectCard = React.forwardRef<HTMLDivElement, ProjectCardProps>(
       <Card
         ref={ref}
         className={cn(
-          'group overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-200 bg-white rounded-xl',
+          'group overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 border border-gray-200 bg-white rounded-2xl',
           className,
         )}
         {...props}
@@ -44,7 +44,7 @@ export const ProjectCard = React.forwardRef<HTMLDivElement, ProjectCardProps>(
           <div className="relative overflow-hidden">
             <div
               className={cn(
-                'h-48 md:h-56 flex items-center justify-center',
+                'h-56 md:h-64 flex items-center justify-center',
                 gradient || 'bg-gray-100',
               )}
             >
@@ -52,19 +52,19 @@ export const ProjectCard = React.forwardRef<HTMLDivElement, ProjectCardProps>(
             </div>
             {label && (
               <div className="absolute top-4 right-4">
-                <Badge className="bg-white/95 text-gray-900 border-white/40 backdrop-blur-sm font-semibold shadow-lg text-xs px-3 py-1">
+                <Badge className="bg-white/95 text-gray-900 border-white/40 backdrop-blur-sm font-semibold shadow-lg text-xs px-3 py-1.5">
                   {label}
                 </Badge>
               </div>
             )}
           </div>
         )}
-        <CardHeader className="p-6 pb-3">
-          <CardTitle className="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors leading-snug mb-2">
+        <CardHeader className="p-8 pb-4">
+          <CardTitle className="text-2xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors leading-snug mb-3">
             {heading}
           </CardTitle>
           {meta && meta.length > 0 && (
-            <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 mt-2">
+            <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 mt-3">
               {meta.map((m) => (
                 <span key={String(m.text)} className="flex items-center gap-1.5">
                   {m.icon}
@@ -74,16 +74,16 @@ export const ProjectCard = React.forwardRef<HTMLDivElement, ProjectCardProps>(
             </div>
           )}
         </CardHeader>
-        <CardContent className="px-6 pb-6 pt-0 space-y-4">
-          {description && <p className="text-gray-600 leading-relaxed text-sm">{description}</p>}
+        <CardContent className="px-8 pb-8 pt-0 space-y-5">
+          {description && <p className="text-gray-600 leading-loose text-base">{description}</p>}
           {tech && tech.length > 0 && (
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2.5">
               {tech.map((t) => (
                 <Badge
                   key={t}
                   variant="secondary"
                   size="sm"
-                  className="bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 font-medium text-xs"
+                  className="bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 font-medium text-xs px-3 py-1.5"
                 >
                   {t}
                 </Badge>
@@ -91,9 +91,14 @@ export const ProjectCard = React.forwardRef<HTMLDivElement, ProjectCardProps>(
             </div>
           )}
           {(primaryAction || secondaryAction) && (
-            <div className="flex gap-3 pt-2">
+            <div className="flex gap-3 pt-3">
               {primaryAction && (
-                <Button variant="default" size="sm" className="flex-1 font-medium" asChild>
+                <Button
+                  variant="default"
+                  size="sm"
+                  className="flex-1 font-medium px-5 py-2.5"
+                  asChild
+                >
                   <a
                     href={primaryAction.href}
                     target="_blank"

@@ -6,13 +6,13 @@ const statVariants = cva('rounded-2xl text-center transition-all duration-300', 
   variants: {
     variant: {
       plain: '',
-      card: 'p-6 shadow-md hover:shadow-lg border',
+      card: 'p-8 shadow-sm hover:shadow-md border',
     },
     tone: {
-      blue: 'bg-blue-50/50 border-blue-100',
-      green: 'bg-emerald-50/50 border-emerald-100',
-      purple: 'bg-purple-50/50 border-purple-100',
-      orange: 'bg-orange-50/50 border-orange-100',
+      blue: 'bg-blue-50/50 border-blue-100/50',
+      green: 'bg-emerald-50/50 border-emerald-100/50',
+      purple: 'bg-purple-50/50 border-purple-100/50',
+      orange: 'bg-orange-50/50 border-orange-100/50',
       gray: 'bg-gray-50 border-gray-100',
     },
     align: {
@@ -23,11 +23,11 @@ const statVariants = cva('rounded-2xl text-center transition-all duration-300', 
   compoundVariants: [
     {
       variant: 'plain',
-      className: 'bg-transparent border-0 shadow-none hover:shadow-none',
+      className: 'bg-transparent border-0 shadow-none hover:shadow-none p-0',
     },
   ],
   defaultVariants: {
-    variant: 'card',
+    variant: 'plain',
     align: 'center',
     tone: 'gray',
   },
@@ -57,16 +57,23 @@ export const Stat = React.forwardRef<HTMLDivElement, StatProps>(
         {icon && (
           <div
             className={cn(
-              'mb-2 flex items-center justify-center',
+              'mb-3 flex items-center justify-center',
               align === 'left' && 'justify-start',
             )}
           >
             {icon}
           </div>
         )}
-        <div className={cn('mb-1 text-4xl font-black', toneColor[tone || 'gray'])}>{value}</div>
-        <div className="text-sm font-medium text-gray-600">{label}</div>
-        {hint && <div className="mt-1 text-xs text-gray-500">{hint}</div>}
+        <div
+          className={cn(
+            'mb-2 text-4xl md:text-5xl lg:text-6xl font-black leading-none',
+            toneColor[tone || 'gray'],
+          )}
+        >
+          {value}
+        </div>
+        <div className="text-sm md:text-base font-semibold text-gray-600">{label}</div>
+        {hint && <div className="mt-2 text-xs md:text-sm text-gray-500">{hint}</div>}
       </div>
     );
   },

@@ -26,6 +26,7 @@ const heroVariants = cva('relative w-full overflow-hidden', {
       lg: 'py-20 md:py-24',
       xl: 'py-24 md:py-28',
       '2xl': 'py-28 md:py-32',
+      '3xl': 'py-32 md:py-40',
     },
   },
   defaultVariants: {
@@ -149,8 +150,8 @@ const HeroTitle = React.forwardRef<
     <Heading
       ref={ref}
       className={cn(
-        'text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-[1.15]',
-        'text-balance',
+        'text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black leading-[1.1]',
+        'text-balance tracking-tight',
         className,
       )}
       {...props}
@@ -172,11 +173,7 @@ const HeroDescription = React.forwardRef<
   return (
     <p
       ref={ref}
-      className={cn(
-        'text-base md:text-lg lg:text-xl leading-relaxed',
-        'max-w-2xl mx-auto',
-        className,
-      )}
+      className={cn('text-lg md:text-xl lg:text-2xl', 'max-w-3xl mx-auto leading-loose', className)}
       {...props}
     >
       {children}

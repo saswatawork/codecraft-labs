@@ -5,14 +5,14 @@ export const PortfolioProject = () => {
   return (
     <Section
       id="projects"
-      spacing="2xl"
-      width="wide"
+      spacing="3xl"
+      width="comfortable"
       className="bg-gradient-to-b from-gray-50 via-white to-blue-50/30"
     >
-      <Stack spacing="xl">
+      <Stack spacing="2xl">
         <SectionHeading
           eyebrow={
-            <Badge variant="soft" tone="blue">
+            <Badge variant="soft" tone="blue" className="text-base font-medium px-4 py-2">
               Portfolio
             </Badge>
           }
@@ -28,7 +28,7 @@ export const PortfolioProject = () => {
           align="center"
         />
 
-        <Grid columns={2} gap="lg">
+        <Grid columns={2} gap="xl" className="pt-8">
           {/* Featured Project 1 */}
           <ProjectCard
             heading="Enterprise Analytics Platform"

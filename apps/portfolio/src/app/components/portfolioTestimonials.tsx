@@ -26,26 +26,25 @@ const testimonials = [
 
 export const PortfolioTestimonials = () => {
   return (
-    <Section variant="light" spacing="2xl">
+    <Section variant="light" spacing="3xl" width="comfortable">
       <Stack spacing="2xl">
-        <Stack spacing="md" align="center">
-          <Badge variant="soft" tone="purple" className="text-sm">
+        <Stack spacing="xl" align="center">
+          <Badge variant="soft" tone="purple" className="text-base font-medium px-4 py-2">
             Testimonials
           </Badge>
-          <Heading
-            level={2}
-            align="center"
-            weight="extrabold"
-            className="text-3xl md:text-4xl lg:text-5xl"
-          >
+          <Heading level={2} align="center" weight="extrabold">
             Client Success Stories
           </Heading>
-          <Text size="xl" className="text-gray-600 dark:text-gray-300 max-w-2xl" align="center">
+          <Text
+            size="xl"
+            className="text-gray-600 dark:text-gray-300 max-w-3xl leading-loose"
+            align="center"
+          >
             What clients say about working with me
           </Text>
         </Stack>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 pt-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 pt-8">
           {testimonials.map((testimonial) => (
             <TestimonialCard
               key={testimonial.name}
