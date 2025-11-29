@@ -1,30 +1,28 @@
-import { Badge, Button, ContactCard, Heading, Section, Stack, Text } from '@ccl/ui';
-import { Calendar, Download, Linkedin, Mail, MapPin } from 'lucide-react';
+import { Badge, Button, Card, ContactCard, Heading, Section, Stack, Text } from '@ccl/ui';
+import { Calendar, Download, Github, Linkedin, Mail, MapPin, Phone } from 'lucide-react';
 
 export const PortfolioContact = () => {
   return (
-    <Section id="contact" variant="gradient-dark" spacing="xl" width="full">
-      <Stack spacing="xl">
-        <Stack spacing="xl" align="center">
-          <Badge
-            variant="soft"
-            tone="blue"
-            className="text-base font-medium px-4 py-2 bg-blue-500/20 text-blue-200 border-blue-400/30"
-          >
+    <Section id="contact" variant="gradient-light" spacing="2xl" width="comfortable">
+      <Stack spacing="2xl">
+        {/* Header */}
+        <Stack spacing="lg" align="center" className="max-w-3xl mx-auto">
+          <Badge variant="soft" tone="purple" className="text-base font-medium px-5 py-2.5">
             Let's Connect
           </Badge>
-          <Heading level={2} align="center" weight="extrabold" className="text-white">
-            Ready to Start Your Project?
+          <Heading level={2} align="center" weight="extrabold" className="text-gray-900">
+            Ready to Start Your Next Project?
           </Heading>
-          <Text size="xl" align="center" className="text-gray-200 max-w-3xl mx-auto leading-loose">
+          <Text size="xl" align="center" className="text-gray-600 leading-relaxed">
             I'm always excited to tackle challenging problems and create impactful solutions. Let's
             discuss how I can help bring your vision to life.
           </Text>
         </Stack>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 pt-8">
+        {/* Contact Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-4">
           <ContactCard
-            icon={<Mail className="h-8 w-8" />}
+            icon={<Mail className="h-7 w-7" />}
             title="Email"
             description="Drop me a line"
             action={{
@@ -32,11 +30,11 @@ export const PortfolioContact = () => {
               href: 'mailto:saswata.career@gmail.com',
             }}
             tone="blue"
-            className="bg-white/10 backdrop-blur-sm border-white/30 hover:bg-white/20 hover:border-white/40 text-white transition-all"
+            variant="elevated"
           />
 
           <ContactCard
-            icon={<Calendar className="h-8 w-8" />}
+            icon={<Calendar className="h-7 w-7" />}
             title="Schedule Call"
             description="Book a meeting"
             action={{
@@ -44,69 +42,58 @@ export const PortfolioContact = () => {
               href: 'https://cal.com',
             }}
             tone="green"
-            className="bg-white/10 backdrop-blur-sm border-white/30 hover:bg-white/20 hover:border-white/40 text-white transition-all"
+            variant="elevated"
           />
 
           <ContactCard
-            icon={<Linkedin className="h-8 w-8" />}
+            icon={<Linkedin className="h-7 w-7" />}
             title="LinkedIn"
-            description="Professional network"
+            description="Connect with me"
             action={{
               label: 'Connect',
               href: 'https://linkedin.com/in/saswata-pal',
             }}
             tone="blue"
-            className="bg-white/10 backdrop-blur-sm border-white/30 hover:bg-white/20 hover:border-white/40 text-white transition-all"
+            variant="elevated"
           />
 
-          <div className="p-6 rounded-lg border border-white/30 bg-white/10 backdrop-blur-sm hover:bg-white/20 hover:border-white/40 transition-all">
-            <Stack spacing="md" align="center">
-              <div className="h-12 w-12 rounded-lg bg-purple-500/30 flex items-center justify-center">
-                <MapPin className="h-8 w-8 text-purple-200" />
-              </div>
-              <Stack spacing="xs" align="center">
-                <Heading
-                  level={3}
-                  size="lg"
-                  weight="semibold"
-                  align="center"
-                  className="text-white"
-                >
-                  Location
-                </Heading>
-                <Text size="sm" align="center" className="text-gray-200">
-                  Remote worldwide
-                </Text>
-              </Stack>
-              <Text size="sm" weight="semibold" className="text-green-300">
-                Available 24/7
-              </Text>
-            </Stack>
-          </div>
+          <ContactCard
+            icon={<MapPin className="h-7 w-7" />}
+            title="Location"
+            description="Remote worldwide"
+            action={{
+              label: 'Available 24/7',
+              href: '#',
+            }}
+            tone="purple"
+            variant="elevated"
+          />
         </div>
 
-        <Stack spacing="lg" align="center">
-          <div className="flex flex-col sm:flex-row gap-4 pt-4">
+        {/* CTA Buttons */}
+        <Stack spacing="lg" align="center" className="pt-8">
+          <div className="flex flex-col sm:flex-row gap-4">
             <Button
               size="lg"
               variant="primary"
+              tone="blue"
               leftIcon={<Mail className="h-5 w-5" />}
-              className="text-base font-semibold px-8 py-6"
+              className="text-base font-semibold px-10 py-6 shadow-xl"
               asChild
             >
               <a href="mailto:saswata.career@gmail.com">Start a Project</a>
             </Button>
             <Button
               size="lg"
-              variant="outline"
+              variant="outline-primary"
               leftIcon={<Download className="h-5 w-5" />}
-              className="border-white/40 text-white hover:bg-white hover:text-gray-900 hover:border-white text-base font-semibold px-8 py-6 transition-all"
+              className="text-base font-semibold px-8 py-6"
               asChild
             >
               <a href="/resume.pdf">Download Resume</a>
             </Button>
           </div>
-          <Text size="base" className="text-gray-300">
+          <Text size="base" className="text-gray-600">
             Response time: Usually within 24 hours
           </Text>
         </Stack>

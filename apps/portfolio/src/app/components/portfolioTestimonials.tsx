@@ -26,8 +26,8 @@ const testimonials = [
 
 export const PortfolioTestimonials = () => {
   return (
-    <Section id="testimonials" variant="light" spacing="3xl" width="comfortable">
-      <Stack spacing="2xl">
+    <Section id="testimonials" variant="light" spacing="xl" width="comfortable">
+      <Stack spacing="xl">
         <Stack spacing="xl" align="center">
           <Badge variant="soft" tone="purple" className="text-base font-medium px-4 py-2">
             Testimonials
