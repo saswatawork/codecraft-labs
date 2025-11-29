@@ -49,7 +49,7 @@ describe('Heading', () => {
     it('applies default responsive sizing based on level', () => {
       render(<Heading level={1}>H1</Heading>);
       const heading = screen.getByRole('heading');
-      expect(heading.className).toMatch(/text-4xl.*md:text-5xl.*lg:text-6xl/);
+      expect(heading.className).toMatch(/text-5xl.*md:text-6xl.*lg:text-7xl.*xl:text-8xl/);
     });
 
     it('allows custom size override', () => {
@@ -209,17 +209,18 @@ describe('Heading', () => {
     it('h1 has responsive text sizing', () => {
       render(<Heading level={1}>Responsive H1</Heading>);
       const heading = screen.getByRole('heading');
-      expect(heading.className).toMatch(/text-4xl/);
-      expect(heading.className).toMatch(/md:text-5xl/);
-      expect(heading.className).toMatch(/lg:text-6xl/);
+      expect(heading.className).toMatch(/text-5xl/);
+      expect(heading.className).toMatch(/md:text-6xl/);
+      expect(heading.className).toMatch(/lg:text-7xl/);
+      expect(heading.className).toMatch(/xl:text-8xl/);
     });
 
     it('h2 has responsive text sizing', () => {
       render(<Heading level={2}>Responsive H2</Heading>);
       const heading = screen.getByRole('heading');
-      expect(heading.className).toMatch(/text-3xl/);
-      expect(heading.className).toMatch(/md:text-4xl/);
-      expect(heading.className).toMatch(/lg:text-5xl/);
+      expect(heading.className).toMatch(/text-4xl/);
+      expect(heading.className).toMatch(/md:text-5xl/);
+      expect(heading.className).toMatch(/lg:text-6xl/);
     });
   });
 });

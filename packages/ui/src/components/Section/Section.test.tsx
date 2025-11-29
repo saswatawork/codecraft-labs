@@ -31,7 +31,7 @@ describe('Section', () => {
     it('applies default spacing (lg)', () => {
       const { container } = render(<Section>Content</Section>);
       const section = container.querySelector('section');
-      expect(section).toHaveClass('py-20', 'md:py-24');
+      expect(section).toHaveClass('py-20', 'md:py-28');
     });
 
     it('applies none spacing', () => {
@@ -55,19 +55,19 @@ describe('Section', () => {
     it('applies md spacing', () => {
       const { container } = render(<Section spacing="md">Content</Section>);
       const section = container.querySelector('section');
-      expect(section).toHaveClass('py-16', 'md:py-20');
+      expect(section).toHaveClass('py-16', 'md:py-24');
     });
 
     it('applies xl spacing', () => {
       const { container } = render(<Section spacing="xl">Content</Section>);
       const section = container.querySelector('section');
-      expect(section).toHaveClass('py-24', 'md:py-28');
+      expect(section).toHaveClass('py-24', 'md:py-32');
     });
 
     it('applies 2xl spacing', () => {
       const { container } = render(<Section spacing="2xl">Content</Section>);
       const section = container.querySelector('section');
-      expect(section).toHaveClass('py-28', 'md:py-32');
+      expect(section).toHaveClass('py-32', 'md:py-40');
     });
   });
 
@@ -75,13 +75,12 @@ describe('Section', () => {
     it('applies default width (wide)', () => {
       const { container } = render(<Section>Content</Section>);
       const section = container.querySelector('section');
-      expect(section).toHaveClass('mx-auto', 'max-w-7xl');
+      expect(section).toHaveClass('mx-auto', 'max-w-6xl');
     });
 
     it('applies full width', () => {
       const { container } = render(<Section width="full">Content</Section>);
       const section = container.querySelector('section');
-      expect(section).not.toHaveClass('mx-auto');
       expect(section).toHaveClass('w-full');
     });
 
@@ -100,7 +99,7 @@ describe('Section', () => {
     it('applies ultra width', () => {
       const { container } = render(<Section width="ultra">Content</Section>);
       const section = container.querySelector('section');
-      expect(section).toHaveClass('mx-auto', 'max-w-[1920px]');
+      expect(section).toHaveClass('mx-auto', 'max-w-7xl');
     });
   });
 
@@ -152,7 +151,7 @@ describe('Section', () => {
         </Section>,
       );
       const section = container.querySelector('section');
-      expect(section).toHaveClass('py-24', 'md:py-28', 'mx-auto', 'max-w-4xl');
+      expect(section).toHaveClass('py-24', 'md:py-32', 'mx-auto', 'max-w-4xl');
     });
 
     it('combines variants with custom className', () => {
@@ -162,7 +161,7 @@ describe('Section', () => {
         </Section>,
       );
       const section = container.querySelector('section');
-      expect(section).toHaveClass('py-16', 'md:py-20', 'mx-auto', 'bg-gray-100');
+      expect(section).toHaveClass('py-16', 'md:py-24', 'mx-auto', 'bg-gray-100');
     });
   });
 
@@ -227,7 +226,7 @@ describe('Section', () => {
         </Section>,
       );
       const section = container.querySelector('section');
-      expect(section).toHaveClass('bg-gradient-to-b', 'py-24', 'md:py-28', 'max-w-4xl');
+      expect(section).toHaveClass('bg-gradient-to-b', 'py-24', 'md:py-32', 'max-w-4xl');
     });
   });
 });

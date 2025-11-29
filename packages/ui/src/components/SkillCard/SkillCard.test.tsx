@@ -89,8 +89,8 @@ describe('SkillCard', () => {
       const { container } = render(<SkillCard {...defaultProps} />);
       const card = container.firstChild as Element;
 
-      expect(card).toHaveClass('p-6');
-      expect(card).toHaveClass('rounded-lg');
+      expect(card).toHaveClass('p-10');
+      expect(card).toHaveClass('rounded-2xl');
       expect(card).toHaveClass('border');
       expect(card).toHaveClass('bg-white');
     });
@@ -113,8 +113,8 @@ describe('SkillCard', () => {
       const { container } = render(<SkillCard {...defaultProps} className="shadow-lg" />);
       const card = container.firstChild as Element;
       expect(card).toHaveClass('shadow-lg');
-      expect(card).toHaveClass('p-6');
-      expect(card).toHaveClass('rounded-lg');
+      expect(card).toHaveClass('p-10');
+      expect(card).toHaveClass('rounded-2xl');
     });
   });
 

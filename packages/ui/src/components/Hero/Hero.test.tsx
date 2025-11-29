@@ -154,7 +154,7 @@ describe('Hero', () => {
     it('applies description styling', () => {
       const { container } = render(<Hero.Description>Text</Hero.Description>);
       const description = container.firstChild;
-      expect(description).toHaveClass('leading-relaxed', 'max-w-2xl');
+      expect(description).toHaveClass('leading-loose', 'max-w-3xl');
     });
 
     it('accepts custom className', () => {
