@@ -23,7 +23,7 @@ export const PortfolioNavigation = () => {
           <Button
             variant="ghost"
             size="sm"
-            className="hover:bg-gray-100 text-gray-600 hover:text-gray-900"
+            className="hover:bg-gray-100 text-gray-600 hover:text-gray-900 hover:scale-110 transition-all"
             asChild
           >
             <a
@@ -38,7 +38,7 @@ export const PortfolioNavigation = () => {
           <Button
             variant="ghost"
             size="sm"
-            className="hover:bg-gray-100 text-gray-600 hover:text-gray-900"
+            className="hover:bg-gray-100 text-gray-600 hover:text-gray-900 hover:scale-110 transition-all"
             asChild
           >
             <a
@@ -50,12 +50,12 @@ export const PortfolioNavigation = () => {
               <Linkedin className="h-4 w-4" />
             </a>
           </Button>
-          <div className="h-6 w-px bg-gray-300" />
+          <div className="h-6 w-px bg-gradient-to-b from-transparent via-gray-300 to-transparent" />
           <Button
             size="sm"
             variant="primary"
             tone="blue"
-            className="shadow-md font-semibold px-5"
+            className="shadow-lg hover:shadow-xl font-semibold px-6 hover:scale-105 transition-all"
             leftIcon={<Mail className="h-3.5 w-3.5" />}
             asChild
           >

@@ -11,10 +11,10 @@ import { PortfolioTestimonials } from './components/portfolioTestimonials';
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white antialiased">
       <PortfolioNavigation />
 
-      <main>
+      <main className="focus:outline-none" id="main-content">
         <PortfolioHero />
         <PortfolioAbout />
         <PortfolioProject />
