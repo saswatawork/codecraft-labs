@@ -1,0 +1,33 @@
+# <type>(<scope>): <subject>
+#
+# <optional body - explain WHY, not WHAT>
+#
+# Progress: <task-id>
+# Time: <hours>h
+# Phase: <Week X>
+# Status: <in-progress|complete|blocked>
+#
+# ──────────────────────────────────────────────────────────────
+# Types:
+#   feat:     New feature
+#   fix:      Bug fix
+#   docs:     Documentation only changes
+#   style:    Code style (formatting, missing semi-colons, etc)
+#   refactor: Code refactoring
+#   test:     Adding or updating tests
+#   chore:    Build process or auxiliary tool changes
+#
+# Scopes:
+#   web, api, admin, ui, shared, config, deps, docs
+#
+# Example:
+#   feat(web): add Redis caching layer
+#
+#   Implemented Redis for session management and API caching.
+#   Reduces database load by 60%.
+#
+#   Progress: week3-task2
+#   Time: 3h
+#   Phase: Week 3
+#   Status: complete
+# ──────────────────────────────────────────────────────────────
