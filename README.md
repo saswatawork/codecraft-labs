@@ -236,7 +236,7 @@ pnpm --filter @ccl/ui storybook
 - Week 3: Start NestJS API, Prisma setup, PostgreSQL integration
 
 **Full Timeline:**
-See [90-DAY-TRANSFORMATION-CHECKLIST.md](./90-DAY-TRANSFORMATION-CHECKLIST.md) for:
+See [90-DAY-TRANSFORMATION-CHECKLIST.md](./docs/planning/90-DAY-TRANSFORMATION-CHECKLIST.md) for:
 - Daily task breakdown
 - Time estimates (345-405 hours total)
 - Success metrics
@@ -256,13 +256,22 @@ See [90-DAY-TRANSFORMATION-CHECKLIST.md](./90-DAY-TRANSFORMATION-CHECKLIST.md) f
 - Medium (coming soon)
 - LinkedIn posts (weekly updates)
 
-## 📚 Learning Resources & Documentation
+## 📚 Documentation
 
-**Current Documentation:**
+**📁 [Complete Documentation Index →](./docs/README.md)**
+
+**Quick Links:**
+- 🗺️ [90-Day Transformation Checklist](./docs/planning/90-DAY-TRANSFORMATION-CHECKLIST.md) - Daily task breakdown
+- 🎯 [Roadmap](./docs/planning/ROADMAP.md) - 12-week visual timeline
+- 📊 [Week 1 Progress](./docs/progress/WEEK-1-PROGRESS.md) - Latest weekly update
+- 📖 [Setup Guide](./docs/guides/SETUP.md) - Development setup
+- 🏗️ [Design System Docs](./docs/architecture/DESIGN_SYSTEM_ANALYSIS.md) - Architecture details
+- 📝 [Development Log](./docs/progress/DEVELOPMENT_LOG.md) - Technical journal
+- � [Security Policy](./SECURITY.md) - Vulnerability reporting
+
+**External Resources:**
 - 📖 Component library: [Storybook deployed](https://ccl-ui.vercel.app) ✅
-- 🎯 90-day roadmap: [Transformation Checklist](./90-DAY-TRANSFORMATION-CHECKLIST.md) ✅
-- 📊 Development log: [DEVELOPMENT_LOG.md](./DEVELOPMENT_LOG.md) ✅
-- 🔍 Security policies: [SECURITY.md](./SECURITY.md) ✅
+- 💻 Monitoring: [Portfolio Monitoring Guide](./apps/portfolio/MONITORING.md) ✅
 
 **What's Different About This Project:**
 - **Radical Transparency** - Real progress, not just claims
