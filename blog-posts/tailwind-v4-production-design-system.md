@@ -1,3 +1,15 @@
+---
+title: "Building a Production Design System with Tailwind CSS v4"
+description: "A deep dive into migrating to Tailwind CSS v4's bleeding-edge features, building a component library with 468 passing tests, and achieving 48% faster builds."
+tags:
+  - tailwindcss
+  - webdev
+  - react
+  - designsystems
+published: true
+series: "Design System Journey"
+---
+
 # Building a Production Design System with Tailwind CSS v4
 
 > A deep dive into migrating to Tailwind CSS v4's bleeding-edge features, including @source/@theme directives, and building a component library with 468 passing tests.
@@ -475,9 +487,22 @@ In my next post, I'll cover:
 - **NestJS + Prisma**: Building type-safe APIs
 - **AI Integration**: Adding Vercel AI SDK to the stack
 
-Follow me for more:
-- 🐦 Twitter: [@saswatawork](https://twitter.com/saswatawork)
-- 💼 LinkedIn: [linkedin.com/in/saswatapal](https://linkedin.com/in/saswatapal)
+## Connect With Me
+
+Follow my 90-day transformation journey from frontend to full-stack + AI engineer:
+
+- **Dev.to**: [@saswatapal](https://dev.to/saswatapal) - Technical deep dives
+- **GitHub**: [@saswatawork](https://github.com/saswatawork) - Daily commits & open source
+- **LinkedIn**: [Saswata Pal](https://www.linkedin.com/in/saswata-pal/) - Weekly progress updates
+- **X (Twitter)**: [@SaswataPal14](https://x.com/SaswataPal14) - Real-time updates & insights
+- **Medium**: [@saswatapal](https://medium.com/@saswatapal) - Deep dive articles
+
+**Questions? Feedback?** Drop a comment below or reach out on any platform above!
+
+---
+
+*Building world-class software, one commit at a time. 🚀*
+- 💼 LinkedIn: [linkedin.com/in/saswata-pal](https://linkedin.com/in/saswata-pal)
 - 💻 GitHub: [github.com/saswatawork](https://github.com/saswatawork)
 
 ---
@@ -488,4 +513,4 @@ Follow me for more:
 
 ---
 
-*This blog post is part of my 90-day transformation journey from frontend specialist to full-stack + AI engineer. Follow along in my [transformation checklist](https://github.com/saswatawork/codecraft-labs/blob/main/90-DAY-TRANSFORMATION-CHECKLIST.md).*
+*This blog post is part of my 90-day transformation journey from frontend specialist to full-stack + AI engineer. Follow along in my [transformation checklist](https://github.com/saswatawork/codecraft-labs/blob/main/docs/planning/90-DAY-TRANSFORMATION-CHECKLIST.md).*
