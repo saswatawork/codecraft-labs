@@ -1204,5 +1204,4 @@ I'll respond with personalized migration advice! 👇
 ---
 
 *Last updated: December 1, 2025*  
-*Tested with: Biome 1.6.4, ESLint 9.x, Prettier 3.x*  
-*Questions? [@saswatawork](https://twitter.com/saswatawork)*
+*Tested with: Biome 1.6.4, ESLint 9.x, Prettier 3.x*

@@ -15,10 +15,10 @@ export function parseBlogPost(filePath: string): { post: BlogPost; metadata: Blo
     description: metadata.description,
     content: body,
     tags: metadata.tags || [],
-    canonicalUrl: metadata.canonicalUrl,
-    coverImage: metadata.coverImage,
+    ...(metadata.canonicalUrl && { canonicalUrl: metadata.canonicalUrl }),
+    ...(metadata.coverImage && { coverImage: metadata.coverImage }),
     published: metadata.published ?? false,
-    series: metadata.series,
+    ...(metadata.series && { series: metadata.series }),
   };
 
   return { post, metadata };

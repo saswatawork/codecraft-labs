@@ -3,6 +3,7 @@
 import path from 'node:path';
 import { Command } from 'commander';
 import { DevToPublisher } from './publishers/devto.js';
+import { HashnodePublisher } from './publishers/hashnode.js';
 import { LinkedInPublisher } from './publishers/linkedin.js';
 import { MediumPublisher } from './publishers/medium.js';
 import { TwitterPublisher } from './publishers/twitter.js';
@@ -22,7 +23,7 @@ program
   .argument('<file>', 'Path to markdown file')
   .option(
     '-p, --platforms <platforms>',
-    'Comma-separated platforms (devto,medium,linkedin,twitter)',
+    'Comma-separated platforms (devto,medium,linkedin,twitter,hashnode)',
     'devto,medium,linkedin',
   )
   .option('-d, --dry-run', 'Simulate publishing without actual API calls', false)
@@ -57,7 +58,14 @@ program
       // Publish to each platform
       for (const platform of platforms) {
         // Check if platform is disabled in metadata
-        if (metadata[platform]?.published === false) {
+        const platformKey = platform as keyof typeof metadata;
+        const platformConfig = metadata[platformKey];
+        if (
+          platformConfig &&
+          typeof platformConfig === 'object' &&
+          'published' in platformConfig &&
+          platformConfig.published === false
+        ) {
           console.log(`⏭️  Skipping ${platform} (disabled in frontmatter)`);
           continue;
         }
@@ -88,6 +96,13 @@ program
             case 'twitter': {
               const publisher = new TwitterPublisher();
               const result = await publisher.publish(post, options.thread, options.dryRun);
+              results.push(result);
+              break;
+            }
+
+            case 'hashnode': {
+              const publisher = new HashnodePublisher();
+              const result = await publisher.publish(post, options.dryRun);
               results.push(result);
               break;
             }

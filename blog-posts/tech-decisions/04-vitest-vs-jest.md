@@ -1185,5 +1185,4 @@ I'll respond with personalized migration advice! 👇
 ---
 
 *Last updated: December 3, 2025*  
-*Tested with: Vitest 4.0.8, Jest 29.x, React 19 RC*  
-*Questions? [@saswatawork](https://twitter.com/saswatawork)*
+*Tested with: Vitest 4.0.8, Jest 29.x, React 19 RC*

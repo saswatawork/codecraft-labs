@@ -652,5 +652,4 @@ I'll respond with personalized advice! 👇
 ---
 
 *Last updated: December 1, 2025*  
-*Tested with: Turborepo 2.0.14, Nx 19.0.3*  
-*Questions? [@saswatawork](https://twitter.com/saswatawork)*
+*Tested with: Turborepo 2.0.14, Nx 19.0.3*

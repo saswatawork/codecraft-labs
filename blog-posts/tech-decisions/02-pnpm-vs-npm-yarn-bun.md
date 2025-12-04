@@ -985,5 +985,4 @@ I'll respond with personalized recommendations! 👇
 ---
 
 *Last updated: December 1, 2025*  
-*Tested with: pnpm 9.1.0, npm 10.9.4, Yarn 4.0, Bun 1.1*  
-*Questions? [@saswatawork](https://twitter.com/saswatawork)*
+*Tested with: pnpm 9.1.4, npm 10.7.0, Yarn 4.3.1, Bun 1.1.10*

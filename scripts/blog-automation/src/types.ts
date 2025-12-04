@@ -32,6 +32,10 @@ export interface BlogMetadata {
     published?: boolean;
     thread?: boolean;
   };
+  hashnode?: {
+    published?: boolean;
+    tags?: string[];
+  };
 }
 
 export interface PublishResult {
@@ -42,7 +46,7 @@ export interface PublishResult {
 }
 
 export interface PublishOptions {
-  platforms: ('devto' | 'medium' | 'linkedin' | 'twitter')[];
+  platforms: ('devto' | 'medium' | 'linkedin' | 'twitter' | 'hashnode')[];
   dryRun?: boolean;
   verbose?: boolean;
 }

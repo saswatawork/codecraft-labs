@@ -128,8 +128,8 @@ export class TwitterPublisher {
     const maxTweetLength = 270; // Leave room for numbering
 
     for (let i = 0; i < sections.length && tweets.length < 10; i++) {
-      const section = sections[i].trim();
-      if (section.length === 0 || section.startsWith('#')) continue;
+      const section = sections[i]?.trim();
+      if (!section || section.length === 0 || section.startsWith('#')) continue;
 
       if (section.length <= maxTweetLength) {
         tweets.push(`${tweets.length}/ ${section}`);
