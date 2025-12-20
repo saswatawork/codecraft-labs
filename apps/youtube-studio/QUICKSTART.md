@@ -47,17 +47,34 @@ Once the application starts, you can test:
 - Click "Generate Video"
 - Should see success toast and redirect to library
 
-### 2. Video Library
+### 2. Video Library (FIXED)
 - Navigate to `/dashboard/library`
 - See all videos in a responsive grid
 - Search for videos using the search bar
+- Video filtering now works correctly with proper API data extraction
 - Check status badges (draft, processing, ready, etc.)
 - Test action buttons (Edit, Captions, Publish, Delete)
+- Keyboard navigation fully supported (Tab, Enter, Space)
 
 ### 3. Voice Library
 - Navigate to `/dashboard/voices`
 - Upload a custom voice profile
 - See voice cards with metadata
+
+### 4. Settings Page (NEW)
+- Navigate to `/dashboard/settings`
+- Update your profile (name, email, channel)
+- Configure notification preferences
+  - Video processing completion alerts
+  - Publishing update notifications
+  - Error alert toggles
+- Manage API & Security
+  - View API key (ready for generation)
+  - Two-factor authentication toggle
+- View Storage & Data management
+  - See your storage usage quota
+  - Configure auto-delete preferences
+- All settings ready for database persistence integration
 - Test delete functionality
 
 ### 4. Audio Settings
@@ -133,21 +150,29 @@ pnpm dev
 ### ✅ Phase 1 & 2 (Available Now)
 - [x] User authentication (NextAuth.js)
 - [x] Create video form with all options
-- [x] Video library with search
+- [x] Video library with search (BUG FIXED in Phase 4)
 - [x] Voice profile management
 - [x] Audio settings (presets + custom)
 - [x] Toast notifications
 - [x] Loading states
 - [x] Responsive design
 - [x] API integration via TanStack Query
+- [x] Settings page with profile & notifications
+- [x] Keyboard navigation & accessibility (Phase 4)
 
-### ⏳ Coming Next (Phase 4+)
+### ✅ Phase 3 (Database Ready)
+- [x] PostgreSQL integration
+- [x] SQLAlchemy ORM models
+- [x] Database migrations
+- [x] Async session management
+
+### ⏳ Coming Next (Phase 5+)
 - [ ] Real-time video generation progress
 - [ ] Video preview/playback
 - [ ] Edit video functionality
 - [ ] Captions editor
 - [ ] Publish to YouTube
-- [ ] Database persistence
+- [ ] Settings persistence to database
 - [ ] Background job queue
 
 ## API Endpoints
