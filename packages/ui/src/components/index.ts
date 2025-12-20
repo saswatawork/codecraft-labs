@@ -34,6 +34,12 @@ export * from './TestimonialCard';
 export * from './ContactCard';
 export * from './Rating';
 
+// Media & Data Components
+export * from './DataTable';
+export * from './FileUpload';
+export * from './ProgressStepper';
+export * from './VideoPlayer';
+
 // Re-exports for convenience (default exports)
 export { default as Button } from './Button';
 export { default as Input } from './Input';

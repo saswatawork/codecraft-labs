@@ -8,7 +8,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 interface DashboardNavProps {
-  user: {
+  user?: {
     name?: string | null;
     email?: string | null;
     image?: string | null;
@@ -73,12 +73,12 @@ export function DashboardNav({ user }: DashboardNavProps) {
 
       <div className="border-t p-4">
         <div className="mb-3 flex items-center gap-3 px-3">
-          {user.image && (
+          {user?.image && (
             <img src={user.image} alt={user.name || 'User'} className="h-8 w-8 rounded-full" />
           )}
           <div className="flex-1 overflow-hidden">
-            <p className="truncate text-sm font-medium">{user.name}</p>
-            <p className="truncate text-xs text-gray-500">{user.email}</p>
+            <p className="truncate text-sm font-medium">{user?.name || 'Guest'}</p>
+            <p className="truncate text-xs text-gray-500">{user?.email || 'Not signed in'}</p>
           </div>
         </div>
 

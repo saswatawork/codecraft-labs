@@ -9,25 +9,28 @@ import type { BlogPost, PublishResult } from '../types.js';
 function sanitizeDevToContent(content: string): string {
   // Replace @ with @​ (@ + zero-width space U+200B) in code contexts
   // This breaks the @username pattern while remaining invisible
-  
+
   const ZWSP = '\u200B'; // Zero-width space
-  
+
   // Replace @ in code blocks first
   let sanitized = content.replace(/```[\s\S]*?```/g, (match) => {
     return match.replace(/@/g, `@${ZWSP}`);
   });
-  
+
   // Replace @ in inline code
   sanitized = sanitized.replace(/`[^`]+`/g, (match) => {
     return match.replace(/@/g, `@${ZWSP}`);
   });
-  
+
   // Replace remaining @ followed by package-like patterns
-  sanitized = sanitized.replace(/@(ccl|radix-ui|actions|types|changesets|commitlint|tailwindcss|biomejs|nestjs|prisma|testing-library|tanstack|pnpm)/g, `@${ZWSP}$1`);
-  
+  sanitized = sanitized.replace(
+    /@(ccl|radix-ui|actions|types|changesets|commitlint|tailwindcss|biomejs|nestjs|prisma|testing-library|tanstack|pnpm)/g,
+    `@${ZWSP}$1`,
+  );
+
   // Replace @latest, @workspace, @vX patterns
   sanitized = sanitized.replace(/@(latest|workspace|v\d+)/g, `@${ZWSP}$1`);
-  
+
   return sanitized;
 }
 

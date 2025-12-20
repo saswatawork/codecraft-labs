@@ -1,7 +1,7 @@
 #!/usr/bin/env tsx
 
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 
 interface DevToArticle {
   title: string;
@@ -14,7 +14,7 @@ interface DevToArticle {
 
 async function publishToDevTo(filePath: string) {
   const apiKey = process.env.DEV_TO_API_KEY;
-  
+
   if (!apiKey) {
     console.error('❌ DEV_TO_API_KEY not found in environment variables');
     console.log('📝 To get your API key:');
@@ -26,10 +26,10 @@ async function publishToDevTo(filePath: string) {
 
   // Read the markdown file
   const content = fs.readFileSync(filePath, 'utf-8');
-  
+
   // Extract frontmatter
   const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
-  
+
   if (!frontmatterMatch) {
     console.error('❌ Invalid markdown file format. Frontmatter not found.');
     process.exit(1);
@@ -44,7 +44,7 @@ async function publishToDevTo(filePath: string) {
   const tags = tagsMatch
     ? tagsMatch[1]
         .split('\n')
-        .map(t => t.trim().replace(/^-\s*/, ''))
+        .map((t) => t.trim().replace(/^-\s*/, ''))
         .filter(Boolean)
     : [];
   const series = frontmatter.match(/series:\s*"(.+)"/)?.[1];
