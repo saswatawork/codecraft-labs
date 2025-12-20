@@ -691,4 +691,16 @@ The best component documentation tool is the one that makes your team more produ
 
 ---
 
+## 👋 Let's Connect!
+
+Building in public and sharing what I learn along the way. Would love to hear your thoughts!
+
+**💼 Professional:** [LinkedIn](https://www.linkedin.com/in/saswata-pal/) • **🐦 Quick Takes:** [@SaswataPal14](https://twitter.com/SaswataPal14)  
+**📝 Writing:** [Dev.to](https://dev.to/saswatapal) • **💻 Code:** [GitHub](https://github.com/saswatawork)  
+**📧 Direct:** saswata.career@gmail.com
+
+Found this helpful? **Share it with your team** and **drop a comment** with your experience! 🚀
+
+---
+
 **Decision:** Storybook 10 for production design system. The ecosystem and documentation features justify the slower startup. For quick prototypes, I'd use Ladle.

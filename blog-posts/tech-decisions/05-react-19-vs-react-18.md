@@ -1144,5 +1144,17 @@ I'll respond with personalized migration advice! 👇
 
 ---
 
+## 👋 Let's Connect!
+
+Building in public and sharing what I learn along the way. Would love to hear your thoughts!
+
+**💼 Professional:** [LinkedIn](https://www.linkedin.com/in/saswata-pal/) • **🐦 Quick Takes:** [@SaswataPal14](https://twitter.com/SaswataPal14)  
+**📝 Writing:** [Dev.to](https://dev.to/saswatapal) • **💻 Code:** [GitHub](https://github.com/saswatawork)  
+**📧 Direct:** saswata.career@gmail.com
+
+Found this helpful? **Share it with your team** and **drop a comment** with your experience! 🚀
+
+---
+
 *Last updated: December 4, 2025*  
 *Tested with: React 19.2.0, React 18.3.1, Next.js 16, Preact 10.x*

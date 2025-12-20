@@ -21,7 +21,7 @@ build/
 .env.production.local
 
 # IDEs
-.vscode/
+#.vscode/
 .idea/
 *.swp
 *.swo

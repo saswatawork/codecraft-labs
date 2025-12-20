@@ -2,6 +2,35 @@ import axios, { type AxiosInstance } from 'axios';
 import { config, validateConfig } from '../config.js';
 import type { BlogPost, PublishResult } from '../types.js';
 
+/**
+ * Sanitize content for Dev.to by adding zero-width space after @
+ * Dev.to treats @username as user mentions everywhere
+ */
+function sanitizeDevToContent(content: string): string {
+  // Replace @ with @​ (@ + zero-width space U+200B) in code contexts
+  // This breaks the @username pattern while remaining invisible
+  
+  const ZWSP = '\u200B'; // Zero-width space
+  
+  // Replace @ in code blocks first
+  let sanitized = content.replace(/```[\s\S]*?```/g, (match) => {
+    return match.replace(/@/g, `@${ZWSP}`);
+  });
+  
+  // Replace @ in inline code
+  sanitized = sanitized.replace(/`[^`]+`/g, (match) => {
+    return match.replace(/@/g, `@${ZWSP}`);
+  });
+  
+  // Replace remaining @ followed by package-like patterns
+  sanitized = sanitized.replace(/@(ccl|radix-ui|actions|types|changesets|commitlint|tailwindcss|biomejs|nestjs|prisma|testing-library|tanstack|pnpm)/g, `@${ZWSP}$1`);
+  
+  // Replace @latest, @workspace, @vX patterns
+  sanitized = sanitized.replace(/@(latest|workspace|v\d+)/g, `@${ZWSP}$1`);
+  
+  return sanitized;
+}
+
 export class DevToPublisher {
   private client: AxiosInstance;
 
@@ -42,7 +71,7 @@ export class DevToPublisher {
         article: {
           title: post.title,
           published: post.published ?? false,
-          body_markdown: post.content,
+          body_markdown: sanitizeDevToContent(post.content),
           tags: post.tags.slice(0, 4), // Dev.to allows max 4 tags
           description: post.description,
           canonical_url: post.canonicalUrl,
@@ -86,7 +115,7 @@ export class DevToPublisher {
         article: {
           title: post.title,
           published: post.published ?? false,
-          body_markdown: post.content,
+          body_markdown: sanitizeDevToContent(post.content),
           tags: post.tags.slice(0, 4),
           description: post.description,
           canonical_url: post.canonicalUrl,

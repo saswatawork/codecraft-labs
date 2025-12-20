@@ -662,4 +662,12 @@ That's 21x faster builds, 40x faster dev server, and 68x faster HMR.
 
 ---
 
-**Built with Vite?** Share your build times and migration experience in the comments! 🚀
+## 👋 Let's Connect!
+
+Building in public and sharing what I learn along the way. Would love to hear your thoughts!
+
+**💼 Professional:** [LinkedIn](https://www.linkedin.com/in/saswata-pal/) • **🐦 Quick Takes:** [@SaswataPal14](https://twitter.com/SaswataPal14)  
+**📝 Writing:** [Dev.to](https://dev.to/saswatapal) • **💻 Code:** [GitHub](https://github.com/saswatawork)  
+**📧 Direct:** saswata.career@gmail.com
+
+Found this helpful? **Share it with your team** and **drop a comment** with your experience! 🚀

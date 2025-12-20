@@ -4,9 +4,8 @@ description: "Deep dive comparing Tailwind v4, Tailwind v3, Styled Components, a
 tags:
   - tailwindcss
   - css
-  - styling
-  - performance
   - webdev
+  - performance
 published: true
 series: "Tech Stack Decisions"
 ---
@@ -62,12 +61,12 @@ CSS-in-JS solutions (Styled Components, Emotion) have runtime overhead. Traditio
 
 ### Tailwind CSS v4 - The Oxide Revolution
 
-**What It Is:** Rust-based CSS framework with CSS-first configuration using new `@source` and `@theme` directives. No more `tailwind.config.js`.
+**What It Is:** Rust-based CSS framework with CSS-first configuration using new `&commat;source` and `&commat;theme` directives. No more `tailwind.config.js`.
 
 **The Innovation:**
 - **Oxide Engine**: 10x faster than v3 (Rust vs JavaScript)
-- **CSS-First**: Configuration via `@theme` in CSS, not JS
-- **@source**: Scan directories for classes directly in CSS
+- **CSS-First**: Configuration via `&commat;theme` in CSS, not JS
+- **&commat;source**: Scan directories for classes directly in CSS
 - **Native CSS**: Full CSS variables, container queries, modern features
 
 **Stats:**
@@ -78,9 +77,9 @@ CSS-in-JS solutions (Styled Components, Emotion) have runtime overhead. Traditio
 - **Bundle Size:** Optimized with tree-shaking, typically 8-15KB gzipped
 
 **Key Features:**
-- `@import 'tailwindcss'` - Single import, no config file needed
-- `@source './src'` - Scan directories for classes
-- `@theme { --color-primary: blue }` - CSS-native theming
+- `&commat;import 'tailwindcss'` - Single import, no config file needed
+- `&commat;source './src'` - Scan directories for classes
+- `&commat;theme { --color-primary: blue }` - CSS-native theming
 - Lightning-fast builds with Oxide engine
 - Full PostCSS compatibility
 
@@ -116,7 +115,7 @@ CSS-in-JS solutions (Styled Components, Emotion) have runtime overhead. Traditio
 - ❌ Slower than v4 Oxide engine (10x difference)
 - ❌ JavaScript config complexity (200+ line configs common)
 - ❌ HMR slower (500ms vs <100ms in v4)
-- ❌ Missing modern CSS features (no native @theme)
+- ❌ Missing modern CSS features (no native &commat;theme)
 
 **Best For:** Existing projects, teams wanting stability, need specific v3-only plugins
 
@@ -305,7 +304,7 @@ Tailwind v4 isn't just "faster Tailwind"—it's a fundamental rethinking of how 
 **The Three Pillars:**
 
 1. **Oxide Engine (Rust)**: 10x faster compilation
-2. **CSS-First Config**: No JavaScript, pure `@theme` directives
+2. **CSS-First Config**: No JavaScript, pure `&commat;theme` directives
 3. **Modern CSS**: Native variables, container queries, cascade layers
 
 ### Real-World Implementation
@@ -314,13 +313,13 @@ Tailwind v4 isn't just "faster Tailwind"—it's a fundamental rethinking of how 
 
 ```css
 /* apps/portfolio/src/app/globals.css */
-@import 'tailwindcss';
+&commat;import 'tailwindcss';
 
 /* Scan UI package for utility classes */
-@source '../../../../packages/ui/src';
+&commat;source '../../../../packages/ui/src';
 
 /* Theme configuration - pure CSS! */
-@theme {
+&commat;theme {
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
   --color-primary: hsl(var(--primary));
@@ -336,20 +335,20 @@ Tailwind v4 isn't just "faster Tailwind"—it's a fundamental rethinking of how 
   --radius-sm: calc(var(--radius) - 4px);
 }
 
-@layer base {
+&commat;layer base {
   * {
-    @apply border-border;
+    &commat;apply border-border;
   }
   
   body {
-    @apply bg-background text-foreground;
+    &commat;apply bg-background text-foreground;
   }
 }
 ```
 
 **That's it.** No `tailwind.config.js`. No JavaScript. Pure CSS configuration.
 
-### The @source Directive
+### The &commat;source Directive
 
 **Problem:** In v3, you configure content scanning in JavaScript:
 
@@ -367,8 +366,8 @@ module.exports = {
 
 ```css
 /* globals.css (v4) */
-@source './src';
-@source '../../../../packages/ui/src';
+&commat;source './src';
+&commat;source '../../../../packages/ui/src';
 ```
 
 **Benefits:**
@@ -377,12 +376,12 @@ module.exports = {
 - Faster (Oxide engine processes natively)
 - Dynamic (can use CSS imports/layers)
 
-### The @theme Directive
+### The &commat;theme Directive
 
 **The Game Changer:** Define design tokens as CSS variables, use them as Tailwind utilities.
 
 ```css
-@theme {
+&commat;theme {
   /* Colors */
   --color-brand-blue: #3b82f6;
   --color-brand-purple: #8b5cf6;
@@ -444,7 +443,7 @@ real    0m1.183s
 
 2. **CSS-First Configuration** - No JavaScript config
    - Impact: Removed 200+ line tailwind.config.js
-   - Reason: `@theme` and `@source` directives
+   - Reason: `&commat;theme` and `&commat;source` directives
    - Use case: Simpler monorepo setup, easier onboarding
 
 3. **Zero Runtime Overhead** - Pure CSS output
@@ -462,9 +461,9 @@ real    0m1.183s
    - Reason: Incremental Oxide compilation
    - Use case: Development flow, designer collaboration
 
-6. **Monorepo-Friendly** - @source for packages
+6. **Monorepo-Friendly** - &commat;source for packages
    - Impact: Scan shared UI packages automatically
-   - Reason: Relative path support in @source
+   - Reason: Relative path support in &commat;source
    - Use case: Design system + multiple apps
 
 7. **Smaller Bundle** - Optimized CSS output
@@ -484,13 +483,13 @@ real    0m1.183s
    - Workaround: Most plugins work, v4 adoption growing
    - Reality: 90% of common plugins work
 
-3. **Learning Curve** - New @theme/@source syntax
+3. **Learning Curve** - New &commat;theme/&commat;source syntax
    - Impact: Team needs to learn CSS-first config
    - Workaround: Good documentation, migration guide
    - Reality: Simpler than v3 config for new users
 
 4. **TypeScript Autocomplete** - Not full coverage yet
-   - Impact: No autocomplete for custom @theme values
+   - Impact: No autocomplete for custom &commat;theme values
    - Workaround: Use Tailwind IntelliSense extension
    - Reality: Coming in v4.1+ (2025)
 
@@ -505,13 +504,13 @@ real    0m1.183s
 
 ```css
 /* apps/portfolio/src/app/globals.css */
-@import 'tailwindcss';
+&commat;import 'tailwindcss';
 
 /* Scan source directories */
-@source '../../../../packages/ui/src';
+&commat;source '../../../../packages/ui/src';
 
 /* Design system tokens */
-@theme {
+&commat;theme {
   /* Color Palette */
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
@@ -541,9 +540,9 @@ real    0m1.183s
   --radius-sm: calc(var(--radius) - 4px);
 }
 
-@layer base {
+&commat;layer base {
   * {
-    @apply border-border;
+    &commat;apply border-border;
   }
 
   html {
@@ -552,14 +551,14 @@ real    0m1.183s
   }
 
   body {
-    @apply bg-background text-foreground;
+    &commat;apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 }
 
-@layer utilities {
+&commat;layer utilities {
   .text-balance {
     text-wrap: balance;
   }
@@ -795,10 +794,10 @@ module.exports = {
 
 ```css
 /* globals.css (v4) - cleaner, co-located */
-@import 'tailwindcss';
-@source './src';
+&commat;import 'tailwindcss';
+&commat;source './src';
 
-@theme {
+&commat;theme {
   --color-primary: hsl(var(--primary));
   --color-primary-foreground: hsl(var(--primary-foreground));
   --radius-lg: var(--radius);
@@ -820,7 +819,7 @@ module.exports = {
 
 ```css
 /* Container Queries (native) */
-@container (min-width: 700px) {
+&commat;container (min-width: 700px) {
   .card {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -828,10 +827,10 @@ module.exports = {
 }
 
 /* CSS Cascade Layers (native) */
-@layer base, components, utilities;
+&commat;layer base, components, utilities;
 
 /* CSS Variables (native, reactive) */
-@theme {
+&commat;theme {
   --color-primary: light-dark(blue, lightblue);
 }
 ```
@@ -851,7 +850,7 @@ Tailwind v4 embraces **native CSS** instead of recreating features in JavaScript
 | CSS Variables | ✅ Native | ⚠️ Compiled | ❌ JS only |
 | Container Queries | ✅ Native | ⚠️ Plugin | ❌ Manual |
 | Cascade Layers | ✅ Native | ❌ | ❌ |
-| @theme Directive | ✅ Native | ❌ | ❌ |
+| &commat;theme Directive | ✅ Native | ❌ | ❌ |
 
 **Impact:** Future-proof architecture, better browser performance
 
@@ -1022,14 +1021,14 @@ module.exports = {
 
 ```css
 /* src/app/globals.css */
-@import 'tailwindcss';
+&commat;import 'tailwindcss';
 
 /* Replace tailwind.config.js content: array */
-@source './src';
-@source '../../packages/ui/src'; /* If monorepo */
+&commat;source './src';
+&commat;source '../../packages/ui/src'; /* If monorepo */
 
 /* Replace tailwind.config.js theme.extend */
-@theme {
+&commat;theme {
   /* Copy your custom colors */
   --color-primary: #3b82f6;
   --color-secondary: #8b5cf6;
@@ -1067,17 +1066,17 @@ Some v3 plugins not compatible yet. Check plugin docs.
 
 **Workaround:** Use v3 alongside v4 temporarily (separate PostCSS configs)
 
-**2. Content Array → @source**
+**2. Content Array → &commat;source**
 
-v3 content paths need converting to @source directives.
+v3 content paths need converting to &commat;source directives.
 
 **3. Theme Extension**
 
-`theme.extend` in JS → `@theme {}` in CSS. Syntax slightly different.
+`theme.extend` in JS → `&commat;theme {}` in CSS. Syntax slightly different.
 
 **4. Custom Utilities**
 
-`@layer utilities` still works, but move to CSS file from JS.
+`&commat;layer utilities` still works, but move to CSS file from JS.
 
 ---
 
@@ -1136,14 +1135,14 @@ v3 content paths need converting to @source directives.
 
 **What surprised me:**
 - HMR under 100ms feels **instant** - completely changes development flow
-- `@theme` directive more **powerful** than expected - dynamic theming easy
+- `&commat;theme` directive more **powerful** than expected - dynamic theming easy
 - Migration easier than expected - 2 hours for entire portfolio
 - Community adoption **rapid** - ecosystem catching up fast
 
 **What I'd do differently:**
 - Migrate sooner! Should have jumped on v4 alpha
 - Document migration path better for team
-- Set up shared `@theme` config earlier for monorepo
+- Set up shared `&commat;theme` config earlier for monorepo
 
 **Would I choose it again?**
 
@@ -1156,8 +1155,8 @@ v3 content paths need converting to @source directives.
 ### Official Documentation
 - 📖 [Tailwind CSS v4 Docs](https://tailwindcss.com/docs)
 - 📖 [Tailwind v4 Upgrade Guide](https://tailwindcss.com/docs/upgrade-guide)
-- 📖 [@theme Directive Reference](https://tailwindcss.com/docs/theme)
-- 📖 [@source Directive Reference](https://tailwindcss.com/docs/content-configuration)
+- 📖 [&commat;theme Directive Reference](https://tailwindcss.com/docs/theme)
+- 📖 [&commat;source Directive Reference](https://tailwindcss.com/docs/content-configuration)
 - 📖 [Oxide Engine Details](https://tailwindcss.com/blog/tailwindcss-oxide)
 
 ### Tools & Extensions
@@ -1171,7 +1170,7 @@ v3 content paths need converting to @source directives.
 - 📝 [Zero-Runtime CSS Benefits](https://dev.to/srmagura/why-were-breaking-up-wiht-css-in-js-4g9b)
 
 ### My Configuration
-- 💻 [My globals.css with @theme](https://github.com/saswatawork/codecraft-labs/blob/main/apps/portfolio/src/app/globals.css)
+- 💻 [My globals.css with &commat;theme](https://github.com/saswatawork/codecraft-labs/blob/main/apps/portfolio/src/app/globals.css)
 - 💻 [Full monorepo setup](https://github.com/saswatawork/codecraft-labs)
 - 💻 [Component library examples](https://github.com/saswatawork/codecraft-labs/tree/main/packages/ui)
 
@@ -1191,6 +1190,18 @@ I'll respond with personalized migration advice! 👇
 
 **Next in series:** "Radix UI vs Headless UI: Building Accessible Components"  
 **Previous:** [Next.js 16 vs Remix vs Astro](https://dev.to/saswatapal/nextjs-16-vs-remix-vs-astro-choosing-the-right-react-framework-in-2025)
+
+---
+
+## 👋 Let's Connect!
+
+Building in public and sharing what I learn along the way. Would love to hear your thoughts!
+
+**💼 Professional:** [LinkedIn](https://www.linkedin.com/in/saswata-pal/) • **🐦 Quick Takes:** [@SaswataPal14](https://twitter.com/SaswataPal14)  
+**📝 Writing:** [Dev.to](https://dev.to/saswatapal) • **💻 Code:** [GitHub](https://github.com/saswatawork)  
+**📧 Direct:** saswata.career@gmail.com
+
+Found this helpful? **Share it with your team** and **drop a comment** with your experience! 🚀
 
 ---
 

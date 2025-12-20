@@ -741,4 +741,16 @@ The best state management solution is the simplest one that works. Don't over-en
 
 ---
 
+## 👋 Let's Connect!
+
+Building in public and sharing what I learn along the way. Would love to hear your thoughts!
+
+**💼 Professional:** [LinkedIn](https://www.linkedin.com/in/saswata-pal/) • **🐦 Quick Takes:** [@SaswataPal14](https://twitter.com/SaswataPal14)  
+**📝 Writing:** [Dev.to](https://dev.to/saswatapal) • **💻 Code:** [GitHub](https://github.com/saswatawork)  
+**📧 Direct:** saswata.career@gmail.com
+
+Found this helpful? **Share it with your team** and **drop a comment** with your experience! 🚀
+
+---
+
 **Decision:** React Context for now, with a clear path to Zustand when complexity demands it. The best state management is the one you don't have to think about.
