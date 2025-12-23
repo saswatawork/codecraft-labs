@@ -1,14 +1,18 @@
 'use client';
 
 import { VideoLibraryView } from '@/components/dashboard/video-library-view';
+import { VideoPlayerModal } from '@/components/player/video-player-modal';
 import { useDeleteVideo, useVideos } from '@/hooks/use-api';
 import type { Video } from '@/lib/types';
+import { useState } from 'react';
 import { toast } from 'sonner';
 
 export default function LibraryPage() {
   const { data, isLoading } = useVideos();
   const videos = data?.videos ?? [];
   const deleteVideo = useDeleteVideo();
+  const [isPlayerOpen, setIsPlayerOpen] = useState(false);
+  const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
 
   const handleEdit = (video: Video) => {
     toast.info('Edit feature coming soon!');
@@ -29,11 +33,8 @@ export default function LibraryPage() {
   };
 
   const handlePlay = (video: Video) => {
-    if (video.videoUrl) {
-      window.open(video.videoUrl, '_blank');
-    } else {
-      toast.info('Video not ready yet');
-    }
+    setSelectedVideo(video);
+    setIsPlayerOpen(true);
   };
 
   const handlePublish = (video: Video) => {
@@ -60,14 +61,24 @@ export default function LibraryPage() {
   }
 
   return (
-    <VideoLibraryView
-      videos={videos}
-      onEdit={handleEdit}
-      onDelete={handleDelete}
-      onPlay={handlePlay}
-      onPublish={handlePublish}
-      onCaptions={handleCaptions}
-      onMenuClick={handleMenuClick}
-    />
+    <>
+      <VideoLibraryView
+        videos={videos}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+        onPlay={handlePlay}
+        onPublish={handlePublish}
+        onCaptions={handleCaptions}
+        onMenuClick={handleMenuClick}
+      />
+      <VideoPlayerModal
+        open={isPlayerOpen}
+        onOpenChange={(open) => {
+          setIsPlayerOpen(open);
+          if (!open) setSelectedVideo(null);
+        }}
+        video={selectedVideo}
+      />
+    </>
   );
 }

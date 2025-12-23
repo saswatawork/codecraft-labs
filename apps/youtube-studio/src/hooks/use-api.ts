@@ -1,6 +1,12 @@
 'use client';
 
 import type {
+  VoicePreset,
+  VoicePresetCreateRequest,
+  VoicePresetListResponse,
+  VoicePresetUpdateRequest,
+} from '@/lib/voice-preset-types';
+import type {
   ProgressEvent,
   Video,
   VideoCreateRequest,
@@ -48,7 +54,7 @@ export function useVideo(id: string | null) {
 
   return useQuery({
     queryKey: ['video', id],
-    queryFn: () => client.videos.get(id!),
+    queryFn: () => client.videos.get(id as string),
     enabled: !!id,
     staleTime: 10000, // 10 seconds
   });
@@ -139,7 +145,7 @@ export function useVoice(id: string | null) {
 
   return useQuery({
     queryKey: ['voice', id],
-    queryFn: () => client.voices.get(id!),
+    queryFn: () => client.voices.get(id as string),
     enabled: !!id,
   });
 }
@@ -203,4 +209,128 @@ export function useVideoProgress(videoId: string | null) {
   }, [videoId, client, queryClient]);
 
   return { progress, error };
+}
+
+// Voice Preset Queries
+export function useVoicePresets() {
+  const client = useAPIClient();
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+
+  return useQuery({
+    queryKey: ['voice-presets'],
+    queryFn: async (): Promise<VoicePresetListResponse> => {
+      const response = await fetch(`${baseUrl}/api/voice-presets`, {
+        headers: { 'Content-Type': 'application/json' },
+      });
+      if (!response.ok) throw new Error('Failed to fetch voice presets');
+      return response.json();
+    },
+    staleTime: 60000, // 1 minute
+  });
+}
+
+export function useBuiltInPresets() {
+  const client = useAPIClient();
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+
+  return useQuery({
+    queryKey: ['voice-presets', 'built-in'],
+    queryFn: async (): Promise<VoicePreset[]> => {
+      const response = await fetch(`${baseUrl}/api/voice-presets/built-in`, {
+        headers: { 'Content-Type': 'application/json' },
+      });
+      if (!response.ok) throw new Error('Failed to fetch built-in presets');
+      return response.json();
+    },
+    staleTime: 300000, // 5 minutes (built-in presets don't change often)
+  });
+}
+
+export function useVoicePreset(id: string | null) {
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+
+  return useQuery({
+    queryKey: ['voice-preset', id],
+    queryFn: async (): Promise<VoicePreset> => {
+      const response = await fetch(`${baseUrl}/api/voice-presets/${id}`, {
+        headers: { 'Content-Type': 'application/json' },
+      });
+      if (!response.ok) throw new Error('Failed to fetch voice preset');
+      return response.json();
+    },
+    enabled: !!id,
+  });
+}
+
+export function useCreateVoicePreset() {
+  const queryClient = useQueryClient();
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+
+  return useMutation({
+    mutationFn: async (data: VoicePresetCreateRequest): Promise<VoicePreset> => {
+      const response = await fetch(`${baseUrl}/api/voice-presets`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.detail || 'Failed to create voice preset');
+      }
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['voice-presets'] });
+    },
+  });
+}
+
+export function useUpdateVoicePreset() {
+  const queryClient = useQueryClient();
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+
+  return useMutation({
+    mutationFn: async ({
+      id,
+      data,
+    }: {
+      id: string;
+      data: VoicePresetUpdateRequest;
+    }): Promise<VoicePreset> => {
+      const response = await fetch(`${baseUrl}/api/voice-presets/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.detail || 'Failed to update voice preset');
+      }
+      return response.json();
+    },
+    onSuccess: (preset) => {
+      queryClient.invalidateQueries({ queryKey: ['voice-presets'] });
+      queryClient.invalidateQueries({ queryKey: ['voice-preset', preset.id] });
+    },
+  });
+}
+
+export function useDeleteVoicePreset() {
+  const queryClient = useQueryClient();
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+
+  return useMutation({
+    mutationFn: async (id: string): Promise<void> => {
+      const response = await fetch(`${baseUrl}/api/voice-presets/${id}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.detail || 'Failed to delete voice preset');
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['voice-presets'] });
+    },
+  });
 }

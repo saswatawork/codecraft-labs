@@ -16,10 +16,10 @@ export default function DashboardPage() {
       await createVideo.mutateAsync({
         title: settings.title,
         description: settings.description,
-        inputType: settings.inputType,
-        inputContent: settings.inputContent,
+        scriptContent: settings.inputContent, // Map inputContent to scriptContent for backend
         language: settings.language,
         voiceProfileId: settings.voiceProfileId,
+        voicePresetId: settings.voicePresetId, // Pass voice preset ID to backend
         audioSettings: settings.audioSettings,
       });
 

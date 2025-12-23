@@ -60,13 +60,13 @@ echo -e "${BLUE}[2/5]${NC} Installing dependencies..."
 
 # Backend dependencies
 echo -e "${YELLOW}→ Installing Python dependencies...${NC}"
-cd "$BACKEND_DIR"
-if [ ! -d "venv" ]; then
+cd "$BACKEND_DIR/api"
+if [ ! -d ".venv" ]; then
     echo -e "${YELLOW}   Creating virtual environment...${NC}"
-    python3 -m venv venv
+    python3 -m venv .venv
 fi
-source venv/bin/activate
-pip install -q -r api/requirements.txt
+source .venv/bin/activate
+pip install -q -r requirements.txt
 echo -e "${GREEN}✓ Backend dependencies installed${NC}"
 
 # Frontend dependencies
@@ -100,9 +100,20 @@ fi
 if [ ! -f "$BACKEND_DIR/api/.env" ]; then
     echo -e "${YELLOW}⚠ Creating .env for backend...${NC}"
     cat > "$BACKEND_DIR/api/.env" << 'EOF'
+# Database Configuration (Choose one)
+DB_BACKEND=sqlalchemy
+
+# SQLite (simplest for dev - no server needed)
+DATABASE_URL=sqlite+aiosqlite:///./youtube_studio.db
+DATABASE_URL_SYNC=sqlite:///./youtube_studio.db
+
+# API Configuration
 API_HOST=0.0.0.0
 API_PORT=8000
-DATABASE_URL=postgresql+asyncpg://user:password@localhost:5432/youtube_studio
+API_RELOAD=true
+
+# Paths
+PYTHONPATH=/Users/saswatapal/workspace/yt-studio
 EOF
     echo -e "${GREEN}✓ Created .env${NC}"
 else
@@ -113,10 +124,37 @@ echo ""
 # Step 4: Start services
 echo -e "${BLUE}[4/5]${NC} Starting services..."
 
+# Check and kill existing processes on ports 3000 and 8000
+echo -e "${YELLOW}→ Checking for existing services...${NC}"
+if lsof -Pi :8000 -sTCP:LISTEN -t >/dev/null 2>&1 ; then
+    echo -e "${YELLOW}   Port 8000 is in use, killing existing process...${NC}"
+    kill -9 $(lsof -t -i:8000) 2>/dev/null || true
+    sleep 1
+fi
+
+if lsof -Pi :3000 -sTCP:LISTEN -t >/dev/null 2>&1 ; then
+    echo -e "${YELLOW}   Port 3000 is in use, killing existing process...${NC}"
+    kill -9 $(lsof -t -i:3000) 2>/dev/null || true
+    sleep 1
+fi
+
 # Start backend
 echo -e "${YELLOW}→ Starting FastAPI backend on http://localhost:8000${NC}"
-cd "$BACKEND_DIR"
-source venv/bin/activate
+cd "$BACKEND_DIR/api"
+source .venv/bin/activate
+
+# Set PYTHONPATH for module imports
+export PYTHONPATH="$BACKEND_DIR:$PYTHONPATH"
+
+# Load environment variables from .env file
+if [ -f .env ]; then
+    export $(cat .env | grep -v '^#' | xargs)
+fi
+
+# Run database migrations first
+echo -e "${YELLOW}   Running database migrations...${NC}"
+alembic upgrade head > /tmp/yt-studio-migration.log 2>&1 || true
+
 python -m uvicorn api.server:app --host 0.0.0.0 --port 8000 --reload > /tmp/yt-studio-backend.log 2>&1 &
 BACKEND_PID=$!
 

@@ -137,6 +137,7 @@ export const VideoCreateRequestSchema = z.object({
   scriptContent: z.string().min(1),
   language: z.string().default('en'),
   voiceProfileId: z.string().optional(),
+  voicePresetId: z.string().optional(), // ChatterBox TTS preset
   audioSettings: AudioSettingsSchema,
   profile: z.string().default('default'),
 });

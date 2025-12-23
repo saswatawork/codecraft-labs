@@ -23,6 +23,8 @@ import { Input } from '@ccl/ui';
 import { FileText, Link, Menu, Sparkles } from 'lucide-react';
 import { useState } from 'react';
 import { AudioSettings } from './audio-settings';
+import { PresetManager } from './preset-manager';
+import { VoicePresetSelector } from './voice-preset-selector';
 
 interface CreateVideoViewProps {
   voices: VoiceProfile[];
@@ -43,6 +45,8 @@ export function CreateVideoView({
   const [description, setDescription] = useState('');
   const [language, setLanguage] = useState('en');
   const [voiceProfileId, setVoiceProfileId] = useState<string>();
+  const [voicePresetId, setVoicePresetId] = useState<string>();
+  const [showPresetManager, setShowPresetManager] = useState(false);
   const [audioSettings, setAudioSettings] = useState<AudioSettingsType>(DEFAULT_AUDIO_SETTINGS);
 
   const handleGenerate = () => {
@@ -55,6 +59,7 @@ export function CreateVideoView({
       description: description.trim(),
       language,
       voiceProfileId,
+      voicePresetId,
       audioSettings,
     });
   };
@@ -199,6 +204,12 @@ export function CreateVideoView({
                 </SelectContent>
               </Select>
             </div>
+
+            <VoicePresetSelector
+              value={voicePresetId}
+              onChange={setVoicePresetId}
+              onManagePresets={() => setShowPresetManager(true)}
+            />
           </CardContent>
         </Card>
 
@@ -218,6 +229,12 @@ export function CreateVideoView({
           </Button>
         </CardContent>
       </Card>
+
+      <PresetManager
+        open={showPresetManager}
+        onOpenChange={setShowPresetManager}
+        onPresetSelect={(id) => setVoicePresetId(id)}
+      />
     </div>
   );
 }

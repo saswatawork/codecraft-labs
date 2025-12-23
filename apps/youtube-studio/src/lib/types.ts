@@ -112,6 +112,7 @@ export type GenerationSettings = {
   inputContent: string;
   language: string;
   voiceProfileId?: string;
+  voicePresetId?: string; // ChatterBox TTS preset
   audioSettings: AudioSettings;
   title: string;
   description: string;
