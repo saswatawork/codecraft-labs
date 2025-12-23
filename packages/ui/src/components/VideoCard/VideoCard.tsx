@@ -77,6 +77,41 @@ export const VideoCard = React.forwardRef<HTMLDivElement, VideoCardProps>(
   ) => {
     const isListView = viewMode === 'list';
 
+    const renderActions = (items: VideoCardAction[]) => {
+      if (items.length === 0) return null;
+
+      return (
+        <div className="inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-card/80 px-2.5 py-1 shadow-sm backdrop-blur">
+          {items.map((action) => {
+            const intentClass =
+              action.variant === 'destructive'
+                ? 'text-destructive hover:bg-destructive/10 focus-visible:ring-destructive/30'
+                : action.variant === 'default'
+                  ? 'text-primary hover:bg-primary/10 focus-visible:ring-primary/30'
+                  : 'text-foreground/80 hover:bg-foreground/5 focus-visible:ring-foreground/20';
+
+            return (
+              <Button
+                key={action.label}
+                size="icon"
+                variant="ghost"
+                onClick={action.onClick}
+                disabled={action.disabled}
+                className={cn(
+                  'h-9 rounded-full transition-colors px-3 gap-2',
+                  intentClass,
+                )}
+                title={action.title || action.label}
+              >
+                {action.icon}
+                <span className="text-[11px] font-medium leading-none">{action.label}</span>
+              </Button>
+            );
+          })}
+        </div>
+      );
+    };
+
     if (isListView) {
       return (
         <Card
@@ -138,41 +173,7 @@ export const VideoCard = React.forwardRef<HTMLDivElement, VideoCardProps>(
               )}
 
               {actions.length > 0 && (
-                <div className="flex gap-2 pt-1">
-                  {actions
-                    .filter((_, idx) => idx < actions.length - 1)
-                    .map((action) => (
-                      <Button
-                        key={action.label}
-                        size="sm"
-                        variant={action.variant || 'outline'}
-                        onClick={action.onClick}
-                        disabled={action.disabled}
-                        className="gap-1.5"
-                        title={action.title}
-                      >
-                        {action.icon}
-                        <span>{action.label}</span>
-                      </Button>
-                    ))}
-                  {/* Last action (typically delete) */}
-                  {actions[actions.length - 1] &&
-                    (() => {
-                      const lastAction = actions[actions.length - 1];
-                      return (
-                        <Button
-                          size="sm"
-                          variant={lastAction.variant || 'outline'}
-                          onClick={lastAction.onClick}
-                          disabled={lastAction.disabled}
-                          className="shrink-0 px-3"
-                          title={lastAction.title || lastAction.label}
-                        >
-                          {lastAction.icon}
-                        </Button>
-                      );
-                    })()}
-                </div>
+                <div className="pt-1 flex justify-end">{renderActions(actions)}</div>
               )}
             </div>
           </div>
@@ -251,22 +252,7 @@ export const VideoCard = React.forwardRef<HTMLDivElement, VideoCardProps>(
           )}
 
           {actions.length > 0 && (
-            <div className="flex gap-2 pt-1 flex-wrap">
-              {actions.map((action) => (
-                <Button
-                  key={action.label}
-                  size="sm"
-                  variant={action.variant || 'outline'}
-                  onClick={action.onClick}
-                  disabled={action.disabled}
-                  className="gap-1.5"
-                  title={action.title}
-                >
-                  {action.icon}
-                  <span className="hidden sm:inline">{action.label}</span>
-                </Button>
-              ))}
-            </div>
+            <div className="pt-1 flex flex-wrap">{renderActions(actions)}</div>
           )}
         </CardContent>
       </Card>
