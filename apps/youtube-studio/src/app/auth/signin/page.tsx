@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@ccl/ui';
+import { Button, Input } from '@ccl/ui';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -28,32 +28,27 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
-      <div className="w-full max-w-md space-y-8 rounded-2xl bg-white p-10 shadow-2xl dark:bg-gray-800">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
-            YouTube Studio
-          </h1>
-          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-            AI-powered video creation platform
-          </p>
+    <div className="flex min-h-screen items-center justify-center bg-linear-to-br from-gray-50 via-gray-50 to-gray-100 dark:from-gray-950 dark:via-gray-950 dark:to-gray-900">
+      <div className="w-full max-w-md space-y-8 rounded-2xl bg-white p-8 sm:p-10 shadow-xl border dark:bg-gray-900 dark:border-gray-800">
+        <div className="text-center space-y-2">
+          <div className="mx-auto w-16 h-16 rounded-2xl bg-linear-to-br from-primary/20 to-accent/20 flex items-center justify-center mb-4">
+            <span className="text-3xl">🎬</span>
+          </div>
+          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">YouTube Studio</h1>
+          <p className="text-sm text-muted-foreground">AI-powered video creation platform</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="mt-8 space-y-4">
-          <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-            >
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div className="space-y-2">
+            <label htmlFor="email" className="text-sm font-medium">
               Email (Development Mode)
             </label>
-            <input
+            <Input
               id="email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter any email"
-              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
               required
             />
           </div>
@@ -63,7 +58,7 @@ export default function SignInPage() {
           </Button>
         </form>
 
-        <p className="mt-8 text-center text-xs text-gray-500">
+        <p className="text-center text-xs text-muted-foreground pt-4 border-t">
           Development mode - enter any email to continue
         </p>
       </div>

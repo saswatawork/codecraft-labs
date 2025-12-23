@@ -43,14 +43,14 @@ export function VoiceLibraryView({
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div className="flex items-center gap-4">
-          <Button variant="ghost" size="icon" onClick={onMenuClick} className="md:hidden">
-            <Menu className="h-6 w-6" />
+    <div className="space-y-6 md:space-y-8">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <Button variant="ghost" size="icon" onClick={onMenuClick} className="md:hidden -ml-2">
+            <Menu className="h-5 w-5" />
           </Button>
           <div className="space-y-1">
-            <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Voice Library</h2>
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight">Voice Library</h1>
             <p className="text-sm md:text-base text-muted-foreground">
               Upload custom voices for personalized narration
             </p>
@@ -110,25 +110,23 @@ export function VoiceLibraryView({
       )}
 
       {voices.length === 0 && !showUpload && (
-        <Card>
-          <CardContent className="py-12">
-            <div className="text-center space-y-4">
-              <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
-                <Mic className="h-10 w-10 text-primary" />
-              </div>
-              <div className="space-y-2">
-                <h3 className="text-xl font-semibold">No custom voices yet</h3>
-                <p className="text-muted-foreground max-w-md mx-auto">
-                  Upload voice samples to create personalized narration for your videos
-                </p>
-              </div>
+        <div className="flex items-center justify-center min-h-[400px]">
+          <div className="text-center space-y-4 max-w-md px-4">
+            <div className="w-20 h-20 mx-auto rounded-2xl bg-linear-to-br from-primary/20 to-accent/20 flex items-center justify-center shadow-lg">
+              <Mic className="h-10 w-10 text-primary" />
             </div>
-          </CardContent>
-        </Card>
+            <div className="space-y-2">
+              <h3 className="text-2xl font-bold">No custom voices yet</h3>
+              <p className="text-sm md:text-base text-muted-foreground">
+                Upload voice samples to create personalized narration for your videos
+              </p>
+            </div>
+          </div>
+        </div>
       )}
 
       {Array.isArray(voices) && voices.length > 0 && (
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid gap-4 sm:gap-5 lg:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {voices.map((voice) => (
             <Card key={voice.id} className="group hover:shadow-md transition-shadow">
               <CardContent className="p-4 space-y-4">

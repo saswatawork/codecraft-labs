@@ -39,6 +39,8 @@ export * from './DataTable';
 export * from './FileUpload';
 export * from './ProgressStepper';
 export * from './VideoPlayer';
+export * from './VideoCard';
+export * from './ViewToggle';
 
 // Re-exports for convenience (default exports)
 export { default as Button } from './Button';

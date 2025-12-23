@@ -1,5 +1,6 @@
 'use client';
 
+import { Switch } from '@/components/ui/switch';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@ccl/ui';
 import { Button } from '@ccl/ui';
 import { Input } from '@ccl/ui';
@@ -12,13 +13,15 @@ export default function SettingsPage() {
   };
 
   return (
-    <div className="container mx-auto p-6 max-w-4xl">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold flex items-center gap-2">
-          <Settings className="w-8 h-8" />
+    <div className="space-y-6 md:space-y-8">
+      <div className="space-y-1">
+        <h1 className="text-3xl md:text-4xl font-bold tracking-tight flex items-center gap-3">
+          <Settings className="h-8 w-8" />
           Settings
         </h1>
-        <p className="text-muted-foreground mt-2">Manage your account settings and preferences</p>
+        <p className="text-sm md:text-base text-muted-foreground">
+          Manage your account settings and preferences
+        </p>
       </div>
 
       <div className="space-y-6">
@@ -64,33 +67,33 @@ export default function SettingsPage() {
             </CardTitle>
             <CardDescription>Configure how you receive notifications</CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="flex items-center justify-between py-3 border-b">
-              <div className="space-y-0.5">
+          <CardContent className="space-y-1">
+            <div className="flex items-center justify-between py-4 border-b">
+              <div className="space-y-0.5 flex-1 pr-4">
                 <div className="text-sm font-medium">Video Processing Complete</div>
                 <p className="text-sm text-muted-foreground">
                   Get notified when your video finishes processing
                 </p>
               </div>
-              <input type="checkbox" defaultChecked className="w-10 h-5" />
+              <Switch defaultChecked />
             </div>
-            <div className="flex items-center justify-between py-3 border-b">
-              <div className="space-y-0.5">
+            <div className="flex items-center justify-between py-4 border-b">
+              <div className="space-y-0.5 flex-1 pr-4">
                 <div className="text-sm font-medium">Publishing Updates</div>
                 <p className="text-sm text-muted-foreground">
                   Receive updates about video publishing status
                 </p>
               </div>
-              <input type="checkbox" defaultChecked className="w-10 h-5" />
+              <Switch defaultChecked />
             </div>
-            <div className="flex items-center justify-between py-3">
-              <div className="space-y-0.5">
+            <div className="flex items-center justify-between py-4">
+              <div className="space-y-0.5 flex-1 pr-4">
                 <div className="text-sm font-medium">Error Alerts</div>
                 <p className="text-sm text-muted-foreground">
                   Get alerted when errors occur during processing
                 </p>
               </div>
-              <input type="checkbox" defaultChecked className="w-10 h-5" />
+              <Switch defaultChecked />
             </div>
           </CardContent>
         </Card>
@@ -117,14 +120,14 @@ export default function SettingsPage() {
                 Keep your API key secure. Never share it publicly.
               </p>
             </div>
-            <div className="flex items-center justify-between py-3 border-t">
-              <div className="space-y-0.5">
+            <div className="flex items-center justify-between py-4 border-t">
+              <div className="space-y-0.5 flex-1 pr-4">
                 <div className="text-sm font-medium">Two-Factor Authentication</div>
                 <p className="text-sm text-muted-foreground">
                   Add an extra layer of security to your account
                 </p>
               </div>
-              <input type="checkbox" className="w-10 h-5" />
+              <Switch />
             </div>
           </CardContent>
         </Card>
@@ -148,22 +151,26 @@ export default function SettingsPage() {
                 <div className="bg-primary h-2 rounded-full" style={{ width: '0%' }} />
               </div>
             </div>
-            <div className="flex items-center justify-between py-3 border-t">
-              <div className="space-y-0.5">
+            <div className="flex items-center justify-between py-4 border-t">
+              <div className="space-y-0.5 flex-1 pr-4">
                 <div className="text-sm font-medium">Auto-delete Failed Videos</div>
                 <p className="text-sm text-muted-foreground">
                   Automatically remove videos that fail processing after 7 days
                 </p>
               </div>
-              <input type="checkbox" className="w-10 h-5" />
+              <Switch />
             </div>
           </CardContent>
         </Card>
 
         {/* Save Button */}
-        <div className="flex justify-end gap-4">
-          <Button variant="outline">Cancel</Button>
-          <Button onClick={handleSave}>Save Changes</Button>
+        <div className="flex flex-col sm:flex-row justify-end gap-3">
+          <Button variant="outline" className="sm:w-auto w-full">
+            Cancel
+          </Button>
+          <Button onClick={handleSave} className="sm:w-auto w-full">
+            Save Changes
+          </Button>
         </div>
       </div>
     </div>

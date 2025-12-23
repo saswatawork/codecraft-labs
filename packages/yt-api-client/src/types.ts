@@ -165,5 +165,5 @@ export interface ProgressEvent {
 export interface APIError {
   error: string;
   message: string;
-  details?: Record<string, any>;
+  details?: Record<string, unknown>;
 }
