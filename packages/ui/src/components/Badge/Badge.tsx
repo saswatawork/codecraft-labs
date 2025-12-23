@@ -8,7 +8,7 @@ import { badgeVariants } from '../../utils/variants';
  */
 export interface BadgeProps
   extends React.HTMLAttributes<HTMLDivElement>,
-  VariantProps<typeof badgeVariants> {
+    VariantProps<typeof badgeVariants> {
   /**
    * Icon to display before the badge text
    */

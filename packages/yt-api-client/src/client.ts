@@ -174,12 +174,25 @@ export class YouTubeStudioAPI {
       }
     };
 
-    ws.onerror = () => {
-      onError?.(new Error('WebSocket error'));
+    ws.onerror = (event) => {
+      // Only report error if WebSocket was supposed to be open
+      // Ignore errors after close (normal completion)
+      if (ws.readyState !== WebSocket.CLOSED && ws.readyState !== WebSocket.CLOSING) {
+        onError?.(new Error('WebSocket connection failed'));
+      }
     };
 
-    ws.onclose = () => {
-      // Auto-reconnect logic could be added here
+    ws.onclose = (event) => {
+      // Normal closure codes:
+      // 1000 = Normal closure
+      // 1001 = Going away (server shutdown)
+      // 1005 = No status code (common for normal close)
+      // 1006 = Abnormal closure (but can happen during long operations - don't treat as error)
+      // Only report error for truly abnormal closures (protocol errors, etc.)
+      const normalCodes = [1000, 1001, 1005, 1006];
+      if (!normalCodes.includes(event.code) && event.wasClean === false) {
+        onError?.(new Error(`Connection closed unexpectedly: ${event.reason || 'Unknown reason'}`));
+      }
     };
 
     return () => {

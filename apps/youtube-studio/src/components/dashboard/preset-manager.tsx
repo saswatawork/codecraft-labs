@@ -28,12 +28,12 @@ import {
   formatUsageCount,
   parsePresetFile,
 } from '@/lib/preset-utils';
+import { RECOMMENDED_PRESETS } from '@/lib/recommended-presets';
 import {
   DEFAULT_VOICE_PRESET,
   type VoicePreset,
   type VoicePresetCreateRequest,
 } from '@/lib/voice-preset-types';
-import { RECOMMENDED_PRESETS } from '@/lib/recommended-presets';
 import {
   Button,
   Dialog,
@@ -449,13 +449,20 @@ export function PresetManager({ open, onOpenChange, onPresetSelect }: PresetMana
                         <Sparkles className="h-4 w-4 text-primary" />
                         <CardTitle className="text-sm">Install Recommended Presets</CardTitle>
                       </div>
-                      <Button size="sm" onClick={installRecommended} disabled={createPreset.isPending}>
-                        {createPreset.isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                      <Button
+                        size="sm"
+                        onClick={installRecommended}
+                        disabled={createPreset.isPending}
+                      >
+                        {createPreset.isPending && (
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        )}
                         Add {missingRecommended.length}
                       </Button>
                     </div>
                     <CardDescription className="text-xs mt-1">
-                      Curated, natural-sounding presets tuned for ChatterBox TTS (YouTube, narrations, promos).
+                      Curated, natural-sounding presets tuned for ChatterBox TTS (YouTube,
+                      narrations, promos).
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="pt-0">
@@ -466,7 +473,9 @@ export function PresetManager({ open, onOpenChange, onPresetSelect }: PresetMana
                         </span>
                       ))}
                       {RECOMMENDED_PRESETS.length > 6 && (
-                        <span className="px-2 py-0.5 rounded bg-muted/40">+{RECOMMENDED_PRESETS.length - 6} more</span>
+                        <span className="px-2 py-0.5 rounded bg-muted/40">
+                          +{RECOMMENDED_PRESETS.length - 6} more
+                        </span>
                       )}
                     </div>
                   </CardContent>

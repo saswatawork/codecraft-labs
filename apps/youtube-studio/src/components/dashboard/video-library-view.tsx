@@ -6,18 +6,19 @@ import { Button, Input, VideoCard, ViewToggle } from '@ccl/ui';
 import type { VideoCardAction, VideoCardMeta } from '@ccl/ui';
 import {
   Captions,
+  ChevronDown,
   FileText,
   Grid3x3,
   List,
   Menu,
-  ChevronDown,
   Pencil,
   Search,
   Trash2,
   Upload,
   VideoIcon,
 } from 'lucide-react';
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { VideoProgressTracker } from './video-progress-tracker';
 
 type ViewMode = 'grid' | 'list';
 type SortMode = 'recent' | 'title' | 'status';
@@ -63,8 +64,10 @@ export function VideoLibraryView({
     };
     const onDocClick = (e: MouseEvent) => {
       const t = e.target as Node;
-      if (sortMenuOpen && sortMenuRef.current && !sortMenuRef.current.contains(t)) setSortMenuOpen(false);
-      if (filterMenuOpen && filterMenuRef.current && !filterMenuRef.current.contains(t)) setFilterMenuOpen(false);
+      if (sortMenuOpen && sortMenuRef.current && !sortMenuRef.current.contains(t))
+        setSortMenuOpen(false);
+      if (filterMenuOpen && filterMenuRef.current && !filterMenuRef.current.contains(t))
+        setFilterMenuOpen(false);
     };
     document.addEventListener('keydown', onKey);
     document.addEventListener('mousedown', onDocClick);
@@ -84,12 +87,12 @@ export function VideoLibraryView({
           return a.title.localeCompare(b.title);
         case 'status':
           return a.status.localeCompare(b.status);
-        case 'recent':
-        default:
+        default: {
           // Fallback: sort by updatedAt or createdAt if available
           const aTime = a.updatedAt ?? a.createdAt ?? 0;
           const bTime = b.updatedAt ?? b.createdAt ?? 0;
           return bTime - aTime;
+        }
       }
     });
 
@@ -241,9 +244,9 @@ export function VideoLibraryView({
             </div>
           </div>
           <div className="hidden md:flex items-center gap-2">
-            <Button 
-              variant="default" 
-              size="sm" 
+            <Button
+              variant="default"
+              size="sm"
               leftIcon={<VideoIcon className="h-4 w-4" />}
               onClick={onCreateVideo}
             >
@@ -348,7 +351,9 @@ export function VideoLibraryView({
               {filterMenuOpen && (
                 <div className="absolute right-0 mt-2 w-56 rounded-lg border border-border/60 bg-card shadow-lg z-30 p-2 space-y-2">
                   <div className="text-xs font-semibold text-muted-foreground px-2">Status</div>
-                  {(['all', 'ready', 'processing', 'draft', 'published', 'error'] as StatusFilter[]).map((s) => (
+                  {(
+                    ['all', 'ready', 'processing', 'draft', 'published', 'error'] as StatusFilter[]
+                  ).map((s) => (
                     <button
                       key={s}
                       type="button"
@@ -358,7 +363,9 @@ export function VideoLibraryView({
                       {s}
                     </button>
                   ))}
-                  <div className="text-xs font-semibold text-muted-foreground px-2 pt-2">Language</div>
+                  <div className="text-xs font-semibold text-muted-foreground px-2 pt-2">
+                    Language
+                  </div>
                   <button
                     type="button"
                     className={`w-full text-left px-3 py-1.5 rounded hover:bg-accent ${languageFilter === 'all' ? 'font-semibold' : ''}`}
@@ -393,35 +400,40 @@ export function VideoLibraryView({
       >
         {Array.isArray(filteredVideos) &&
           filteredVideos.map((video) => (
-            <div
-              key={video.id}
-              role="group"
-              tabIndex={0}
-              className="focus:outline-none focus:ring-2 focus:ring-primary/40 rounded-md"
-              onKeyDown={(e) => {
-                // Simple keyboard shortcuts
-                if (e.key.toLowerCase() === 'e') onEdit(video);
-                if (e.key.toLowerCase() === 'c') onCaptions(video);
-                if (e.key.toLowerCase() === 'p' && video.status === 'ready') onPublish(video);
-                if (e.key === 'Enter' && video.status === 'ready') onPlay(video);
-              }}
-            >
-              <VideoCard
-                title={video.title}
-                description={video.description}
-                thumbnailUrl={video.thumbnailUrl}
-                duration={formatDuration(video.duration)}
-                status={{
-                  label: getStatusLabel(video.status),
-                  variant: getStatusVariant(video.status),
-                }}
-                metadata={buildVideoMetadata(video)}
-                actions={buildVideoActions(video)}
-                onPlay={video.status === 'ready' ? () => onPlay(video) : undefined}
-                isProcessing={video.status === 'processing'}
-                viewMode={viewMode}
-                previewUrl={video.status === 'ready' ? video.videoUrl ?? undefined : undefined}
-              />
+            <div key={video.id}>
+              {video.status === 'processing' || video.status === 'queued' ? (
+                <VideoProgressTracker videoId={video.id} compact={viewMode === 'grid'} />
+              ) : (
+                <fieldset
+                  className="focus:outline-none focus:ring-2 focus:ring-primary/40 rounded-md border-0 p-0 m-0"
+                  onKeyDown={(e) => {
+                    // Simple keyboard shortcuts
+                    if (e.key.toLowerCase() === 'e') onEdit(video);
+                    if (e.key.toLowerCase() === 'c') onCaptions(video);
+                    if (e.key.toLowerCase() === 'p' && video.status === 'ready') onPublish(video);
+                    if (e.key === 'Enter' && video.status === 'ready') onPlay(video);
+                  }}
+                >
+                  <VideoCard
+                    title={video.title}
+                    description={video.description}
+                    thumbnailUrl={video.thumbnailUrl}
+                    duration={formatDuration(video.duration)}
+                    status={{
+                      label: getStatusLabel(video.status),
+                      variant: getStatusVariant(video.status),
+                    }}
+                    metadata={buildVideoMetadata(video)}
+                    actions={buildVideoActions(video)}
+                    onPlay={video.status === 'ready' ? () => onPlay(video) : undefined}
+                    isProcessing={video.status === 'processing'}
+                    viewMode={viewMode}
+                    previewUrl={
+                      video.status === 'ready' ? (video.videoUrl ?? undefined) : undefined
+                    }
+                  />
+                </fieldset>
+              )}
             </div>
           ))}
       </div>

@@ -10,6 +10,8 @@ import {
 } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Textarea } from '@/components/ui/textarea';
+import { useBuiltInPresets, useVoicePresets } from '@/hooks/use-api';
+import { useBuiltInVoices } from '@/hooks/use-api';
 import { DEFAULT_AUDIO_SETTINGS, LANGUAGES } from '@/lib/constants';
 import type {
   AudioSettings as AudioSettingsType,
@@ -21,24 +23,22 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@ccl/
 import { Button } from '@ccl/ui';
 import { Input } from '@ccl/ui';
 import {
+  ArrowRight,
   FileText,
   Link,
   Menu,
-  Sparkles,
-  Volume2,
-  Settings,
-  ArrowRight,
   Mic2,
   Play,
+  Settings,
+  Sparkles,
+  Volume2,
 } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { AudioSettings } from './audio-settings';
-import { PresetManager } from './preset-manager';
-import { VoicePresetSelector } from './voice-preset-selector';
-import { VoiceLibraryModal } from './voice-library-modal';
 import { PresetAudioPlayer } from './preset-audio-player';
-import { useVoicePresets, useBuiltInPresets } from '@/hooks/use-api';
-import { useBuiltInVoices } from '@/hooks/use-api';
+import { PresetManager } from './preset-manager';
+import { VoiceLibraryModal } from './voice-library-modal';
+import { VoicePresetSelector } from './voice-preset-selector';
 
 interface CreateVideoViewProps {
   voices: VoiceProfile[];
@@ -67,24 +67,26 @@ export function CreateVideoView({
 
   // Fallback to built-in voices if none provided
   const { data: builtInVoicesData } = useBuiltInVoices();
-  const voicesForModal: VoiceProfile[] = Array.isArray(voices) && voices.length
-    ? voices
-    : Array.isArray(builtInVoicesData?.voices)
-      ? (builtInVoicesData!.voices as VoiceProfile[])
-      : [];
+  const voicesForModal: VoiceProfile[] =
+    Array.isArray(voices) && voices.length
+      ? voices
+      : Array.isArray(builtInVoicesData?.voices)
+        ? (builtInVoicesData?.voices as VoiceProfile[])
+        : [];
 
   // Load presets to resolve selected preset details
   const { data: presetsData } = useVoicePresets();
   const { data: builtInPresets = [] } = useBuiltInPresets();
-  const allPresets = [...(builtInPresets || []), ...(presetsData?.userPresets || []), ...(presetsData?.publicPresets || [])];
+  const allPresets = [
+    ...(builtInPresets || []),
+    ...(presetsData?.userPresets || []),
+    ...(presetsData?.publicPresets || []),
+  ];
   const selectedPreset = allPresets.find((p) => p.id === voicePresetId);
 
-  // Set default voice if none selected
-  useEffect(() => {
-    if (!voiceProfileId && voicesForModal.length > 0) {
-      setVoiceProfileId(voicesForModal[0].id);
-    }
-  }, [voiceProfileId, voicesForModal]);
+  // NOTE: Do NOT auto-select the first voice
+  // Let the backend use config default if no voice is explicitly selected
+  // This prevents accidentally using the wrong voice (e.g., "storyteller_female_voice" when it wasn't chosen)
 
   const handleGenerate = () => {
     if (!inputContent.trim() || !title.trim()) return;
@@ -276,7 +278,9 @@ export function CreateVideoView({
                       </div>
                       Language
                     </CardTitle>
-                    <CardDescription className="text-xs">Choose your audio language</CardDescription>
+                    <CardDescription className="text-xs">
+                      Choose your audio language
+                    </CardDescription>
                   </CardHeader>
                   <CardContent className="pt-4">
                     <Select value={language} onValueChange={setLanguage}>
@@ -327,14 +331,18 @@ export function CreateVideoView({
                   <CardContent className="pt-5 space-y-4">
                     {/* Voice Dropdown Selector */}
                     <div className="space-y-2">
-                      <Label className="text-xs font-semibold text-muted-foreground uppercase">Selected Voice</Label>
+                      <Label className="text-xs font-semibold text-muted-foreground uppercase">
+                        Selected Voice
+                      </Label>
                       <div className="flex items-center justify-between p-3 rounded-lg bg-muted/50 border border-border/50">
                         <div className="flex items-center gap-2 min-w-0">
                           <Mic2 className="h-4 w-4 text-primary shrink-0" />
                           <span className="text-sm font-medium truncate">{selectedVoiceName}</span>
                         </div>
                         {voiceProfileId && voiceProfileId !== 'default' && (
-                          <span className="text-xs text-green-600 dark:text-green-400 font-medium shrink-0">✓</span>
+                          <span className="text-xs text-green-600 dark:text-green-400 font-medium shrink-0">
+                            ✓
+                          </span>
                         )}
                       </div>
                     </div>
@@ -390,7 +398,9 @@ export function CreateVideoView({
                         </div>
                         <div>
                           <CardTitle className="text-lg font-bold">Voice Settings</CardTitle>
-                          <CardDescription className="text-xs mt-0.5">Customize TTS presets</CardDescription>
+                          <CardDescription className="text-xs mt-0.5">
+                            Customize TTS presets
+                          </CardDescription>
                         </div>
                       </div>
                     </div>
@@ -403,12 +413,16 @@ export function CreateVideoView({
                         onManagePresets={() => setShowPresetManager(true)}
                       />
                     </div>
-                    
+
                     {voicePresetId && (
                       <PresetAudioPlayer
                         key={`${voiceProfileId || 'voice'}-${voicePresetId || 'preset'}`}
                         voice={voicesForModal.find((v) => v.id === voiceProfileId)}
-                        speed={(typeof selectedPreset?.speed === 'number' ? selectedPreset?.speed : Number(selectedPreset?.speed)) || 1}
+                        speed={
+                          (typeof selectedPreset?.speed === 'number'
+                            ? selectedPreset?.speed
+                            : Number(selectedPreset?.speed)) || 1
+                        }
                       />
                     )}
                   </CardContent>
@@ -461,7 +475,9 @@ export function CreateVideoView({
                           </div>
                           <div className="flex items-center justify-between">
                             <span className="text-xs text-muted-foreground">Voice</span>
-                            <span className="text-sm font-semibold truncate">{selectedVoiceName}</span>
+                            <span className="text-sm font-semibold truncate">
+                              {selectedVoiceName}
+                            </span>
                           </div>
                         </div>
                       </div>

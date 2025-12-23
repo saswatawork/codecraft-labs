@@ -1,9 +1,17 @@
 'use client';
 
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Button, Badge } from '@ccl/ui';
-import type { VoicePreset } from '@/lib/voice-preset-types';
 import type { VoiceProfile } from '@/lib/types';
-import { Play, Pause, Sparkles, Mic2 } from 'lucide-react';
+import type { VoicePreset } from '@/lib/voice-preset-types';
+import {
+  Badge,
+  Button,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@ccl/ui';
+import { Mic2, Pause, Play, Sparkles } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
 interface PresetPreviewModalProps {
@@ -26,7 +34,7 @@ export function PresetPreviewModal({ open, onOpenChange, preset, voice }: Preset
     } else {
       audio.playbackRate = 1.0;
     }
-  }, [preset, open]);
+  }, [preset]);
 
   const handlePlayToggle = () => {
     const audio = audioRef.current;
@@ -51,7 +59,8 @@ export function PresetPreviewModal({ open, onOpenChange, preset, voice }: Preset
             <Sparkles className="h-4 w-4" /> Preset Preview
           </DialogTitle>
           <DialogDescription>
-            Preview your selected preset using the current voice sample. Speed is approximated client-side.
+            Preview your selected preset using the current voice sample. Speed is approximated
+            client-side.
           </DialogDescription>
         </DialogHeader>
 
@@ -61,9 +70,7 @@ export function PresetPreviewModal({ open, onOpenChange, preset, voice }: Preset
               <Mic2 className="h-4 w-4" />
               <span className="font-medium truncate">{voice?.name ?? 'No voice selected'}</span>
             </div>
-            {preset && (
-              <Badge className="text-xs">Preset: {preset.name}</Badge>
-            )}
+            {preset && <Badge className="text-xs">Preset: {preset.name}</Badge>}
           </div>
 
           {!hasPreview && (
@@ -89,7 +96,14 @@ export function PresetPreviewModal({ open, onOpenChange, preset, voice }: Preset
                   {preset?.speed ? `Speed ×${preset.speed.toFixed(2)}` : 'Speed ×1.00'}
                 </span>
               </div>
-              <audio ref={audioRef} src={voice!.preview} preload="metadata" onEnded={() => setPlaying(false)} className="hidden" />
+              {/* biome-ignore lint/a11y/useMediaCaption: Audio preview doesn't need captions */}
+              <audio
+                ref={audioRef}
+                src={voice?.preview}
+                preload="metadata"
+                onEnded={() => setPlaying(false)}
+                className="hidden"
+              />
             </div>
           )}
 

@@ -1,9 +1,9 @@
 'use client';
 
-import { Button } from '@ccl/ui';
-import { Play, Pause, Volume2 } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
 import type { VoiceProfile } from '@/lib/types';
+import { Button } from '@ccl/ui';
+import { Pause, Play, Volume2 } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
 
 interface PresetAudioPlayerProps {
   voice: VoiceProfile | undefined;
@@ -17,7 +17,10 @@ export function PresetAudioPlayer({ voice, speed = 1.0, className = '' }: Preset
   const [duration, setDuration] = useState(0);
   const audioRef = useRef<HTMLAudioElement>(null);
   const progressInterval = useRef<NodeJS.Timeout | null>(null);
-  const normalizedSpeed = typeof speed === 'number' && isFinite(speed) && speed > 0 ? Math.min(3, Math.max(0.5, speed)) : 1;
+  const normalizedSpeed =
+    typeof speed === 'number' && Number.isFinite(speed) && speed > 0
+      ? Math.min(3, Math.max(0.5, speed))
+      : 1;
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -42,7 +45,8 @@ export function PresetAudioPlayer({ voice, speed = 1.0, className = '' }: Preset
         clearInterval(progressInterval.current);
       }
     };
-  }, [voice?.preview]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Reset playback when voice changes
   useEffect(() => {
@@ -52,7 +56,8 @@ export function PresetAudioPlayer({ voice, speed = 1.0, className = '' }: Preset
     audio.currentTime = 0;
     setProgress(0);
     setIsPlaying(false);
-  }, [voice?.preview]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (audioRef.current) {
@@ -82,7 +87,7 @@ export function PresetAudioPlayer({ voice, speed = 1.0, className = '' }: Preset
   };
 
   const formatTime = (seconds: number) => {
-    if (!seconds || isNaN(seconds)) return '0:00';
+    if (!seconds || Number.isNaN(seconds)) return '0:00';
     const mins = Math.floor(seconds / 60);
     const secs = Math.floor(seconds % 60);
     return `${mins}:${secs.toString().padStart(2, '0')}`;
@@ -90,7 +95,9 @@ export function PresetAudioPlayer({ voice, speed = 1.0, className = '' }: Preset
 
   if (!voice?.preview) {
     return (
-      <div className={`flex items-center gap-3 p-3 rounded-lg bg-muted/30 border border-border/50 ${className}`}>
+      <div
+        className={`flex items-center gap-3 p-3 rounded-lg bg-muted/30 border border-border/50 ${className}`}
+      >
         <div className="flex items-center gap-2 text-muted-foreground text-sm">
           <Volume2 className="h-4 w-4" />
           <span>No preview available</span>
@@ -101,8 +108,9 @@ export function PresetAudioPlayer({ voice, speed = 1.0, className = '' }: Preset
 
   return (
     <div className={`space-y-2 ${className}`}>
+      {/* biome-ignore lint/a11y/useMediaCaption: Audio preview doesn't need captions */}
       <audio ref={audioRef} src={voice.preview} preload="metadata" />
-      
+
       <div className="flex items-center gap-3 p-3 rounded-lg bg-linear-to-r from-primary/10 via-accent/10 to-primary/10 border border-primary/20">
         <Button
           type="button"
@@ -111,11 +119,7 @@ export function PresetAudioPlayer({ voice, speed = 1.0, className = '' }: Preset
           className="h-9 w-9 shrink-0 shadow-md hover:shadow-lg transition-all"
           onClick={togglePlayPause}
         >
-          {isPlaying ? (
-            <Pause className="h-4 w-4" />
-          ) : (
-            <Play className="h-4 w-4 ml-0.5" />
-          )}
+          {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4 ml-0.5" />}
         </Button>
 
         <div className="flex-1 space-y-1.5">
@@ -125,7 +129,7 @@ export function PresetAudioPlayer({ voice, speed = 1.0, className = '' }: Preset
               {formatTime(audioRef.current?.currentTime || 0)} / {formatTime(duration)}
             </span>
           </div>
-          
+
           <div className="relative w-full h-1.5 bg-muted/50 rounded-full overflow-hidden">
             <div
               className="absolute inset-y-0 left-0 bg-linear-to-r from-primary to-accent transition-all duration-150 rounded-full"

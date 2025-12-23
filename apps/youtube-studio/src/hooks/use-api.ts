@@ -201,27 +201,52 @@ export function useVideoProgress(videoId: string | null) {
   useEffect(() => {
     if (!videoId) return;
 
-    const unsubscribe = client.subscribeToProgress(
-      videoId,
-      (event) => {
-        setProgress(event);
-        // Update video cache with new progress
-        queryClient.setQueryData(['video', videoId], (old: Video | undefined) => {
-          if (!old) return old;
-          return {
-            ...old,
-            currentStage: event.stage,
-            progress: event.progress,
-          };
-        });
-      },
-      (err) => {
-        setError(err);
-      },
-    );
+    let reconnectTimeout: NodeJS.Timeout;
+    let unsubscribe: (() => void) | null = null;
+    let isSubscribed = true;
+
+    const connect = () => {
+      if (!isSubscribed) return;
+
+      unsubscribe = client.subscribeToProgress(
+        videoId,
+        (event) => {
+          setProgress(event);
+          setError(null); // Clear any previous errors on successful message
+          // Update video cache with new progress
+          queryClient.setQueryData(['video', videoId], (old: Video | undefined) => {
+            if (!old) return old;
+            return {
+              ...old,
+              currentStage: event.stage,
+              progress: event.progress,
+            };
+          });
+        },
+        (err) => {
+          // Only show error if it's a real error, not a normal disconnection
+          // The connection will auto-reconnect for normal closures
+          console.warn('WebSocket error:', err.message);
+          setError(err);
+
+          // Auto-reconnect after 2 seconds for any error during active generation
+          if (isSubscribed) {
+            reconnectTimeout = setTimeout(() => {
+              console.log('Reconnecting to progress stream...');
+              if (unsubscribe) unsubscribe();
+              connect();
+            }, 2000);
+          }
+        },
+      );
+    };
+
+    connect();
 
     return () => {
-      unsubscribe();
+      isSubscribed = false;
+      if (reconnectTimeout) clearTimeout(reconnectTimeout);
+      if (unsubscribe) unsubscribe();
     };
   }, [videoId, client, queryClient]);
 

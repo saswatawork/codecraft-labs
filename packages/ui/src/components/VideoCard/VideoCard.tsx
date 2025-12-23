@@ -124,10 +124,7 @@ export const VideoCard = React.forwardRef<HTMLDivElement, VideoCardProps>(
                 variant="ghost"
                 onClick={action.onClick}
                 disabled={action.disabled}
-                className={cn(
-                  'h-9 rounded-full transition-colors px-3 gap-2',
-                  intentClass,
-                )}
+                className={cn('h-9 rounded-full transition-colors px-3 gap-2', intentClass)}
                 title={action.title || action.label}
               >
                 {action.icon}
@@ -194,7 +191,9 @@ export const VideoCard = React.forwardRef<HTMLDivElement, VideoCardProps>(
                           {meta.icon && <span className="shrink-0 opacity-70">{meta.icon}</span>}
                           <span>{meta.label}</span>
                         </span>
-                        {idx < metadata.length - 1 && <span className="text-muted-foreground/50">•</span>}
+                        {idx < metadata.length - 1 && (
+                          <span className="text-muted-foreground/50">•</span>
+                        )}
                       </React.Fragment>
                     ))}
                   </div>
@@ -228,13 +227,17 @@ export const VideoCard = React.forwardRef<HTMLDivElement, VideoCardProps>(
           onMouseEnter={() => {
             setHovering(true);
             if (videoRef.current && canSeek) {
-              try { videoRef.current.play(); } catch {}
+              try {
+                videoRef.current.play();
+              } catch {}
             }
           }}
           onMouseLeave={() => {
             setHovering(false);
             if (videoRef.current) {
-              try { videoRef.current.pause(); } catch {}
+              try {
+                videoRef.current.pause();
+              } catch {}
             }
           }}
           onMouseMove={(e) => {
@@ -337,6 +340,9 @@ export const VideoCard = React.forwardRef<HTMLDivElement, VideoCardProps>(
                     role="menu"
                     onClick={(e) => e.stopPropagation()}
                     onMouseLeave={() => setMenuOpen(false)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Escape') setMenuOpen(false);
+                    }}
                   >
                     <div className="py-1">
                       {actions.map((action, idx) => (
