@@ -152,13 +152,13 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {loading && <Spinner />}
 
         {/* Left icon */}
-        {leftIcon && !loading && <span className="flex-shrink-0">{leftIcon}</span>}
+        {leftIcon && !loading && <span className="shrink-0">{leftIcon}</span>}
 
         {/* Button content */}
         {children}
 
         {/* Right icon */}
-        {rightIcon && <span className="flex-shrink-0">{rightIcon}</span>}
+        {rightIcon && <span className="shrink-0">{rightIcon}</span>}
       </ButtonComponent>
     );
   },

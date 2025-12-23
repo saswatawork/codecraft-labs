@@ -4,10 +4,12 @@ import { VideoLibraryView } from '@/components/dashboard/video-library-view';
 import { VideoPlayerModal } from '@/components/player/video-player-modal';
 import { useDeleteVideo, useVideos } from '@/hooks/use-api';
 import type { Video } from '@/lib/types';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
 export default function LibraryPage() {
+  const router = useRouter();
   const { data, isLoading } = useVideos();
   const videos = data?.videos ?? [];
   const deleteVideo = useDeleteVideo();
@@ -52,6 +54,10 @@ export default function LibraryPage() {
     console.log('Menu clicked');
   };
 
+  const handleCreateVideo = () => {
+    router.push('/dashboard');
+  };
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-full">
@@ -70,6 +76,7 @@ export default function LibraryPage() {
         onPublish={handlePublish}
         onCaptions={handleCaptions}
         onMenuClick={handleMenuClick}
+        onCreateVideo={handleCreateVideo}
       />
       <VideoPlayerModal
         open={isPlayerOpen}

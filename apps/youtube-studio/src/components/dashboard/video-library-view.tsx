@@ -10,15 +10,18 @@ import {
   Grid3x3,
   List,
   Menu,
+  ChevronDown,
   Pencil,
   Search,
   Trash2,
   Upload,
   VideoIcon,
 } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 type ViewMode = 'grid' | 'list';
+type SortMode = 'recent' | 'title' | 'status';
+type StatusFilter = 'all' | 'ready' | 'processing' | 'draft' | 'published' | 'error';
 
 interface VideoLibraryViewProps {
   videos: Video[];
@@ -28,6 +31,7 @@ interface VideoLibraryViewProps {
   onPublish: (video: Video) => void;
   onCaptions: (video: Video) => void;
   onMenuClick: () => void;
+  onCreateVideo: () => void;
 }
 
 export function VideoLibraryView({
@@ -38,13 +42,56 @@ export function VideoLibraryView({
   onPublish,
   onCaptions,
   onMenuClick,
+  onCreateVideo,
 }: VideoLibraryViewProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [viewMode, setViewMode] = useState<ViewMode>('grid');
+  const [sortMode, setSortMode] = useState<SortMode>('recent');
+  const [statusFilter, setStatusFilter] = useState<StatusFilter>('all');
+  const [languageFilter, setLanguageFilter] = useState<string>('all');
+  const [sortMenuOpen, setSortMenuOpen] = useState(false);
+  const [filterMenuOpen, setFilterMenuOpen] = useState(false);
+  const sortMenuRef = useRef<HTMLDivElement | null>(null);
+  const filterMenuRef = useRef<HTMLDivElement | null>(null);
+  // Close menus on Escape or outside click (YouTube-like behavior)
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setSortMenuOpen(false);
+        setFilterMenuOpen(false);
+      }
+    };
+    const onDocClick = (e: MouseEvent) => {
+      const t = e.target as Node;
+      if (sortMenuOpen && sortMenuRef.current && !sortMenuRef.current.contains(t)) setSortMenuOpen(false);
+      if (filterMenuOpen && filterMenuRef.current && !filterMenuRef.current.contains(t)) setFilterMenuOpen(false);
+    };
+    document.addEventListener('keydown', onKey);
+    document.addEventListener('mousedown', onDocClick);
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.removeEventListener('mousedown', onDocClick);
+    };
+  }, [sortMenuOpen, filterMenuOpen]);
 
-  const filteredVideos = videos?.filter((video) =>
-    video.title.toLowerCase().includes(searchQuery.toLowerCase()),
-  );
+  const filteredVideos = videos
+    ?.filter((video) => video.title.toLowerCase().includes(searchQuery.toLowerCase()))
+    ?.filter((video) => (statusFilter === 'all' ? true : video.status === statusFilter))
+    ?.filter((video) => (languageFilter === 'all' ? true : video.language === languageFilter))
+    ?.sort((a, b) => {
+      switch (sortMode) {
+        case 'title':
+          return a.title.localeCompare(b.title);
+        case 'status':
+          return a.status.localeCompare(b.status);
+        case 'recent':
+        default:
+          // Fallback: sort by updatedAt or createdAt if available
+          const aTime = a.updatedAt ?? a.createdAt ?? 0;
+          const bTime = b.updatedAt ?? b.createdAt ?? 0;
+          return bTime - aTime;
+      }
+    });
 
   const getStatusVariant = (status: Video['status']) => {
     switch (status) {
@@ -112,6 +159,7 @@ export function VideoLibraryView({
   const buildVideoActions = (video: Video): VideoCardAction[] => {
     const actions: VideoCardAction[] = [];
 
+    // Primary: Edit
     actions.push({
       label: 'Edit',
       icon: <Pencil className="h-3.5 w-3.5" />,
@@ -120,6 +168,16 @@ export function VideoLibraryView({
       variant: 'outline',
     });
 
+    // Prioritize Delete so it appears in grid overlay cluster
+    actions.push({
+      label: 'Delete',
+      icon: <Trash2 className="h-3.5 w-3.5" />,
+      onClick: () => onDelete(video.id),
+      disabled: video.status === 'processing',
+      variant: 'destructive',
+    });
+
+    // Secondary: Captions (if script available)
     actions.push({
       label: 'Captions',
       icon: <Captions className="h-3.5 w-3.5" />,
@@ -129,6 +187,7 @@ export function VideoLibraryView({
       title: !video.script ? 'Script required for captions' : 'Edit captions',
     });
 
+    // Publish when ready and not yet published
     if (video.status === 'ready' && !video.publishedTo?.length) {
       actions.push({
         label: 'Publish',
@@ -137,14 +196,6 @@ export function VideoLibraryView({
         variant: 'default',
       });
     }
-
-    actions.push({
-      label: 'Delete',
-      icon: <Trash2 className="h-3.5 w-3.5" />,
-      onClick: () => onDelete(video.id),
-      disabled: video.status === 'processing',
-      variant: 'destructive',
-    });
 
     return actions;
   };
@@ -167,6 +218,12 @@ export function VideoLibraryView({
     );
   }
 
+  // Build quick title suggestions from current videos
+  const titleSuggestions = videos
+    ?.filter((v) => v.title.toLowerCase().includes(searchQuery.toLowerCase()))
+    ?.slice(0, 5)
+    ?.map((v) => v.title);
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -183,28 +240,146 @@ export function VideoLibraryView({
               </p>
             </div>
           </div>
+          <div className="hidden md:flex items-center gap-2">
+            <Button 
+              variant="default" 
+              size="sm" 
+              leftIcon={<VideoIcon className="h-4 w-4" />}
+              onClick={onCreateVideo}
+            >
+              New Video
+            </Button>
+          </div>
         </div>
 
-        {/* Search and View Controls */}
-        <div className="flex flex-col sm:flex-row gap-3">
+        {/* YouTube-style Toolbar: pill search + dropdown menus */}
+        <div className="flex flex-col lg:flex-row gap-3">
+          {/* Search pill */}
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground h-4 w-4" />
-            <Input
-              placeholder="Search videos..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10"
-            />
+            <div className="flex items-center gap-2 rounded-full border border-border/60 bg-card px-3 py-1.5">
+              <Search className="text-muted-foreground h-4 w-4" />
+              <Input
+                placeholder="Search"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="border-0 focus-visible:ring-0 px-0"
+              />
+              {searchQuery && (
+                <Button
+                  size="icon-sm"
+                  variant="ghost"
+                  className="rounded-full"
+                  onClick={() => setSearchQuery('')}
+                  title="Clear"
+                >
+                  ×
+                </Button>
+              )}
+            </div>
+            {/* Suggestions */}
+            {searchQuery && titleSuggestions && titleSuggestions.length > 0 && (
+              <div className="absolute z-30 mt-2 w-full rounded-lg border border-border/60 bg-card shadow-lg">
+                {titleSuggestions.map((t) => (
+                  <button
+                    key={t}
+                    type="button"
+                    className="w-full text-left px-3 py-2 hover:bg-accent"
+                    onClick={() => setSearchQuery(t)}
+                  >
+                    {t}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
-          <ViewToggle
-            options={[
-              { value: 'grid', label: 'Grid', icon: <Grid3x3 className="h-4 w-4" /> },
-              { value: 'list', label: 'List', icon: <List className="h-4 w-4" /> },
-            ]}
-            value={viewMode}
-            onValueChange={(value) => setViewMode(value as ViewMode)}
-          />
+          {/* View toggle + dropdown menus */}
+          <div className="relative flex items-center gap-2">
+            <ViewToggle
+              options={[
+                { value: 'grid', label: 'Grid', icon: <Grid3x3 className="h-4 w-4" /> },
+                { value: 'list', label: 'List', icon: <List className="h-4 w-4" /> },
+              ]}
+              value={viewMode}
+              onValueChange={(value) => setViewMode(value as ViewMode)}
+            />
+
+            {/* Sort dropdown */}
+            <div className="relative" ref={sortMenuRef}>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setSortMenuOpen((v) => !v)}
+                title="Sort"
+                rightIcon={<ChevronDown className="h-4 w-4" />}
+              >
+                Sort: {sortMode}
+              </Button>
+              {sortMenuOpen && (
+                <div className="absolute right-0 mt-2 w-40 rounded-lg border border-border/60 bg-card shadow-lg z-30">
+                  {(['recent', 'title', 'status'] as SortMode[]).map((mode) => (
+                    <button
+                      key={mode}
+                      type="button"
+                      className={`w-full text-left px-3 py-2 hover:bg-accent ${sortMode === mode ? 'font-semibold' : ''}`}
+                      onClick={() => {
+                        setSortMode(mode);
+                        setSortMenuOpen(false);
+                      }}
+                    >
+                      {mode}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Filter dropdown (status + language) */}
+            <div className="relative" ref={filterMenuRef}>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setFilterMenuOpen((v) => !v)}
+                title="Filters"
+                rightIcon={<ChevronDown className="h-4 w-4" />}
+              >
+                Filters
+              </Button>
+              {filterMenuOpen && (
+                <div className="absolute right-0 mt-2 w-56 rounded-lg border border-border/60 bg-card shadow-lg z-30 p-2 space-y-2">
+                  <div className="text-xs font-semibold text-muted-foreground px-2">Status</div>
+                  {(['all', 'ready', 'processing', 'draft', 'published', 'error'] as StatusFilter[]).map((s) => (
+                    <button
+                      key={s}
+                      type="button"
+                      className={`w-full text-left px-3 py-1.5 rounded hover:bg-accent ${statusFilter === s ? 'font-semibold' : ''}`}
+                      onClick={() => setStatusFilter(s)}
+                    >
+                      {s}
+                    </button>
+                  ))}
+                  <div className="text-xs font-semibold text-muted-foreground px-2 pt-2">Language</div>
+                  <button
+                    type="button"
+                    className={`w-full text-left px-3 py-1.5 rounded hover:bg-accent ${languageFilter === 'all' ? 'font-semibold' : ''}`}
+                    onClick={() => setLanguageFilter('all')}
+                  >
+                    All
+                  </button>
+                  {LANGUAGES.slice(0, 8).map((l) => (
+                    <button
+                      key={l.code}
+                      type="button"
+                      className={`w-full text-left px-3 py-1.5 rounded hover:bg-accent ${languageFilter === l.code ? 'font-semibold' : ''}`}
+                      onClick={() => setLanguageFilter(l.code)}
+                    >
+                      {l.flag} {l.name}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </div>
 
@@ -218,22 +393,36 @@ export function VideoLibraryView({
       >
         {Array.isArray(filteredVideos) &&
           filteredVideos.map((video) => (
-            <VideoCard
+            <div
               key={video.id}
-              title={video.title}
-              description={video.description}
-              thumbnailUrl={video.thumbnailUrl}
-              duration={formatDuration(video.duration)}
-              status={{
-                label: getStatusLabel(video.status),
-                variant: getStatusVariant(video.status),
+              role="group"
+              tabIndex={0}
+              className="focus:outline-none focus:ring-2 focus:ring-primary/40 rounded-md"
+              onKeyDown={(e) => {
+                // Simple keyboard shortcuts
+                if (e.key.toLowerCase() === 'e') onEdit(video);
+                if (e.key.toLowerCase() === 'c') onCaptions(video);
+                if (e.key.toLowerCase() === 'p' && video.status === 'ready') onPublish(video);
+                if (e.key === 'Enter' && video.status === 'ready') onPlay(video);
               }}
-              metadata={buildVideoMetadata(video)}
-              actions={buildVideoActions(video)}
-              onPlay={video.status === 'ready' ? () => onPlay(video) : undefined}
-              isProcessing={video.status === 'processing'}
-              viewMode={viewMode}
-            />
+            >
+              <VideoCard
+                title={video.title}
+                description={video.description}
+                thumbnailUrl={video.thumbnailUrl}
+                duration={formatDuration(video.duration)}
+                status={{
+                  label: getStatusLabel(video.status),
+                  variant: getStatusVariant(video.status),
+                }}
+                metadata={buildVideoMetadata(video)}
+                actions={buildVideoActions(video)}
+                onPlay={video.status === 'ready' ? () => onPlay(video) : undefined}
+                isProcessing={video.status === 'processing'}
+                viewMode={viewMode}
+                previewUrl={video.status === 'ready' ? video.videoUrl ?? undefined : undefined}
+              />
+            </div>
           ))}
       </div>
 

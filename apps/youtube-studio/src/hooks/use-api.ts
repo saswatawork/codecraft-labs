@@ -174,6 +174,23 @@ export function useDeleteVoice() {
   });
 }
 
+// Built-in Voice Queries (filesystem-based high quality references)
+export function useBuiltInVoices() {
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+
+  return useQuery({
+    queryKey: ['built-in-voices'],
+    queryFn: async (): Promise<{ voices: VoiceProfile[] }> => {
+      const response = await fetch(`${baseUrl}/api/voices/built-in`, {
+        headers: { 'Content-Type': 'application/json' },
+      });
+      if (!response.ok) throw new Error('Failed to fetch built-in voices');
+      return response.json();
+    },
+    staleTime: 300000, // 5 minutes
+  });
+}
+
 // Real-time Progress Hook
 export function useVideoProgress(videoId: string | null) {
   const client = useAPIClient();

@@ -116,10 +116,12 @@ export function AudioSettings({
           </Label>
           {info && <InfoTooltip content={info} />}
         </div>
-        <Badge variant="secondary" className="font-mono text-xs min-w-[3.5rem] justify-center">
-          {value.toFixed(step < 1 ? 1 : 0)}
-          {suffix}
-        </Badge>
+        <div className="min-w-14">
+          <Badge variant="secondary" className="font-mono text-xs justify-center">
+            {value.toFixed(step < 1 ? 1 : 0)}
+            {suffix}
+          </Badge>
+        </div>
       </div>
       <Slider
         id={id}

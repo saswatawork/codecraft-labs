@@ -13,7 +13,7 @@ import {
 import { useBuiltInPresets, useVoicePresets } from '@/hooks/use-api';
 import type { VoicePreset } from '@/lib/voice-preset-types';
 import { Button } from '@ccl/ui';
-import { Loader2, Settings2, Sparkles, User } from 'lucide-react';
+import { Loader2, Settings, Sparkles, User } from 'lucide-react';
 
 interface VoicePresetSelectorProps {
   value?: string;
@@ -53,7 +53,7 @@ export function VoicePresetSelector({
             onClick={onManagePresets}
             className="h-7 px-2 text-xs"
           >
-            <Settings2 className="h-3.5 w-3.5 mr-1" />
+            <Settings className="h-3.5 w-3.5 mr-1 text-muted-foreground" />
             Manage
           </Button>
         )}

@@ -66,7 +66,7 @@ export function VoiceLibraryView({
       </div>
 
       {showUpload && (
-        <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-accent/5">
+        <Card className="border-primary/20 bg-linear-to-br from-primary/5 to-accent/5">
           <CardHeader>
             <CardTitle>Upload New Voice</CardTitle>
             <CardDescription>
@@ -131,7 +131,7 @@ export function VoiceLibraryView({
             <Card key={voice.id} className="group hover:shadow-md transition-shadow">
               <CardContent className="p-4 space-y-4">
                 <div className="flex items-start justify-between">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-full bg-linear-to-br from-primary/20 to-accent/20 flex items-center justify-center">
                     <Mic className="h-6 w-6 text-primary" />
                   </div>
                   <Badge variant="outline" className="text-xs">

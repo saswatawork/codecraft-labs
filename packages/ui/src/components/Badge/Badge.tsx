@@ -8,7 +8,7 @@ import { badgeVariants } from '../../utils/variants';
  */
 export interface BadgeProps
   extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof badgeVariants> {
+  VariantProps<typeof badgeVariants> {
   /**
    * Icon to display before the badge text
    */
@@ -123,12 +123,12 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
 
         {/* Left icon */}
         {leftIcon && !loading && (
-          <span className="mr-1 flex-shrink-0 flex items-center">{leftIcon}</span>
+          <span className="mr-1 shrink-0 flex items-center">{leftIcon}</span>
         )}
 
         {/* Loading indicator (replaces left icon) */}
         {loading && (
-          <div className="mr-1.5 flex-shrink-0">
+          <div className="mr-1.5 shrink-0">
             <div className="w-3 h-3 border-2 border-current border-t-transparent rounded-full animate-spin" />
           </div>
         )}
@@ -137,7 +137,7 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
         {children}
 
         {/* Right icon */}
-        {rightIcon && <span className="ml-1 flex-shrink-0 flex items-center">{rightIcon}</span>}
+        {rightIcon && <span className="ml-1 shrink-0 flex items-center">{rightIcon}</span>}
       </BadgeComponent>
     );
   },
