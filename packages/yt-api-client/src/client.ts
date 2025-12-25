@@ -10,15 +10,18 @@ import type {
 export interface APIClientConfig {
   baseUrl: string;
   getAccessToken?: () => Promise<string | null>;
+  getUserId?: () => Promise<string | null>;
 }
 
 export class YouTubeStudioAPI {
   private baseUrl: string;
   private getAccessToken?: () => Promise<string | null>;
+  private getUserId?: () => Promise<string | null>;
 
   constructor(config: APIClientConfig) {
     this.baseUrl = config.baseUrl;
     this.getAccessToken = config.getAccessToken;
+    this.getUserId = config.getUserId;
   }
 
   private async getHeaders(): Promise<HeadersInit> {
@@ -30,6 +33,14 @@ export class YouTubeStudioAPI {
       const token = await this.getAccessToken();
       if (token) {
         headers['Authorization'] = `Bearer ${token}`;
+      }
+    }
+
+    // Add user ID header for backend authentication
+    if (this.getUserId) {
+      const userId = await this.getUserId();
+      if (userId) {
+        headers['X-User-Id'] = userId;
       }
     }
 

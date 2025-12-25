@@ -35,6 +35,7 @@ export type AudioSettings = {
   musicVolume?: number;
   voiceClarity?: number;
   backgroundNoise?: number;
+  voiceMode?: 'normal' | 'dramatic';
 };
 
 export type AudioPreset = {

@@ -22,6 +22,7 @@ export const AudioSettingsSchema = z.object({
   pitch: z.number().min(-12).max(12).default(0).optional(),
   musicVolume: z.number().min(0).max(100).default(30).optional(),
   voiceClarity: z.number().min(0).max(100).default(80).optional(),
+  voiceMode: z.enum(['normal', 'dramatic']).default('normal').optional(),
 });
 
 export type AudioSettings = z.infer<typeof AudioSettingsSchema>;

@@ -61,6 +61,7 @@ export function AudioSettings({
       musicVolume: 30,
       voiceClarity: 75,
       backgroundNoise: 0,
+      voiceMode: 'normal',
     });
   };
 
@@ -171,6 +172,38 @@ export function AudioSettings({
                     </div>
                   </SelectItem>
                 ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <Label htmlFor="voice-mode-compact">Voice Enhancement</Label>
+              <Badge variant="outline" className="text-xs">
+                New
+              </Badge>
+              <InfoTooltip content="Dramatic mode adds professional narrator-style pauses, emphasis, and emotional delivery to your voiceover. Use for YouTube videos and storytelling. Normal mode generates straightforward voice without enhancement." />
+            </div>
+            <Select
+              value={settings.voiceMode || 'normal'}
+              onValueChange={(v) => updateSetting('voiceMode', v as 'normal' | 'dramatic')}
+            >
+              <SelectTrigger id="voice-mode-compact">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="normal">
+                  <div className="flex flex-col items-start">
+                    <span className="font-medium">Normal</span>
+                    <span className="text-xs text-muted-foreground">Standard voiceover</span>
+                  </div>
+                </SelectItem>
+                <SelectItem value="dramatic">
+                  <div className="flex flex-col items-start">
+                    <span className="font-medium">🎭 Dramatic</span>
+                    <span className="text-xs text-muted-foreground">Professional narrator style</span>
+                  </div>
+                </SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -326,6 +359,40 @@ export function AudioSettings({
                             </div>
                           </SelectItem>
                         ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <Label htmlFor="voice-mode" className="text-sm">
+                        Voice Enhancement
+                      </Label>
+                      <Badge variant="outline" className="text-xs">
+                        New
+                      </Badge>
+                      <InfoTooltip content="Dramatic mode adds professional narrator-style pauses, emphasis, and emotional delivery to your voiceover. Perfect for YouTube videos and storytelling. Normal mode generates straightforward voice without enhancement." />
+                    </div>
+                    <Select
+                      value={settings.voiceMode || 'normal'}
+                      onValueChange={(v) => updateSetting('voiceMode', v as 'normal' | 'dramatic')}
+                    >
+                      <SelectTrigger id="voice-mode">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="normal">
+                          <div className="flex flex-col items-start">
+                            <span className="font-medium">Normal</span>
+                            <span className="text-xs text-muted-foreground">Standard voiceover</span>
+                          </div>
+                        </SelectItem>
+                        <SelectItem value="dramatic">
+                          <div className="flex flex-col items-start">
+                            <span className="font-medium">🎭 Dramatic</span>
+                            <span className="text-xs text-muted-foreground">Professional narrator style</span>
+                          </div>
+                        </SelectItem>
                       </SelectContent>
                     </Select>
                   </div>

@@ -28,6 +28,7 @@ export function useAPIClient() {
     apiClient = new YouTubeStudioAPI({
       baseUrl: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000',
       getAccessToken: async () => session?.accessToken || null,
+      getUserId: async () => session?.user?.id || null,
     });
   }
 

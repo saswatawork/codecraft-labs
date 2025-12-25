@@ -44,6 +44,7 @@ export const DEFAULT_AUDIO_SETTINGS = {
   musicVolume: 30,
   voiceClarity: 75,
   backgroundNoise: 0,
+  voiceMode: 'normal' as const,
 };
 
 export const AUDIO_PRESETS: AudioPreset[] = [
