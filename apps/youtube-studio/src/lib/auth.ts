@@ -50,19 +50,33 @@ export const config = {
       : []),
   ],
   callbacks: {
-    async jwt({ token, account, profile }) {
+    async jwt({ token, account, profile, user }) {
       if (account) {
         token.accessToken = account.access_token;
         token.provider = account.provider;
       }
       if (profile) {
         token.id = profile.sub || profile.id;
+        token.email = profile.email;
+      }
+      if (user) {
+        token.email = user.email;
       }
       return token;
     },
     async session({ session, token }) {
+      // Map email to database user ID
+      const emailToUserId: Record<string, string> = {
+        'thinkingquietly7@gmail.com': 'thinking-quietly-user',
+        'saswata.career@gmail.com': 'saswata-career-user',
+      };
+
+      const email = (token.email || session.user?.email) as string;
+      const userId = emailToUserId[email] || 'user-123'; // fallback to default
+
       if (session.user) {
-        session.user.id = token.id as string;
+        session.user.id = userId;
+        session.user.email = email;
       }
       session.accessToken = token.accessToken as string;
       session.provider = token.provider as string;

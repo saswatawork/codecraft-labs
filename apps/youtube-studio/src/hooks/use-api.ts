@@ -20,15 +20,19 @@ import { useEffect, useState } from 'react';
 
 // API Client Singleton
 let apiClient: YouTubeStudioAPI | null = null;
+let currentSession: any = null;
 
 export function useAPIClient() {
   const { data: session } = useSession();
 
+  // Update current session reference
+  currentSession = session;
+
   if (!apiClient) {
     apiClient = new YouTubeStudioAPI({
       baseUrl: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000',
-      getAccessToken: async () => session?.accessToken || null,
-      getUserId: async () => session?.user?.id || null,
+      getAccessToken: async () => currentSession?.accessToken || null,
+      getUserId: async () => currentSession?.user?.id || null,
     });
   }
 
