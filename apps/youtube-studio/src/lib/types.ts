@@ -36,6 +36,13 @@ export type AudioSettings = {
   voiceClarity?: number;
   backgroundNoise?: number;
   voiceMode?: 'normal' | 'dramatic';
+  // TTS Engine Selection
+  ttsEngine?: 'chatterbox' | 'google';
+  // Google Cloud TTS options (only used when ttsEngine = 'google')
+  googleVoicePreset?: string;
+  googleSpeakingRate?: number;
+  googlePitch?: number;
+  googleEnableSSML?: boolean;
 };
 
 export type AudioPreset = {

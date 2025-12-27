@@ -23,7 +23,7 @@ let apiClient: YouTubeStudioAPI | null = null;
 let currentSession: any = null;
 
 export function useAPIClient() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
   // Update current session reference
   currentSession = session;
@@ -36,7 +36,7 @@ export function useAPIClient() {
     });
   }
 
-  return apiClient;
+  return { client: apiClient, sessionStatus: status };
 }
 
 // Video Queries
@@ -45,28 +45,29 @@ export function useVideos(params?: {
   limit?: number;
   offset?: number;
 }) {
-  const client = useAPIClient();
+  const { client, sessionStatus } = useAPIClient();
 
   return useQuery({
     queryKey: ['videos', params],
     queryFn: () => client.videos.list(params),
+    enabled: sessionStatus === 'authenticated', // Only run when session is loaded
     staleTime: 30000, // 30 seconds
   });
 }
 
 export function useVideo(id: string | null) {
-  const client = useAPIClient();
+  const { client, sessionStatus } = useAPIClient();
 
   return useQuery({
     queryKey: ['video', id],
     queryFn: () => client.videos.get(id as string),
-    enabled: !!id,
+    enabled: !!id && sessionStatus === 'authenticated',
     staleTime: 10000, // 10 seconds
   });
 }
 
 export function useCreateVideo() {
-  const client = useAPIClient();
+  const { client } = useAPIClient();
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -78,7 +79,7 @@ export function useCreateVideo() {
 }
 
 export function useUpdateVideo() {
-  const client = useAPIClient();
+  const { client } = useAPIClient();
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -92,7 +93,7 @@ export function useUpdateVideo() {
 }
 
 export function useDeleteVideo() {
-  const client = useAPIClient();
+  const { client } = useAPIClient();
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -104,7 +105,7 @@ export function useDeleteVideo() {
 }
 
 export function useRegenerateVideo() {
-  const client = useAPIClient();
+  const { client } = useAPIClient();
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -117,7 +118,7 @@ export function useRegenerateVideo() {
 }
 
 export function useDownloadVideo() {
-  const client = useAPIClient();
+  const { client } = useAPIClient();
 
   return useMutation({
     mutationFn: async (id: string) => {
@@ -136,7 +137,7 @@ export function useDownloadVideo() {
 
 // Voice Queries
 export function useVoices() {
-  const client = useAPIClient();
+  const { client } = useAPIClient();
 
   return useQuery({
     queryKey: ['voices'],
@@ -146,7 +147,7 @@ export function useVoices() {
 }
 
 export function useVoice(id: string | null) {
-  const client = useAPIClient();
+  const { client } = useAPIClient();
 
   return useQuery({
     queryKey: ['voice', id],
@@ -156,7 +157,7 @@ export function useVoice(id: string | null) {
 }
 
 export function useCreateVoice() {
-  const client = useAPIClient();
+  const { client } = useAPIClient();
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -168,7 +169,7 @@ export function useCreateVoice() {
 }
 
 export function useDeleteVoice() {
-  const client = useAPIClient();
+  const { client } = useAPIClient();
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -198,7 +199,7 @@ export function useBuiltInVoices() {
 
 // Real-time Progress Hook
 export function useVideoProgress(videoId: string | null) {
-  const client = useAPIClient();
+  const { client } = useAPIClient();
   const queryClient = useQueryClient();
   const [progress, setProgress] = useState<ProgressEvent | null>(null);
   const [error, setError] = useState<Error | null>(null);
@@ -260,7 +261,7 @@ export function useVideoProgress(videoId: string | null) {
 
 // Voice Preset Queries
 export function useVoicePresets() {
-  const client = useAPIClient();
+  const { client } = useAPIClient();
   const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
   return useQuery({
@@ -277,7 +278,7 @@ export function useVoicePresets() {
 }
 
 export function useBuiltInPresets() {
-  const client = useAPIClient();
+  const { client } = useAPIClient();
   const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
   return useQuery({

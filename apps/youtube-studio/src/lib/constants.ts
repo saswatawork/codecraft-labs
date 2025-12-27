@@ -1,7 +1,16 @@
 import type { AudioPreset, Language } from './types';
 
 export const LANGUAGES: Language[] = [
-  { code: 'en', name: 'English', flag: '🇺🇸' },
+  { code: 'en', name: 'English (US)', flag: '🇺🇸' },
+  { code: 'en-IN', name: 'English (India)', flag: '🇮🇳' },
+  { code: 'hi', name: 'Hindi', flag: '🇮🇳' },
+  { code: 'bn', name: 'Bengali', flag: '🇧🇩' },
+  { code: 'ta', name: 'Tamil', flag: '🇮🇳' },
+  { code: 'te', name: 'Telugu', flag: '🇮🇳' },
+  { code: 'ml', name: 'Malayalam', flag: '🇮🇳' },
+  { code: 'kn', name: 'Kannada', flag: '🇮🇳' },
+  { code: 'gu', name: 'Gujarati', flag: '🇮🇳' },
+  { code: 'mr', name: 'Marathi', flag: '🇮🇳' },
   { code: 'es', name: 'Spanish', flag: '🇪🇸' },
   { code: 'fr', name: 'French', flag: '🇫🇷' },
   { code: 'de', name: 'German', flag: '🇩🇪' },
@@ -12,7 +21,6 @@ export const LANGUAGES: Language[] = [
   { code: 'ko', name: 'Korean', flag: '🇰🇷' },
   { code: 'zh', name: 'Chinese', flag: '🇨🇳' },
   { code: 'ar', name: 'Arabic', flag: '🇸🇦' },
-  { code: 'hi', name: 'Hindi', flag: '🇮🇳' },
 ];
 
 export const EMOTIONS = [
@@ -45,7 +53,143 @@ export const DEFAULT_AUDIO_SETTINGS = {
   voiceClarity: 75,
   backgroundNoise: 0,
   voiceMode: 'normal' as const,
+  ttsEngine: 'chatterbox' as const,
+  googleVoicePreset: 'chirp_female',
+  googleSpeakingRate: 1.0,
+  googlePitch: 0.0,
+  googleEnableSSML: false,
 };
+
+export const GOOGLE_VOICE_PRESETS = [
+  {
+    id: 'chirp_female',
+    name: 'Chirp Female (HD)',
+    description: 'Premium AI voice - Best quality, most natural',
+    quality: 5,
+    cost: '$30/1M chars',
+    category: 'Premium',
+    languages: ['en'],
+  },
+  {
+    id: 'chirp_male',
+    name: 'Chirp Male (HD)',
+    description: 'Premium AI voice - Best quality, most natural',
+    quality: 5,
+    cost: '$30/1M chars',
+    category: 'Premium',
+    languages: ['en'],
+  },
+  {
+    id: 'neural_expressive',
+    name: 'Neural Expressive',
+    description: 'Warmest, most expressive female voice',
+    quality: 5,
+    cost: '$16/1M chars',
+    category: 'High Quality',
+    languages: ['en', 'en-IN', 'hi', 'es', 'fr', 'de', 'it', 'pt', 'ja', 'ko'],
+  },
+  {
+    id: 'neural_female',
+    name: 'Neural Female',
+    description: 'Clear conversational voice',
+    quality: 4,
+    cost: '$16/1M chars',
+    category: 'High Quality',
+    languages: ['en', 'en-IN', 'hi', 'es', 'fr', 'de', 'it', 'pt', 'ja', 'ko', 'zh', 'ar'],
+  },
+  {
+    id: 'neural_male',
+    name: 'Neural Male',
+    description: 'High-quality professional voice',
+    quality: 4,
+    cost: '$16/1M chars',
+    category: 'High Quality',
+    languages: ['en', 'en-IN', 'hi', 'es', 'fr', 'de', 'it', 'pt', 'ja', 'ko', 'zh', 'ar'],
+  },
+  {
+    id: 'journey_female',
+    name: 'Journey Female',
+    description: 'Conversational and engaging',
+    quality: 4,
+    cost: '$16/1M chars',
+    category: 'Conversational',
+    languages: ['en'],
+  },
+  {
+    id: 'wavenet_female',
+    name: 'WaveNet Female',
+    description: 'Budget-friendly, good quality',
+    quality: 3,
+    cost: '$4/1M chars',
+    category: 'Budget',
+    languages: [
+      'en',
+      'en-IN',
+      'hi',
+      'bn',
+      'ta',
+      'te',
+      'ml',
+      'kn',
+      'gu',
+      'mr',
+      'es',
+      'fr',
+      'de',
+      'it',
+      'pt',
+      'ja',
+      'ko',
+      'zh',
+      'ar',
+      'ru',
+    ],
+  },
+  {
+    id: 'wavenet_male',
+    name: 'WaveNet Male',
+    description: 'Budget-friendly, good quality',
+    quality: 3,
+    cost: '$4/1M chars',
+    category: 'Budget',
+    languages: [
+      'en',
+      'en-IN',
+      'hi',
+      'bn',
+      'ta',
+      'te',
+      'ml',
+      'kn',
+      'gu',
+      'mr',
+      'es',
+      'fr',
+      'de',
+      'it',
+      'pt',
+      'ja',
+      'ko',
+      'zh',
+      'ar',
+      'ru',
+    ],
+  },
+];
+
+// Helper function to get voice presets for a specific language
+export function getVoicePresetsForLanguage(
+  language: string,
+  ttsEngine: 'chatterbox' | 'google' = 'google',
+) {
+  if (ttsEngine === 'chatterbox') {
+    // ChatterBox currently only supports English
+    return language === 'en' ? GOOGLE_VOICE_PRESETS : [];
+  }
+
+  // Filter Google TTS presets by language
+  return GOOGLE_VOICE_PRESETS.filter((preset) => preset.languages?.includes(language) ?? false);
+}
 
 export const AUDIO_PRESETS: AudioPreset[] = [
   {

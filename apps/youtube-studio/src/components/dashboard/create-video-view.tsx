@@ -8,11 +8,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { Switch } from '@/components/ui/switch';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Textarea } from '@/components/ui/textarea';
 import { useBuiltInPresets, useVoicePresets } from '@/hooks/use-api';
 import { useBuiltInVoices } from '@/hooks/use-api';
-import { DEFAULT_AUDIO_SETTINGS, LANGUAGES } from '@/lib/constants';
+import {
+  DEFAULT_AUDIO_SETTINGS,
+  GOOGLE_VOICE_PRESETS,
+  LANGUAGES,
+  getVoicePresetsForLanguage,
+} from '@/lib/constants';
 import type {
   AudioSettings as AudioSettingsType,
   GenerationSettings,
@@ -24,6 +30,8 @@ import { Button } from '@ccl/ui';
 import { Input } from '@ccl/ui';
 import {
   ArrowRight,
+  Cloud,
+  Code2,
   FileText,
   Link,
   Menu,
@@ -32,7 +40,9 @@ import {
   Settings,
   Sparkles,
   Volume2,
+  Zap,
 } from 'lucide-react';
+import React from 'react';
 import { useEffect, useState } from 'react';
 import { AudioSettings } from './audio-settings';
 import { PresetAudioPlayer } from './preset-audio-player';
@@ -64,6 +74,28 @@ export function CreateVideoView({
   const [showVoiceLibraryModal, setShowVoiceLibraryModal] = useState(false);
   const [audioSettings, setAudioSettings] = useState<AudioSettingsType>(DEFAULT_AUDIO_SETTINGS);
   const [showVoicePreview, setShowVoicePreview] = useState(false);
+
+  // Get available voice presets for selected language and TTS engine
+  const availableVoicePresets = getVoicePresetsForLanguage(
+    language,
+    audioSettings.ttsEngine as 'chatterbox' | 'google',
+  );
+
+  // Auto-select first available preset when language changes
+  React.useEffect(() => {
+    if (audioSettings.ttsEngine === 'google' && availableVoicePresets.length > 0) {
+      const currentPreset = audioSettings.googleVoicePreset;
+      const isCurrentValid = availableVoicePresets.some((p) => p.id === currentPreset);
+
+      if (!isCurrentValid) {
+        // Current preset not available for this language, switch to first available
+        setAudioSettings({
+          ...audioSettings,
+          googleVoicePreset: availableVoicePresets[0].id,
+        });
+      }
+    }
+  }, [language, audioSettings.ttsEngine]);
 
   // Fallback to built-in voices if none provided
   const { data: builtInVoicesData } = useBuiltInVoices();
@@ -99,7 +131,10 @@ export function CreateVideoView({
       language,
       voiceProfileId,
       voicePresetId,
-      audioSettings,
+      audioSettings: {
+        ...audioSettings,
+        language, // Ensure language is in audioSettings for TTS
+      },
     });
   };
 
@@ -298,6 +333,204 @@ export function CreateVideoView({
                         ))}
                       </SelectContent>
                     </Select>
+                  </CardContent>
+                </Card>
+
+                {/* TTS Engine Selection */}
+                <Card className="border border-border/50 shadow-sm hover:shadow-md transition-shadow">
+                  <CardHeader className="pb-4 border-b border-border/30">
+                    <CardTitle className="text-lg flex items-center gap-2">
+                      <div className="h-8 w-8 rounded-lg bg-blue-500/10 flex items-center justify-center">
+                        {audioSettings.ttsEngine === 'google' ? (
+                          <Cloud className="h-4 w-4 text-blue-500" />
+                        ) : (
+                          <Zap className="h-4 w-4 text-amber-500" />
+                        )}
+                      </div>
+                      TTS Engine
+                    </CardTitle>
+                    <CardDescription className="text-xs">
+                      Choose text-to-speech provider
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="pt-4 space-y-4">
+                    <Select
+                      value={audioSettings.ttsEngine || 'chatterbox'}
+                      onValueChange={(value: 'chatterbox' | 'google') =>
+                        setAudioSettings({ ...audioSettings, ttsEngine: value })
+                      }
+                    >
+                      <SelectTrigger className="text-sm border-border/50">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="chatterbox">
+                          <div className="flex items-center gap-2">
+                            <Zap className="h-4 w-4 text-amber-500" />
+                            <div>
+                              <div className="font-medium">ChatterBox</div>
+                              <div className="text-xs text-muted-foreground">Free • Offline</div>
+                            </div>
+                          </div>
+                        </SelectItem>
+                        <SelectItem value="google">
+                          <div className="flex items-center gap-2">
+                            <Cloud className="h-4 w-4 text-blue-500" />
+                            <div>
+                              <div className="font-medium">Google Cloud TTS</div>
+                              <div className="text-xs text-muted-foreground">
+                                Premium • $300 free credit
+                              </div>
+                            </div>
+                          </div>
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+
+                    {/* Google Cloud TTS Options */}
+                    {audioSettings.ttsEngine === 'google' && (
+                      <div className="space-y-4 pt-2 border-t border-border/30">
+                        <div className="space-y-2">
+                          <Label className="text-xs font-semibold text-muted-foreground uppercase">
+                            Voice Model{' '}
+                            {availableVoicePresets.length > 0 &&
+                              `(${availableVoicePresets.length} available for ${LANGUAGES.find((l) => l.code === language)?.name})`}
+                          </Label>
+                          {availableVoicePresets.length === 0 ? (
+                            <div className="text-sm text-muted-foreground p-3 bg-muted/50 rounded-md">
+                              No Google TTS voices available for{' '}
+                              {LANGUAGES.find((l) => l.code === language)?.name}. Try selecting
+                              English or another supported language.
+                            </div>
+                          ) : (
+                            <Select
+                              value={audioSettings.googleVoicePreset || availableVoicePresets[0].id}
+                              onValueChange={(value) =>
+                                setAudioSettings({ ...audioSettings, googleVoicePreset: value })
+                              }
+                            >
+                              <SelectTrigger className="text-sm">
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent>
+                                {availableVoicePresets.map((voice) => (
+                                  <SelectItem key={voice.id} value={voice.id}>
+                                    <div className="flex items-start justify-between gap-3 py-1">
+                                      <div className="flex-1">
+                                        <div className="font-medium text-sm">{voice.name}</div>
+                                        <div className="text-xs text-muted-foreground">
+                                          {voice.description}
+                                        </div>
+                                      </div>
+                                      <div className="text-right shrink-0">
+                                        <div className="text-xs font-medium text-primary">
+                                          {'⭐'.repeat(voice.quality)}
+                                        </div>
+                                        <div className="text-xs text-muted-foreground">
+                                          {voice.cost}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                          )}
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-3">
+                          <div className="space-y-2">
+                            <Label className="text-xs">Speaking Rate</Label>
+                            <Input
+                              type="number"
+                              min="0.25"
+                              max="4.0"
+                              step="0.1"
+                              value={audioSettings.googleSpeakingRate || 1.0}
+                              onChange={(e) =>
+                                setAudioSettings({
+                                  ...audioSettings,
+                                  googleSpeakingRate: Number.parseFloat(e.target.value) || 1.0,
+                                })
+                              }
+                              className="text-sm"
+                            />
+                          </div>
+                          <div className="space-y-2">
+                            <Label className="text-xs">Pitch</Label>
+                            <Input
+                              type="number"
+                              min="-20"
+                              max="20"
+                              step="0.5"
+                              value={audioSettings.googlePitch || 0.0}
+                              onChange={(e) =>
+                                setAudioSettings({
+                                  ...audioSettings,
+                                  googlePitch: Number.parseFloat(e.target.value) || 0.0,
+                                })
+                              }
+                              className="text-sm"
+                            />
+                          </div>
+                        </div>
+
+                        {/* SSML Support Toggle */}
+                        <div className="flex items-center justify-between p-3 rounded-lg border border-border/50 bg-muted/30">
+                          <div className="flex items-center gap-3">
+                            <Code2 className="h-4 w-4 text-primary" />
+                            <div>
+                              <Label className="text-sm font-medium cursor-pointer">
+                                Enable SSML
+                              </Label>
+                              <p className="text-xs text-muted-foreground">
+                                Use emotion tags like [pause], [whisper]
+                              </p>
+                            </div>
+                          </div>
+                          <Switch
+                            checked={audioSettings.googleEnableSSML || false}
+                            onCheckedChange={(checked) =>
+                              setAudioSettings({ ...audioSettings, googleEnableSSML: checked })
+                            }
+                          />
+                        </div>
+
+                        {/* SSML Help */}
+                        {audioSettings.googleEnableSSML && (
+                          <div className="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800 rounded-lg p-3">
+                            <div className="flex items-start gap-2">
+                              <Code2 className="h-4 w-4 text-amber-600 shrink-0 mt-0.5" />
+                              <div className="text-xs text-amber-700 dark:text-amber-300 space-y-2">
+                                <div className="font-medium">SSML Tags Available:</div>
+                                <div className="space-y-1 text-amber-600/90 dark:text-amber-400/90 font-mono">
+                                  <div>&lt;break time="500ms"/&gt; - Add pause</div>
+                                  <div>&lt;emphasis&gt;text&lt;/emphasis&gt; - Emphasize</div>
+                                  <div>
+                                    &lt;prosody rate="slow"&gt;...&lt;/prosody&gt; - Change speed
+                                  </div>
+                                  <div>
+                                    &lt;prosody pitch="+5st"&gt;...&lt;/prosody&gt; - Adjust pitch
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+
+                        <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-lg p-3">
+                          <div className="flex items-start gap-2">
+                            <Cloud className="h-4 w-4 text-blue-500 shrink-0 mt-0.5" />
+                            <div className="text-xs text-blue-700 dark:text-blue-300">
+                              <div className="font-medium mb-1">$300 Free Credit Available</div>
+                              <div className="text-blue-600/90 dark:text-blue-400/90">
+                                2 videos/day = ~4.6 years of premium TTS for free
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </CardContent>
                 </Card>
 
