@@ -13,6 +13,19 @@ export default function DashboardPage() {
 
   const handleGenerate = async (settings: GenerationSettings) => {
     try {
+      // Map UI visual styles to pipeline styles
+      const visualStyleMap: Record<string, string> = {
+        photorealistic: 'professional',
+        illustration: 'vibrant',
+        isometric: 'professional',
+        minimalist: 'minimalist',
+        'hand-drawn': 'dark',
+      };
+
+      const mappedVisualStyle = settings.visualStyle
+        ? visualStyleMap[settings.visualStyle] || 'professional'
+        : undefined;
+
       await createVideo.mutateAsync({
         title: settings.title,
         description: settings.description,
@@ -21,6 +34,11 @@ export default function DashboardPage() {
         voiceProfileId: settings.voiceProfileId,
         voicePresetId: settings.voicePresetId, // Pass voice preset ID to backend
         audioSettings: settings.audioSettings,
+        // Phase 1 AI Integration - Quality Tier Settings
+        qualityTier: settings.qualityTier,
+        visualStyle: mappedVisualStyle,
+        maxImages: settings.maxImages,
+        useImageCache: settings.useImageCache,
       });
 
       toast.success('Video generation started!', {

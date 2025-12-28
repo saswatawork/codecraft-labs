@@ -141,6 +141,11 @@ export const VideoCreateRequestSchema = z.object({
   voicePresetId: z.string().optional(), // ChatterBox TTS preset
   audioSettings: AudioSettingsSchema,
   profile: z.string().default('default'),
+  // Phase 1 AI Integration - Quality Tier Settings
+  qualityTier: z.enum(['basic', 'enhanced', 'premium']).optional().default('basic'),
+  visualStyle: z.string().optional(),
+  maxImages: z.number().optional().default(0),
+  useImageCache: z.boolean().optional().default(false),
 });
 
 export type VideoCreateRequest = z.infer<typeof VideoCreateRequestSchema>;

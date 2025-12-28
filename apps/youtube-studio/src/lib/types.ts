@@ -124,4 +124,34 @@ export type GenerationSettings = {
   audioSettings: AudioSettings;
   title: string;
   description: string;
+  // Phase 1: AI Image Generation Settings
+  qualityTier?: 'basic' | 'enhanced' | 'premium';
+  visualStyle?: 'photorealistic' | 'illustration' | 'isometric' | 'minimalist' | 'hand-drawn';
+  maxImages?: number;
+  useImageCache?: boolean;
+};
+
+export type CostEstimate = {
+  qualityTier: string;
+  totalCost: string;
+  breakdown: {
+    natural_language_api?: string;
+    imagen_api?: string;
+    estimated_cache_savings?: string;
+    net_imagen_cost?: string;
+    total_images?: number;
+    note?: string;
+  };
+};
+
+export type GenerationStats = {
+  quality_tier: string;
+  images_generated: number;
+  images_cached: number;
+  total_cost: number;
+  nl_api_cost: number;
+  imagen_cost: number;
+  generation_time: number;
+  success: boolean;
+  error?: string;
 };
