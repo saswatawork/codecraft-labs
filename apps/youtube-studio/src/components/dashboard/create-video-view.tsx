@@ -78,6 +78,13 @@ export function CreateVideoView({
   const [visualStyle, setVisualStyle] = useState<
     'photorealistic' | 'illustration' | 'isometric' | 'minimalist' | 'hand-drawn'
   >('photorealistic');
+  
+  // Cinematic Video Settings
+  const [isCinematic, setIsCinematic] = useState(false);
+  const [cinematicSubtitleStyle, setCinematicSubtitleStyle] = useState<'karaoke' | 'bounce' | 'scale' | 'emphasis' | 'slide' | 'fade' | 'glow'>('karaoke');
+  const [cinematicWhisperModel, setCinematicWhisperModel] = useState<'tiny' | 'base' | 'small' | 'medium' | 'large'>('base');
+  const [cinematicTargetSegments, setCinematicTargetSegments] = useState(5);
+  const [cinematicEnableImages, setCinematicEnableImages] = useState(true);
 
   // Get available voice presets for selected language and TTS engine
   const availableVoicePresets = getVoicePresetsForLanguage(
@@ -144,6 +151,12 @@ export function CreateVideoView({
       visualStyle: qualityTier !== 'basic' ? visualStyle : undefined,
       maxImages: qualityTier === 'premium' ? 6 : qualityTier === 'enhanced' ? 3 : 0,
       useImageCache: qualityTier !== 'basic',
+      // Cinematic Video Settings
+      isCinematic,
+      cinematicSubtitleStyle,
+      cinematicWhisperModel,
+      cinematicTargetSegments,
+      cinematicEnableImages,
     });
   };
 
@@ -666,6 +679,184 @@ export function CreateVideoView({
                       </>
                     )}
                   </CardContent>
+                </Card>
+
+                {/* Cinematic Video Generation - NEW FEATURE */}
+                <Card className="border-2 border-amber-500/30 shadow-md hover:shadow-lg transition-all bg-linear-to-br from-amber-500/5 via-transparent to-orange-500/5">
+                  <CardHeader className="pb-4 border-b border-amber-500/20">
+                    <div className="flex items-start justify-between">
+                      <div className="flex items-start gap-3 flex-1">
+                        <div className="h-10 w-10 rounded-lg bg-amber-500/20 flex items-center justify-center shrink-0">
+                          <span className="text-lg">🎬</span>
+                        </div>
+                        <div className="flex-1">
+                          <CardTitle className="text-lg flex items-center gap-2">
+                            Cinematic Mode
+                            <span className="inline-flex items-center rounded-full bg-amber-500/10 px-2 py-0.5 text-xs font-medium text-amber-600">
+                              NEW
+                            </span>
+                          </CardTitle>
+                          <CardDescription className="text-xs">
+                            Word-level animated subtitles + AI story images
+                          </CardDescription>
+                        </div>
+                      </div>
+                      <Switch
+                        checked={isCinematic}
+                        onCheckedChange={setIsCinematic}
+                      />
+                    </div>
+                  </CardHeader>
+                  {isCinematic && (
+                    <CardContent className="pt-5 space-y-4">
+                      {/* Subtitle Animation Style */}
+                      <div className="space-y-2">
+                        <Label className="text-xs font-semibold text-muted-foreground uppercase">
+                          Subtitle Animation
+                        </Label>
+                        <Select
+                          value={cinematicSubtitleStyle}
+                          onValueChange={(value: typeof cinematicSubtitleStyle) => setCinematicSubtitleStyle(value)}
+                        >
+                          <SelectTrigger className="text-sm">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="karaoke">
+                              <div className="flex items-center gap-2">
+                                <span className="text-amber-500">⭐</span>
+                                <div>
+                                  <div className="font-medium">Karaoke (Recommended)</div>
+                                  <div className="text-xs text-muted-foreground">Mr Beast / Hormozi style</div>
+                                </div>
+                              </div>
+                            </SelectItem>
+                            <SelectItem value="bounce">
+                              <div className="text-sm">🎪 Bounce - Dynamic bouncing words</div>
+                            </SelectItem>
+                            <SelectItem value="scale">
+                              <div className="text-sm">📏 Scale - Large emphasis scaling</div>
+                            </SelectItem>
+                            <SelectItem value="emphasis">
+                              <div className="text-sm">💡 Emphasis - Important word highlighting</div>
+                            </SelectItem>
+                            <SelectItem value="slide">
+                              <div className="text-sm">➡️ Slide - Smooth slide from bottom</div>
+                            </SelectItem>
+                            <SelectItem value="fade">
+                              <div className="text-sm">✨ Fade - Gentle fade in/out</div>
+                            </SelectItem>
+                            <SelectItem value="glow">
+                              <div className="text-sm">🌟 Glow - Premium glowing effect</div>
+                            </SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      {/* Whisper Model Selection */}
+                      <div className="space-y-2">
+                        <Label className="text-xs font-semibold text-muted-foreground uppercase">
+                          Whisper Model (Word Timing)
+                        </Label>
+                        <Select
+                          value={cinematicWhisperModel}
+                          onValueChange={(value: typeof cinematicWhisperModel) => setCinematicWhisperModel(value)}
+                        >
+                          <SelectTrigger className="text-sm">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="tiny">
+                              <div className="flex items-center gap-2">
+                                <Zap className="h-4 w-4 text-green-500" />
+                                <div>
+                                  <div className="font-medium">Tiny</div>
+                                  <div className="text-xs text-muted-foreground">Fastest • Good accuracy</div>
+                                </div>
+                              </div>
+                            </SelectItem>
+                            <SelectItem value="base">
+                              <div className="flex items-center gap-2">
+                                <span className="text-amber-500">⭐</span>
+                                <div>
+                                  <div className="font-medium">Base (Recommended)</div>
+                                  <div className="text-xs text-muted-foreground">Balanced speed & accuracy</div>
+                                </div>
+                              </div>
+                            </SelectItem>
+                            <SelectItem value="small">
+                              <div className="flex items-center gap-2">
+                                <Sparkles className="h-4 w-4 text-blue-500" />
+                                <div>
+                                  <div className="font-medium">Small</div>
+                                  <div className="text-xs text-muted-foreground">Better accuracy • Slower</div>
+                                </div>
+                              </div>
+                            </SelectItem>
+                            <SelectItem value="medium">
+                              <div className="text-sm">Medium - High accuracy • Very slow</div>
+                            </SelectItem>
+                            <SelectItem value="large">
+                              <div className="text-sm">Large - Best accuracy • Extremely slow</div>
+                            </SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      {/* Target Segments */}
+                      <div className="space-y-2">
+                        <Label className="text-xs font-semibold text-muted-foreground uppercase">
+                          Target Segments: {cinematicTargetSegments}
+                        </Label>
+                        <Input
+                          type="number"
+                          min={3}
+                          max={10}
+                          value={cinematicTargetSegments}
+                          onChange={(e) => setCinematicTargetSegments(Number(e.target.value))}
+                          className="text-sm"
+                        />
+                        <p className="text-xs text-muted-foreground">
+                          Number of video segments (3-10)
+                        </p>
+                      </div>
+
+                      {/* AI Image Generation Toggle */}
+                      <div className="flex items-center justify-between p-3 rounded-lg border border-border/50 bg-muted/30">
+                        <div className="flex items-center gap-3">
+                          <Sparkles className="h-4 w-4 text-purple-500" />
+                          <div>
+                            <Label className="text-sm font-medium cursor-pointer">
+                              AI Story Images
+                            </Label>
+                            <p className="text-xs text-muted-foreground">
+                              Generate contextual images with Vertex AI
+                            </p>
+                          </div>
+                        </div>
+                        <Switch
+                          checked={cinematicEnableImages}
+                          onCheckedChange={setCinematicEnableImages}
+                        />
+                      </div>
+
+                      {/* Info Box */}
+                      <div className="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800 rounded-lg p-3">
+                        <div className="flex items-start gap-2">
+                          <span className="text-lg shrink-0">🎬</span>
+                          <div className="text-xs text-amber-700 dark:text-amber-300">
+                            <div className="font-medium mb-1">Cinematic Video Features</div>
+                            <ul className="space-y-1 text-amber-600/90 dark:text-amber-400/90">
+                              <li>• Word-by-word animated subtitles</li>
+                              <li>• Semantic script segmentation</li>
+                              <li>• AI-generated story images (if enabled)</li>
+                              <li>• Premium Futura-Bold typography</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  )}
                 </Card>
 
                 {/* Premium Voice Selection Card */}

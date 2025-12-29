@@ -26,6 +26,15 @@ export default function DashboardPage() {
         ? visualStyleMap[settings.visualStyle] || 'professional'
         : undefined;
 
+      // Debug: Log cinematic settings
+      console.log('🎬 Cinematic Settings:', {
+        isCinematic: settings.isCinematic,
+        cinematicSubtitleStyle: settings.cinematicSubtitleStyle,
+        cinematicWhisperModel: settings.cinematicWhisperModel,
+        cinematicTargetSegments: settings.cinematicTargetSegments,
+        cinematicEnableImages: settings.cinematicEnableImages,
+      });
+
       await createVideo.mutateAsync({
         title: settings.title,
         description: settings.description,
@@ -39,6 +48,12 @@ export default function DashboardPage() {
         visualStyle: mappedVisualStyle,
         maxImages: settings.maxImages,
         useImageCache: settings.useImageCache,
+        // Cinematic Video Generation Settings
+        isCinematic: settings.isCinematic,
+        cinematicSubtitleStyle: settings.cinematicSubtitleStyle,
+        cinematicWhisperModel: settings.cinematicWhisperModel,
+        cinematicTargetSegments: settings.cinematicTargetSegments,
+        cinematicEnableImages: settings.cinematicEnableImages,
       });
 
       toast.success('Video generation started!', {

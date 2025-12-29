@@ -127,6 +127,17 @@ export const VideoSchema = z.object({
   progress: z.number().min(0).max(100).optional(),
   error: z.string().optional(),
   profile: z.string().default('default'),
+  // Phase 1 AI Integration - Quality Tier Settings
+  qualityTier: z.enum(['basic', 'enhanced', 'premium']).optional().default('basic'),
+  visualStyle: z.string().optional(),
+  maxImages: z.number().optional().default(0),
+  useImageCache: z.boolean().optional().default(false),
+  // Cinematic Video Generation Settings
+  isCinematic: z.boolean().optional().default(false),
+  cinematicSubtitleStyle: z.enum(['karaoke', 'bounce', 'scale', 'emphasis', 'slide', 'fade', 'glow']).optional().default('karaoke'),
+  cinematicWhisperModel: z.enum(['tiny', 'base', 'small', 'medium', 'large']).optional().default('base'),
+  cinematicTargetSegments: z.number().optional().default(5),
+  cinematicEnableImages: z.boolean().optional().default(true),
 });
 
 export type Video = z.infer<typeof VideoSchema>;
@@ -146,6 +157,12 @@ export const VideoCreateRequestSchema = z.object({
   visualStyle: z.string().optional(),
   maxImages: z.number().optional().default(0),
   useImageCache: z.boolean().optional().default(false),
+  // Cinematic Video Generation Settings
+  isCinematic: z.boolean().optional().default(false),
+  cinematicSubtitleStyle: z.enum(['karaoke', 'bounce', 'scale', 'emphasis', 'slide', 'fade', 'glow']).optional().default('karaoke'),
+  cinematicWhisperModel: z.enum(['tiny', 'base', 'small', 'medium', 'large']).optional().default('base'),
+  cinematicTargetSegments: z.number().optional().default(5),
+  cinematicEnableImages: z.boolean().optional().default(true),
 });
 
 export type VideoCreateRequest = z.infer<typeof VideoCreateRequestSchema>;

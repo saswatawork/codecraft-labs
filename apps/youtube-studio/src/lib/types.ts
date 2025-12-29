@@ -129,6 +129,12 @@ export type GenerationSettings = {
   visualStyle?: 'photorealistic' | 'illustration' | 'isometric' | 'minimalist' | 'hand-drawn';
   maxImages?: number;
   useImageCache?: boolean;
+  // Cinematic Video Generation Settings
+  isCinematic?: boolean;
+  cinematicSubtitleStyle?: 'karaoke' | 'bounce' | 'scale' | 'emphasis' | 'slide' | 'fade' | 'glow';
+  cinematicWhisperModel?: 'tiny' | 'base' | 'small' | 'medium' | 'large';
+  cinematicTargetSegments?: number;
+  cinematicEnableImages?: boolean;
 };
 
 export type CostEstimate = {
