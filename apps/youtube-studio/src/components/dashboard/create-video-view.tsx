@@ -78,12 +78,12 @@ export function CreateVideoView({
   const [visualStyle, setVisualStyle] = useState<
     'photorealistic' | 'illustration' | 'isometric' | 'minimalist' | 'hand-drawn'
   >('photorealistic');
-  
+
   // Cinematic Video Settings
-  const [isCinematic, setIsCinematic] = useState(false);
+  const [isCinematic, setIsCinematic] = useState(true);
   const [cinematicSubtitleStyle, setCinematicSubtitleStyle] = useState<'karaoke' | 'bounce' | 'scale' | 'emphasis' | 'slide' | 'fade' | 'glow'>('karaoke');
   const [cinematicWhisperModel, setCinematicWhisperModel] = useState<'tiny' | 'base' | 'small' | 'medium' | 'large'>('base');
-  const [cinematicTargetSegments, setCinematicTargetSegments] = useState(5);
+  const [cinematicTargetSegments, setCinematicTargetSegments] = useState(2);
   const [cinematicEnableImages, setCinematicEnableImages] = useState(true);
 
   // Get available voice presets for selected language and TTS engine

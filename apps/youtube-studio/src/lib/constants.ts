@@ -53,9 +53,9 @@ export const DEFAULT_AUDIO_SETTINGS = {
   voiceClarity: 75,
   backgroundNoise: 0,
   voiceMode: 'normal' as const,
-  ttsEngine: 'chatterbox' as const,
+  ttsEngine: 'google' as const,
   googleVoicePreset: 'chirp_female',
-  googleSpeakingRate: 1.0,
+  googleSpeakingRate: 0.85,
   googlePitch: 0.0,
   googleEnableSSML: false,
 };
