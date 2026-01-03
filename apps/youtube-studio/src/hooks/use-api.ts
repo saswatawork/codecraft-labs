@@ -144,7 +144,7 @@ export function useVoices() {
     queryFn: () => client.voices.list(),
     staleTime: 60000, // 1 minute
     enabled: sessionStatus === 'authenticated', // Only run when authenticated
-    placeholderData: [], // Show empty array immediately while loading
+    placeholderData: { voices: [] }, // Match API response structure
   });
 }
 

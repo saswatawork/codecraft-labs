@@ -8,7 +8,8 @@ import { toast } from 'sonner';
 
 export default function DashboardPage() {
   const router = useRouter();
-  const { data: voices = [], isLoading: voicesLoading } = useVoices();
+  const { data: voicesResponse, isLoading: voicesLoading } = useVoices();
+  const voices = voicesResponse?.voices || [];
   const createVideo = useCreateVideo();
 
   const handleGenerate = async (settings: GenerationSettings) => {

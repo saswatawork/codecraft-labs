@@ -15,8 +15,8 @@ export interface APIClientConfig {
 
 export class YouTubeStudioAPI {
   private baseUrl: string;
-  private getAccessToken?: () => Promise<string | null>;
-  private getUserId?: () => Promise<string | null>;
+  private getAccessToken: (() => Promise<string | null>) | undefined;
+  private getUserId: (() => Promise<string | null>) | undefined;
 
   constructor(config: APIClientConfig) {
     this.baseUrl = config.baseUrl;
@@ -133,7 +133,7 @@ export class YouTubeStudioAPI {
   // Voice Resources
   voices = {
     list: async (): Promise<{ voices: VoiceProfile[] }> => {
-      return this.request<{ voices: VoiceProfile[] }>('/api/voices');
+      return this.request<{ voices: VoiceProfile[] }>('/api/voices/built-in');
     },
 
     get: async (id: string): Promise<VoiceProfile> => {
@@ -143,7 +143,7 @@ export class YouTubeStudioAPI {
     create: async (data: FormData): Promise<VoiceProfile> => {
       const headers = await this.getHeaders();
       // Remove Content-Type to let browser set boundary for FormData
-      (headers as Record<string, string>)['Content-Type'] = undefined;
+      (headers as Record<string, string>)['Content-Type'] = undefined as any;
 
       const url = `${this.baseUrl}/api/voices`;
       const response = await fetch(url, {
@@ -185,7 +185,7 @@ export class YouTubeStudioAPI {
       }
     };
 
-    ws.onerror = (event) => {
+    ws.onerror = (_event) => {
       // Only report error if WebSocket was supposed to be open
       // Ignore errors after close (normal completion)
       if (ws.readyState !== WebSocket.CLOSED && ws.readyState !== WebSocket.CLOSING) {
