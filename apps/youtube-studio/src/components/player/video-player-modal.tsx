@@ -52,6 +52,7 @@ export function VideoPlayerModal({ open, onOpenChange, video }: VideoPlayerModal
                 preload="metadata"
                 className="h-full w-full"
                 onError={(e) => {
+                  // biome-ignore lint/suspicious/noConsole: Debugging video playback errors
                   console.error('Video error:', {
                     error: e,
                     src: videoUrl,
@@ -59,6 +60,7 @@ export function VideoPlayerModal({ open, onOpenChange, video }: VideoPlayerModal
                   });
                 }}
                 onLoadedMetadata={(e) => {
+                  // biome-ignore lint/suspicious/noConsole: Debugging video metadata loading
                   console.log('Video loaded:', {
                     duration: e.currentTarget.duration,
                     src: videoUrl,

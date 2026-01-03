@@ -12,7 +12,6 @@ import { Switch } from '@/components/ui/switch';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Textarea } from '@/components/ui/textarea';
 import { useBuiltInPresets, useVoicePresets } from '@/hooks/use-api';
-import { useBuiltInVoices } from '@/hooks/use-api';
 import {
   DEFAULT_AUDIO_SETTINGS,
   GOOGLE_VOICE_PRESETS,
@@ -57,7 +56,7 @@ interface CreateVideoViewProps {
   onMenuClick: () => void;
 }
 
-export function CreateVideoView({
+export const CreateVideoView = React.memo(function CreateVideoView({
   voices,
   onGenerate,
   isGenerating,
@@ -81,15 +80,22 @@ export function CreateVideoView({
 
   // Cinematic Video Settings
   const [isCinematic, setIsCinematic] = useState(true);
-  const [cinematicSubtitleStyle, setCinematicSubtitleStyle] = useState<'karaoke' | 'bounce' | 'scale' | 'emphasis' | 'slide' | 'fade' | 'glow'>('karaoke');
-  const [cinematicWhisperModel, setCinematicWhisperModel] = useState<'tiny' | 'base' | 'small' | 'medium' | 'large'>('base');
+  const [cinematicSubtitleStyle, setCinematicSubtitleStyle] = useState<
+    'karaoke' | 'bounce' | 'scale' | 'emphasis' | 'slide' | 'fade' | 'glow'
+  >('karaoke');
+  const [cinematicWhisperModel, setCinematicWhisperModel] = useState<
+    'tiny' | 'base' | 'small' | 'medium' | 'large'
+  >('base');
   const [cinematicTargetSegments, setCinematicTargetSegments] = useState(2);
   const [cinematicEnableImages, setCinematicEnableImages] = useState(true);
 
-  // Get available voice presets for selected language and TTS engine
-  const availableVoicePresets = getVoicePresetsForLanguage(
-    language,
-    audioSettings.ttsEngine as 'chatterbox' | 'google',
+  // Image Generator Selection
+  const [imageGenerator, setImageGenerator] = useState<'imagen' | 'pexels' | 'gradient'>('pexels');
+
+  // Get available voice presets for selected language and TTS engine (memoized)
+  const availableVoicePresets = React.useMemo(
+    () => getVoicePresetsForLanguage(language, audioSettings.ttsEngine as 'chatterbox' | 'google'),
+    [language, audioSettings.ttsEngine],
   );
 
   // Auto-select first available preset when language changes
@@ -108,24 +114,29 @@ export function CreateVideoView({
     }
   }, [language, audioSettings.ttsEngine]);
 
-  // Fallback to built-in voices if none provided
-  const { data: builtInVoicesData } = useBuiltInVoices();
-  const voicesForModal: VoiceProfile[] =
-    Array.isArray(voices) && voices.length
-      ? voices
-      : Array.isArray(builtInVoicesData?.voices)
-        ? (builtInVoicesData?.voices as VoiceProfile[])
-        : [];
+  // Use voices passed as props (no redundant API call)
+  const voicesForModal: VoiceProfile[] = Array.isArray(voices) && voices.length ? voices : [];
 
-  // Load presets to resolve selected preset details
-  const { data: presetsData } = useVoicePresets();
-  const { data: builtInPresets = [] } = useBuiltInPresets();
-  const allPresets = [
-    ...(builtInPresets || []),
-    ...(presetsData?.userPresets || []),
-    ...(presetsData?.publicPresets || []),
-  ];
-  const selectedPreset = allPresets.find((p) => p.id === voicePresetId);
+  // Lazy load presets only when preset manager is opened or a preset is selected
+  const shouldLoadPresets = showPresetManager || !!voicePresetId;
+  const { data: presetsData } = useVoicePresets({ enabled: shouldLoadPresets });
+  const { data: builtInPresets = [] } = useBuiltInPresets({ enabled: shouldLoadPresets });
+
+  const allPresets = React.useMemo(
+    () =>
+      shouldLoadPresets
+        ? [
+            ...(builtInPresets || []),
+            ...(presetsData?.userPresets || []),
+            ...(presetsData?.publicPresets || []),
+          ]
+        : [],
+    [shouldLoadPresets, builtInPresets, presetsData],
+  );
+  const selectedPreset = React.useMemo(
+    () => allPresets.find((p) => p.id === voicePresetId),
+    [allPresets, voicePresetId],
+  );
 
   // NOTE: Do NOT auto-select the first voice
   // Let the backend use config default if no voice is explicitly selected
@@ -157,6 +168,8 @@ export function CreateVideoView({
       cinematicWhisperModel,
       cinematicTargetSegments,
       cinematicEnableImages,
+      // Image Generator Selection
+      imageGenerator,
     });
   };
 
@@ -701,10 +714,7 @@ export function CreateVideoView({
                           </CardDescription>
                         </div>
                       </div>
-                      <Switch
-                        checked={isCinematic}
-                        onCheckedChange={setIsCinematic}
-                      />
+                      <Switch checked={isCinematic} onCheckedChange={setIsCinematic} />
                     </div>
                   </CardHeader>
                   {isCinematic && (
@@ -716,7 +726,9 @@ export function CreateVideoView({
                         </Label>
                         <Select
                           value={cinematicSubtitleStyle}
-                          onValueChange={(value: typeof cinematicSubtitleStyle) => setCinematicSubtitleStyle(value)}
+                          onValueChange={(value: typeof cinematicSubtitleStyle) =>
+                            setCinematicSubtitleStyle(value)
+                          }
                         >
                           <SelectTrigger className="text-sm">
                             <SelectValue />
@@ -727,7 +739,9 @@ export function CreateVideoView({
                                 <span className="text-amber-500">⭐</span>
                                 <div>
                                   <div className="font-medium">Karaoke (Recommended)</div>
-                                  <div className="text-xs text-muted-foreground">Mr Beast / Hormozi style</div>
+                                  <div className="text-xs text-muted-foreground">
+                                    Mr Beast / Hormozi style
+                                  </div>
                                 </div>
                               </div>
                             </SelectItem>
@@ -738,7 +752,9 @@ export function CreateVideoView({
                               <div className="text-sm">📏 Scale - Large emphasis scaling</div>
                             </SelectItem>
                             <SelectItem value="emphasis">
-                              <div className="text-sm">💡 Emphasis - Important word highlighting</div>
+                              <div className="text-sm">
+                                💡 Emphasis - Important word highlighting
+                              </div>
                             </SelectItem>
                             <SelectItem value="slide">
                               <div className="text-sm">➡️ Slide - Smooth slide from bottom</div>
@@ -760,7 +776,9 @@ export function CreateVideoView({
                         </Label>
                         <Select
                           value={cinematicWhisperModel}
-                          onValueChange={(value: typeof cinematicWhisperModel) => setCinematicWhisperModel(value)}
+                          onValueChange={(value: typeof cinematicWhisperModel) =>
+                            setCinematicWhisperModel(value)
+                          }
                         >
                           <SelectTrigger className="text-sm">
                             <SelectValue />
@@ -771,7 +789,9 @@ export function CreateVideoView({
                                 <Zap className="h-4 w-4 text-green-500" />
                                 <div>
                                   <div className="font-medium">Tiny</div>
-                                  <div className="text-xs text-muted-foreground">Fastest • Good accuracy</div>
+                                  <div className="text-xs text-muted-foreground">
+                                    Fastest • Good accuracy
+                                  </div>
                                 </div>
                               </div>
                             </SelectItem>
@@ -780,7 +800,9 @@ export function CreateVideoView({
                                 <span className="text-amber-500">⭐</span>
                                 <div>
                                   <div className="font-medium">Base (Recommended)</div>
-                                  <div className="text-xs text-muted-foreground">Balanced speed & accuracy</div>
+                                  <div className="text-xs text-muted-foreground">
+                                    Balanced speed & accuracy
+                                  </div>
                                 </div>
                               </div>
                             </SelectItem>
@@ -789,7 +811,9 @@ export function CreateVideoView({
                                 <Sparkles className="h-4 w-4 text-blue-500" />
                                 <div>
                                   <div className="font-medium">Small</div>
-                                  <div className="text-xs text-muted-foreground">Better accuracy • Slower</div>
+                                  <div className="text-xs text-muted-foreground">
+                                    Better accuracy • Slower
+                                  </div>
                                 </div>
                               </div>
                             </SelectItem>
@@ -830,7 +854,7 @@ export function CreateVideoView({
                               AI Story Images
                             </Label>
                             <p className="text-xs text-muted-foreground">
-                              Generate contextual images with Vertex AI
+                              Generate contextual images with AI
                             </p>
                           </div>
                         </div>
@@ -839,6 +863,70 @@ export function CreateVideoView({
                           onCheckedChange={setCinematicEnableImages}
                         />
                       </div>
+
+                      {/* Image Generator Selection */}
+                      {cinematicEnableImages && (
+                        <div className="space-y-2">
+                          <Label className="text-xs font-semibold text-muted-foreground uppercase">
+                            Image Generator Model
+                          </Label>
+                          <Select
+                            value={imageGenerator}
+                            onValueChange={(value: typeof imageGenerator) =>
+                              setImageGenerator(value)
+                            }
+                          >
+                            <SelectTrigger className="text-sm">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="pexels">
+                                <div className="flex items-center gap-2">
+                                  <div className="h-2 w-2 rounded-full bg-green-500" />
+                                  <div>
+                                    <div className="font-medium">Pexels (Tier 2)</div>
+                                    <div className="text-xs text-muted-foreground">
+                                      📸 Stock photos • Free • Recommended
+                                    </div>
+                                  </div>
+                                </div>
+                              </SelectItem>
+                              <SelectItem value="imagen">
+                                <div className="flex items-center gap-2">
+                                  <div className="h-2 w-2 rounded-full bg-purple-500" />
+                                  <div>
+                                    <div className="font-medium">Imagen (Tier 1)</div>
+                                    <div className="text-xs text-muted-foreground">
+                                      🎨 AI-generated • GCP cost • High quality
+                                    </div>
+                                  </div>
+                                </div>
+                              </SelectItem>
+                              <SelectItem value="gradient">
+                                <div className="flex items-center gap-2">
+                                  <div className="h-2 w-2 rounded-full bg-gray-500" />
+                                  <div>
+                                    <div className="font-medium">Gradient (Tier 3)</div>
+                                    <div className="text-xs text-muted-foreground">
+                                      🌈 Simple backgrounds • Free • Fast
+                                    </div>
+                                  </div>
+                                </div>
+                              </SelectItem>
+                            </SelectContent>
+                          </Select>
+                          <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-lg p-2">
+                            <p className="text-xs text-blue-700 dark:text-blue-300">
+                              {imageGenerator === 'pexels' &&
+                                '✅ Default: Professional stock photos with no additional cost'}
+                              {imageGenerator === 'imagen' &&
+                                '⚠️ Advanced: AI-generated images via Google Cloud (incurs GCP charges)'}
+                              {imageGenerator === 'gradient' &&
+                                'ℹ️ Fallback: Simple gradient backgrounds for testing'}
+                            </p>
+                          </div>
+                        </div>
+                      )}
 
                       {/* Info Box */}
                       <div className="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800 rounded-lg p-3">
@@ -1088,4 +1176,4 @@ export function CreateVideoView({
       />
     </div>
   );
-}
+});

@@ -38,7 +38,7 @@ export default function DashboardPage() {
       await createVideo.mutateAsync({
         title: settings.title,
         description: settings.description,
-        scriptContent: settings.inputContent, // Map inputContent to scriptContent for backend
+        inputContent: settings.inputContent, // User's "What do you want to create?" input
         language: settings.language,
         voiceProfileId: settings.voiceProfileId,
         voicePresetId: settings.voicePresetId, // Pass voice preset ID to backend
@@ -54,6 +54,8 @@ export default function DashboardPage() {
         cinematicWhisperModel: settings.cinematicWhisperModel,
         cinematicTargetSegments: settings.cinematicTargetSegments,
         cinematicEnableImages: settings.cinematicEnableImages,
+        // Image Generator Selection
+        imageGenerator: settings.imageGenerator,
       });
 
       toast.success('Video generation started!', {
@@ -73,14 +75,8 @@ export default function DashboardPage() {
     console.log('Menu clicked');
   };
 
-  if (voicesLoading) {
-    return (
-      <div className="flex items-center justify-center h-full">
-        <p className="text-muted-foreground">Loading...</p>
-      </div>
-    );
-  }
-
+  // Show form immediately, don't wait for voices
+  // Voices are optional - backend has defaults
   return (
     <CreateVideoView
       voices={voices}

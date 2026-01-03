@@ -137,12 +137,14 @@ export function useDownloadVideo() {
 
 // Voice Queries
 export function useVoices() {
-  const { client } = useAPIClient();
+  const { client, sessionStatus } = useAPIClient();
 
   return useQuery({
     queryKey: ['voices'],
     queryFn: () => client.voices.list(),
     staleTime: 60000, // 1 minute
+    enabled: sessionStatus === 'authenticated', // Only run when authenticated
+    placeholderData: [], // Show empty array immediately while loading
   });
 }
 
@@ -260,7 +262,7 @@ export function useVideoProgress(videoId: string | null) {
 }
 
 // Voice Preset Queries
-export function useVoicePresets() {
+export function useVoicePresets(options?: { enabled?: boolean }) {
   const { client } = useAPIClient();
   const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
@@ -274,10 +276,11 @@ export function useVoicePresets() {
       return response.json();
     },
     staleTime: 60000, // 1 minute
+    enabled: options?.enabled ?? true, // Default to true for backward compatibility
   });
 }
 
-export function useBuiltInPresets() {
+export function useBuiltInPresets(options?: { enabled?: boolean }) {
   const { client } = useAPIClient();
   const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
@@ -291,6 +294,7 @@ export function useBuiltInPresets() {
       return response.json();
     },
     staleTime: 300000, // 5 minutes (built-in presets don't change often)
+    enabled: options?.enabled ?? true, // Default to true for backward compatibility
   });
 }
 

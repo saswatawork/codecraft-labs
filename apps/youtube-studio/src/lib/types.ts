@@ -135,6 +135,8 @@ export type GenerationSettings = {
   cinematicWhisperModel?: 'tiny' | 'base' | 'small' | 'medium' | 'large';
   cinematicTargetSegments?: number;
   cinematicEnableImages?: boolean;
+  // Image Generator Selection
+  imageGenerator?: 'imagen' | 'pexels' | 'gradient';
 };
 
 export type CostEstimate = {

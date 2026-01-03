@@ -134,10 +134,18 @@ export const VideoSchema = z.object({
   useImageCache: z.boolean().optional().default(false),
   // Cinematic Video Generation Settings
   isCinematic: z.boolean().optional().default(false),
-  cinematicSubtitleStyle: z.enum(['karaoke', 'bounce', 'scale', 'emphasis', 'slide', 'fade', 'glow']).optional().default('karaoke'),
-  cinematicWhisperModel: z.enum(['tiny', 'base', 'small', 'medium', 'large']).optional().default('base'),
+  cinematicSubtitleStyle: z
+    .enum(['karaoke', 'bounce', 'scale', 'emphasis', 'slide', 'fade', 'glow'])
+    .optional()
+    .default('karaoke'),
+  cinematicWhisperModel: z
+    .enum(['tiny', 'base', 'small', 'medium', 'large'])
+    .optional()
+    .default('base'),
   cinematicTargetSegments: z.number().optional().default(5),
   cinematicEnableImages: z.boolean().optional().default(true),
+  // Image Generator Selection
+  imageGenerator: z.enum(['imagen', 'pexels', 'gradient']).optional().default('pexels'),
 });
 
 export type Video = z.infer<typeof VideoSchema>;
@@ -159,10 +167,18 @@ export const VideoCreateRequestSchema = z.object({
   useImageCache: z.boolean().optional().default(false),
   // Cinematic Video Generation Settings
   isCinematic: z.boolean().optional().default(false),
-  cinematicSubtitleStyle: z.enum(['karaoke', 'bounce', 'scale', 'emphasis', 'slide', 'fade', 'glow']).optional().default('karaoke'),
-  cinematicWhisperModel: z.enum(['tiny', 'base', 'small', 'medium', 'large']).optional().default('base'),
+  cinematicSubtitleStyle: z
+    .enum(['karaoke', 'bounce', 'scale', 'emphasis', 'slide', 'fade', 'glow'])
+    .optional()
+    .default('karaoke'),
+  cinematicWhisperModel: z
+    .enum(['tiny', 'base', 'small', 'medium', 'large'])
+    .optional()
+    .default('base'),
   cinematicTargetSegments: z.number().optional().default(5),
   cinematicEnableImages: z.boolean().optional().default(true),
+  // Image Generator Selection
+  imageGenerator: z.enum(['imagen', 'pexels', 'gradient']).optional().default('pexels'),
 });
 
 export type VideoCreateRequest = z.infer<typeof VideoCreateRequestSchema>;
