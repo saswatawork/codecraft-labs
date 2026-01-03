@@ -36,6 +36,8 @@ export default function DashboardPage() {
         cinematicEnableImages: settings.cinematicEnableImages,
       });
 
+      console.log('🎨 Image Generator before mutation:', settings.imageGenerator);
+
       await createVideo.mutateAsync({
         title: settings.title,
         description: settings.description,
