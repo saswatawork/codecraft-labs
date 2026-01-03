@@ -92,6 +92,11 @@ export const CreateVideoView = React.memo(function CreateVideoView({
   // Image Generator Selection
   const [imageGenerator, setImageGenerator] = useState<'imagen' | 'pexels' | 'gradient'>('pexels');
 
+  // Debug: Log imageGenerator changes
+  React.useEffect(() => {
+    console.log('🎨 Image Generator changed to:', imageGenerator);
+  }, [imageGenerator]);
+
   // Get available voice presets for selected language and TTS engine (memoized)
   const availableVoicePresets = React.useMemo(
     () => getVoicePresetsForLanguage(language, audioSettings.ttsEngine as 'chatterbox' | 'google'),
@@ -144,6 +149,8 @@ export const CreateVideoView = React.memo(function CreateVideoView({
 
   const handleGenerate = () => {
     if (!inputContent.trim() || !title.trim()) return;
+
+    console.log('🚀 Generating video with imageGenerator:', imageGenerator);
 
     onGenerate({
       inputType,
@@ -869,12 +876,21 @@ export const CreateVideoView = React.memo(function CreateVideoView({
                         <div className="space-y-2">
                           <Label className="text-xs font-semibold text-muted-foreground uppercase">
                             Image Generator Model
+                            <span className="ml-2 text-xs font-bold text-blue-600 dark:text-blue-400">
+                              (Current: {imageGenerator})
+                            </span>
                           </Label>
                           <Select
                             value={imageGenerator}
-                            onValueChange={(value: typeof imageGenerator) =>
-                              setImageGenerator(value)
-                            }
+                            onValueChange={(value: typeof imageGenerator) => {
+                              console.log(
+                                '🔄 Changing imageGenerator from',
+                                imageGenerator,
+                                'to',
+                                value,
+                              );
+                              setImageGenerator(value);
+                            }}
                           >
                             <SelectTrigger className="text-sm">
                               <SelectValue />
