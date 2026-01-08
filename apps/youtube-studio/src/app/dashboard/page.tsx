@@ -59,6 +59,10 @@ export default function DashboardPage() {
         cinematicEnableImages: settings.cinematicEnableImages,
         // Image Generator Selection
         imageGenerator: settings.imageGenerator,
+        // Visual Theme Selection
+        visualTheme: settings.visualTheme,
+        // Intelligent Prompt System
+        useIntelligentPrompts: settings.useIntelligentPrompts,
       });
 
       toast.success('Video generation started!', {

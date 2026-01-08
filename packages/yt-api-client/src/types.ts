@@ -146,6 +146,25 @@ export const VideoSchema = z.object({
   cinematicEnableImages: z.boolean().optional().default(true),
   // Image Generator Selection
   imageGenerator: z.enum(['imagen', 'pexels', 'gradient']).optional().default('pexels'),
+  // Visual Theme Selection
+  visualTheme: z
+    .enum([
+      'general',
+      'sports',
+      'medical',
+      'business',
+      'technology',
+      'education',
+      'creative',
+      'nature',
+      'finance',
+      'psychology',
+      'spirituality',
+    ])
+    .optional()
+    .default('general'),
+  // Intelligent Prompt System
+  useIntelligentPrompts: z.boolean().optional().default(true),
 });
 
 export type Video = z.infer<typeof VideoSchema>;
@@ -179,6 +198,25 @@ export const VideoCreateRequestSchema = z.object({
   cinematicEnableImages: z.boolean().optional().default(true),
   // Image Generator Selection
   imageGenerator: z.enum(['imagen', 'pexels', 'gradient']).optional().default('pexels'),
+  // Visual Theme Selection
+  visualTheme: z
+    .enum([
+      'general',
+      'sports',
+      'medical',
+      'business',
+      'technology',
+      'education',
+      'creative',
+      'nature',
+      'finance',
+      'psychology',
+      'spirituality',
+    ])
+    .optional()
+    .default('general'),
+  // Intelligent Prompt System
+  useIntelligentPrompts: z.boolean().optional().default(true),
 });
 
 export type VideoCreateRequest = z.infer<typeof VideoCreateRequestSchema>;

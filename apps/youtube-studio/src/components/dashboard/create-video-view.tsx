@@ -29,6 +29,7 @@ import { Button } from '@ccl/ui';
 import { Input } from '@ccl/ui';
 import {
   ArrowRight,
+  Brain,
   Cloud,
   Code2,
   FileText,
@@ -92,10 +93,33 @@ export const CreateVideoView = React.memo(function CreateVideoView({
   // Image Generator Selection
   const [imageGenerator, setImageGenerator] = useState<'imagen' | 'pexels' | 'gradient'>('pexels');
 
+  // Visual Theme Selection
+  const [visualTheme, setVisualTheme] = useState<
+    | 'general'
+    | 'sports'
+    | 'medical'
+    | 'business'
+    | 'technology'
+    | 'education'
+    | 'creative'
+    | 'nature'
+    | 'finance'
+    | 'psychology'
+    | 'spirituality'
+  >('general');
+
+  // Intelligent Prompt System Toggle
+  const [useIntelligentPrompts, setUseIntelligentPrompts] = useState(true); // Default: enabled
+
   // Debug: Log imageGenerator changes
   React.useEffect(() => {
     console.log('🎨 Image Generator changed to:', imageGenerator);
   }, [imageGenerator]);
+
+  // Debug: Log visualTheme changes
+  React.useEffect(() => {
+    console.log('🎨 Visual Theme changed to:', visualTheme);
+  }, [visualTheme]);
 
   // Get available voice presets for selected language and TTS engine (memoized)
   const availableVoicePresets = React.useMemo(
@@ -177,6 +201,10 @@ export const CreateVideoView = React.memo(function CreateVideoView({
       cinematicEnableImages,
       // Image Generator Selection
       imageGenerator,
+      // Visual Theme Selection
+      visualTheme,
+      // Intelligent Prompt System
+      useIntelligentPrompts,
     });
   };
 
@@ -939,6 +967,189 @@ export const CreateVideoView = React.memo(function CreateVideoView({
                                 '⚠️ Advanced: AI-generated images via Google Cloud (incurs GCP charges)'}
                               {imageGenerator === 'gradient' &&
                                 'ℹ️ Fallback: Simple gradient backgrounds for testing'}
+                            </p>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Visual Theme Selection */}
+                      {cinematicEnableImages && (
+                        <div className="space-y-2">
+                          <Label className="text-xs font-semibold text-muted-foreground uppercase">
+                            Visual Theme
+                            <span className="ml-2 text-xs font-bold text-purple-600 dark:text-purple-400">
+                              (Current: {visualTheme})
+                            </span>
+                          </Label>
+                          <Select
+                            value={visualTheme}
+                            onValueChange={(value: typeof visualTheme) => {
+                              console.log('🔄 Changing visualTheme from', visualTheme, 'to', value);
+                              setVisualTheme(value);
+                            }}
+                          >
+                            <SelectTrigger className="text-sm">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="general">
+                                <div className="flex items-center gap-2">
+                                  <span>🌅</span>
+                                  <div>
+                                    <div className="font-medium">General / Nature</div>
+                                    <div className="text-xs text-muted-foreground">
+                                      Versatile, calm, artistic
+                                    </div>
+                                  </div>
+                                </div>
+                              </SelectItem>
+                              <SelectItem value="sports">
+                                <div className="flex items-center gap-2">
+                                  <span>🏏</span>
+                                  <div>
+                                    <div className="font-medium">Sports</div>
+                                    <div className="text-xs text-muted-foreground">
+                                      Cricket, football, athletics
+                                    </div>
+                                  </div>
+                                </div>
+                              </SelectItem>
+                              <SelectItem value="medical">
+                                <div className="flex items-center gap-2">
+                                  <span>🏥</span>
+                                  <div>
+                                    <div className="font-medium">Medical</div>
+                                    <div className="text-xs text-muted-foreground">
+                                      Healthcare, science, clinical
+                                    </div>
+                                  </div>
+                                </div>
+                              </SelectItem>
+                              <SelectItem value="business">
+                                <div className="flex items-center gap-2">
+                                  <span>💼</span>
+                                  <div>
+                                    <div className="font-medium">Business</div>
+                                    <div className="text-xs text-muted-foreground">
+                                      Corporate, office, professional
+                                    </div>
+                                  </div>
+                                </div>
+                              </SelectItem>
+                              <SelectItem value="technology">
+                                <div className="flex items-center gap-2">
+                                  <span>🔬</span>
+                                  <div>
+                                    <div className="font-medium">Technology</div>
+                                    <div className="text-xs text-muted-foreground">
+                                      Computers, AI, innovation
+                                    </div>
+                                  </div>
+                                </div>
+                              </SelectItem>
+                              <SelectItem value="education">
+                                <div className="flex items-center gap-2">
+                                  <span>🎓</span>
+                                  <div>
+                                    <div className="font-medium">Education</div>
+                                    <div className="text-xs text-muted-foreground">
+                                      Learning, books, classroom
+                                    </div>
+                                  </div>
+                                </div>
+                              </SelectItem>
+                              <SelectItem value="creative">
+                                <div className="flex items-center gap-2">
+                                  <span>🎨</span>
+                                  <div>
+                                    <div className="font-medium">Creative / Art</div>
+                                    <div className="text-xs text-muted-foreground">
+                                      Art, design, music
+                                    </div>
+                                  </div>
+                                </div>
+                              </SelectItem>
+                              <SelectItem value="nature">
+                                <div className="flex items-center gap-2">
+                                  <span>🌿</span>
+                                  <div>
+                                    <div className="font-medium">Nature</div>
+                                    <div className="text-xs text-muted-foreground">
+                                      Landscapes, outdoor, environmental
+                                    </div>
+                                  </div>
+                                </div>
+                              </SelectItem>
+                              <SelectItem value="finance">
+                                <div className="flex items-center gap-2">
+                                  <span>💰</span>
+                                  <div>
+                                    <div className="font-medium">Finance</div>
+                                    <div className="text-xs text-muted-foreground">
+                                      Money, banking, investment
+                                    </div>
+                                  </div>
+                                </div>
+                              </SelectItem>
+                              <SelectItem value="psychology">
+                                <div className="flex items-center gap-2">
+                                  <span>🧠</span>
+                                  <div>
+                                    <div className="font-medium">Psychology</div>
+                                    <div className="text-xs text-muted-foreground">
+                                      Mental health, emotions
+                                    </div>
+                                  </div>
+                                </div>
+                              </SelectItem>
+                              <SelectItem value="spirituality">
+                                <div className="flex items-center gap-2">
+                                  <span>🕉️</span>
+                                  <div>
+                                    <div className="font-medium">Spirituality</div>
+                                    <div className="text-xs text-muted-foreground">
+                                      Meditation, mindfulness
+                                    </div>
+                                  </div>
+                                </div>
+                              </SelectItem>
+                            </SelectContent>
+                          </Select>
+                          <div className="bg-purple-50 dark:bg-purple-950/20 border border-purple-200 dark:border-purple-800 rounded-lg p-2">
+                            <p className="text-xs text-purple-700 dark:text-purple-300">
+                              🎭 Theme guides image generation while preserving narrative context.
+                              Segments will feel interconnected and tell a cohesive story.
+                            </p>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Intelligent Prompt System Toggle */}
+                      {cinematicEnableImages && (
+                        <div className="space-y-2">
+                          <div className="flex items-center justify-between p-3 rounded-lg border bg-card hover:bg-accent/5 transition-colors">
+                            <div className="flex items-center gap-3">
+                              <Brain className="h-4 w-4 text-blue-500" />
+                              <div>
+                                <Label className="text-sm font-medium cursor-pointer">
+                                  Intelligent Prompts
+                                </Label>
+                                <p className="text-xs text-muted-foreground">
+                                  5-layer AI analysis for context-aware images
+                                </p>
+                              </div>
+                            </div>
+                            <Switch
+                              checked={useIntelligentPrompts}
+                              onCheckedChange={setUseIntelligentPrompts}
+                            />
+                          </div>
+                          <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-lg p-2">
+                            <p className="text-xs text-blue-700 dark:text-blue-300">
+                              🧠 <strong>Intelligent Mode:</strong> Uses visual theme + story
+                              context + segment analysis for highly relevant, narrative-aligned
+                              images. <strong>Standard Mode:</strong> Basic keyword-based
+                              generation.
                             </p>
                           </div>
                         </div>

@@ -72,8 +72,10 @@ export class YouTubeStudioAPI {
     create: async (data: VideoCreateRequest): Promise<Video> => {
       console.log('📤 API Client sending video create request:', {
         imageGenerator: data.imageGenerator,
+        visualTheme: data.visualTheme,
         fullData: data,
       });
+      console.log('📤 VISUAL THEME being sent:', data.visualTheme);
       return this.request<Video>('/api/videos', {
         method: 'POST',
         body: JSON.stringify(data),

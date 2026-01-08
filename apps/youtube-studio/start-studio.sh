@@ -97,23 +97,44 @@ else
     echo -e "${GREEN}✓ Frontend environment configured${NC}"
 fi
 
-if [ ! -f "$BACKEND_DIR/api/.env" ]; then
+if [ ! -f "$BACKEND_DIR/.env" ]; then
     echo -e "${YELLOW}⚠ Creating .env for backend...${NC}"
-    cat > "$BACKEND_DIR/api/.env" << 'EOF'
-# Database Configuration (Choose one)
-DB_BACKEND=sqlalchemy
+    cat > "$BACKEND_DIR/.env" << 'EOF'
+# Development Environment
+ENVIRONMENT=development
+DEBUG=true
+LOG_LEVEL=DEBUG
 
-# SQLite (simplest for dev - no server needed)
-DATABASE_URL=sqlite+aiosqlite:///./youtube_studio.db
-DATABASE_URL_SYNC=sqlite:///./youtube_studio.db
+# Database (XAMPP MySQL)
+DATABASE__HOST=localhost
+DATABASE__PORT=3307
+DATABASE__USER=root
+DATABASE__PASSWORD=
 
-# API Configuration
-API_HOST=0.0.0.0
-API_PORT=8000
-API_RELOAD=true
+# API
+API__HOST=0.0.0.0
+API__PORT=8000
+API__RELOAD=true
 
-# Paths
-PYTHONPATH=/Users/saswatapal/workspace/yt-studio
+# TTS - Default to Google TTS
+TTS__ENGINE=google
+TTS__GOOGLE_CREDENTIALS_PATH=/Users/saswatapal/workspace/yt-studio/config/google-cloud-credentials.json
+
+# Storage
+STORAGE__BASE_DIR=data
+
+# Intelligent Prompt System
+GOOGLE_CLOUD_PROJECT=yt-studio-tts
+GOOGLE_APPLICATION_CREDENTIALS=/Users/saswatapal/workspace/yt-studio/config/google-cloud-credentials.json
+VERTEX_AI_LOCATION=us-central1
+
+# Enable intelligent prompt system
+USE_INTELLIGENT_PROMPTS=true
+USE_PIPELINE_ORCHESTRATOR=true
+
+# Configuration-driven intelligence (Phase 2)
+USE_CONFIG_DRIVEN_INTELLIGENCE=true
+ENABLED_DOMAINS=spirituality,sports,technology
 EOF
     echo -e "${GREEN}✓ Created .env${NC}"
 else
@@ -140,22 +161,25 @@ fi
 
 # Start backend
 echo -e "${YELLOW}→ Starting FastAPI backend on http://localhost:8000${NC}"
-cd "$BACKEND_DIR/api"
-source .venv/bin/activate
+cd "$BACKEND_DIR"
+source api/.venv/bin/activate
 
 # Set PYTHONPATH for module imports
 export PYTHONPATH="$BACKEND_DIR:$PYTHONPATH"
 
-# Load environment variables from .env file
+# Load environment variables from root .env file
 if [ -f .env ]; then
     export $(cat .env | grep -v '^#' | xargs)
 fi
 
-# Run database migrations first
+# Run database migrations first (from api directory)
 echo -e "${YELLOW}   Running database migrations...${NC}"
+cd api
 alembic upgrade head > /tmp/yt-studio-migration.log 2>&1 || true
 
-python -m uvicorn api.server:app --host 0.0.0.0 --port 8000 --reload > /tmp/yt-studio-backend.log 2>&1 &
+# Start server using the proper startup script method
+cd "$BACKEND_DIR/api"
+python server.py > /tmp/yt-studio-backend.log 2>&1 &
 BACKEND_PID=$!
 
 # Wait for backend to be ready

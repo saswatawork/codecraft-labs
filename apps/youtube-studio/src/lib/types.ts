@@ -137,6 +137,21 @@ export type GenerationSettings = {
   cinematicEnableImages?: boolean;
   // Image Generator Selection
   imageGenerator?: 'imagen' | 'pexels' | 'gradient';
+  // Visual Theme Selection
+  visualTheme?:
+    | 'general'
+    | 'sports'
+    | 'medical'
+    | 'business'
+    | 'technology'
+    | 'education'
+    | 'creative'
+    | 'nature'
+    | 'finance'
+    | 'psychology'
+    | 'spirituality';
+  // Intelligent Prompt System
+  useIntelligentPrompts?: boolean;
 };
 
 export type CostEstimate = {
