@@ -158,7 +158,7 @@ export const DialogTrigger = forwardRef<HTMLButtonElement, DialogTriggerProps>(
         ...props,
         ref,
         onClick: handleClick,
-      });
+      } as React.Attributes & Record<string, unknown>);
     }
 
     return (

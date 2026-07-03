@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { cn } from '../../utils';
 import { Button } from '../Button';
-import { Input } from '../Input';
 
 export interface FileUploadProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'onChange'> {
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'onChange' | 'onError'> {
   onFileSelect: (file: File | null) => void;
   buttonText?: string;
   showFileName?: boolean;

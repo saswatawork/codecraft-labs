@@ -283,7 +283,7 @@ export const NavigationItem = forwardRef<HTMLAnchorElement, NavigationItemProps>
         className: cn(navigationItemVariants({ variant: itemVariant, size }), className),
         ref,
         ...props,
-      });
+      } as React.Attributes & Record<string, unknown>);
     }
 
     return (

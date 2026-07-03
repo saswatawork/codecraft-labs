@@ -17,7 +17,6 @@ export interface ProgressStepperProps {
 
 export const ProgressStepper: React.FC<ProgressStepperProps> = ({
   steps,
-  currentStep = 0,
   orientation = 'horizontal',
   className,
 }) => {
@@ -97,7 +96,7 @@ export const ProgressStepper: React.FC<ProgressStepperProps> = ({
                 <div
                   className={cn(
                     'w-0.5 h-12 my-2 transition-colors',
-                    steps[index + 1].status !== 'pending' ? 'bg-blue-500' : 'bg-border',
+                    steps[index + 1]?.status !== 'pending' ? 'bg-blue-500' : 'bg-border',
                   )}
                 />
               )}
@@ -152,7 +151,7 @@ export const ProgressStepper: React.FC<ProgressStepperProps> = ({
               <div
                 className={cn(
                   'h-0.5 flex-1 transition-colors mx-2',
-                  steps[index + 1].status !== 'pending' ? 'bg-blue-500' : 'bg-border',
+                  steps[index + 1]?.status !== 'pending' ? 'bg-blue-500' : 'bg-border',
                 )}
               />
             )}

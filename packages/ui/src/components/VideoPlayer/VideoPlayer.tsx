@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { cn } from '../../utils';
 
-export interface VideoPlayerProps extends React.VideoHTMLAttributes<HTMLVideoElement> {
+export interface VideoPlayerProps
+  extends Omit<React.VideoHTMLAttributes<HTMLVideoElement>, 'onTimeUpdate'> {
   src: string;
   poster?: string;
   onTimeUpdate?: (currentTime: number) => void;
