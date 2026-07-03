@@ -5,13 +5,17 @@ import { useCreateVoice, useDeleteVoice, useVoices } from '@/hooks/use-api';
 import { toast } from 'sonner';
 
 export default function VoicesPage() {
-  const { data: voices = [], isLoading } = useVoices();
+  const { data: voicesResponse, isLoading } = useVoices();
+  const voices = voicesResponse?.voices ?? [];
   const createVoice = useCreateVoice();
   const deleteVoice = useDeleteVoice();
 
   const handleUpload = async (name: string, file: File) => {
     try {
-      await createVoice.mutateAsync({ name, file });
+      const formData = new FormData();
+      formData.append('name', name);
+      formData.append('audio', file);
+      await createVoice.mutateAsync(formData);
       toast.success('Voice uploaded successfully', {
         description: `${name} is now available for use`,
       });

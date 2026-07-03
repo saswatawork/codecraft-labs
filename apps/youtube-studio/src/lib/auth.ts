@@ -1,10 +1,10 @@
 import NextAuth from 'next-auth';
-import type { NextAuthConfig } from 'next-auth';
+import type { NextAuthConfig, NextAuthResult } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import GitHub from 'next-auth/providers/github';
 import Google from 'next-auth/providers/google';
 
-export const config = {
+export const config: NextAuthConfig = {
   providers: [
     // Development credentials provider - remove in production
     Credentials({
@@ -26,11 +26,11 @@ export const config = {
         return null;
       },
     }),
-    ...(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET
+    ...(process.env['GOOGLE_CLIENT_ID'] && process.env['GOOGLE_CLIENT_SECRET']
       ? [
           Google({
-            clientId: process.env.GOOGLE_CLIENT_ID,
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+            clientId: process.env['GOOGLE_CLIENT_ID'],
+            clientSecret: process.env['GOOGLE_CLIENT_SECRET'],
             authorization: {
               params: {
                 scope:
@@ -40,11 +40,11 @@ export const config = {
           }),
         ]
       : []),
-    ...(process.env.GITHUB_CLIENT_ID && process.env.GITHUB_SECRET
+    ...(process.env['GITHUB_CLIENT_ID'] && process.env['GITHUB_SECRET']
       ? [
           GitHub({
-            clientId: process.env.GITHUB_CLIENT_ID,
-            clientSecret: process.env.GITHUB_SECRET,
+            clientId: process.env['GITHUB_CLIENT_ID'],
+            clientSecret: process.env['GITHUB_SECRET'],
           }),
         ]
       : []),
@@ -52,15 +52,15 @@ export const config = {
   callbacks: {
     async jwt({ token, account, profile, user }) {
       if (account) {
-        token.accessToken = account.access_token;
-        token.provider = account.provider;
+        token['accessToken'] = account.access_token;
+        token['provider'] = account.provider;
       }
       if (profile) {
-        token.id = profile.sub || profile.id;
-        token.email = profile.email;
+        token['id'] = profile.sub || profile.id;
+        token.email = profile.email ?? null;
       }
       if (user) {
-        token.email = user.email;
+        token.email = user.email ?? null;
       }
       return token;
     },
@@ -78,8 +78,8 @@ export const config = {
         session.user.id = userId;
         session.user.email = email;
       }
-      session.accessToken = token.accessToken as string;
-      session.provider = token.provider as string;
+      session.accessToken = token['accessToken'] as string;
+      session.provider = token['provider'] as string;
       return session;
     },
   },
@@ -91,6 +91,11 @@ export const config = {
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   trustHost: true,
-} satisfies NextAuthConfig;
+};
 
-export const { handlers, auth, signIn, signOut } = NextAuth(config);
+const nextAuthResult: NextAuthResult = NextAuth(config);
+
+export const handlers = nextAuthResult.handlers;
+export const auth: NextAuthResult['auth'] = nextAuthResult.auth;
+export const signIn: NextAuthResult['signIn'] = nextAuthResult.signIn;
+export const signOut = nextAuthResult.signOut;

@@ -1,12 +1,7 @@
 'use client';
 
 import { useBuiltInPresets, useVoicePresets } from '@/hooks/use-api';
-import {
-  DEFAULT_AUDIO_SETTINGS,
-  GOOGLE_VOICE_PRESETS,
-  LANGUAGES,
-  getVoicePresetsForLanguage,
-} from '@/lib/constants';
+import { DEFAULT_AUDIO_SETTINGS, LANGUAGES, getVoicePresetsForLanguage } from '@/lib/constants';
 import type {
   AudioSettings as AudioSettingsType,
   GenerationSettings,
@@ -43,14 +38,13 @@ import {
   Link,
   Menu,
   Mic2,
-  Play,
   Settings,
   Sparkles,
   Volume2,
   Zap,
 } from 'lucide-react';
 import React from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { AudioSettings } from './audio-settings';
 import { PresetAudioPlayer } from './preset-audio-player';
 import { PresetManager } from './preset-manager';
@@ -80,7 +74,6 @@ export const CreateVideoView = React.memo(function CreateVideoView({
   const [showPresetManager, setShowPresetManager] = useState(false);
   const [showVoiceLibraryModal, setShowVoiceLibraryModal] = useState(false);
   const [audioSettings, setAudioSettings] = useState<AudioSettingsType>(DEFAULT_AUDIO_SETTINGS);
-  const [showVoicePreview, setShowVoicePreview] = useState(false);
   const [qualityTier, setQualityTier] = useState<'basic' | 'enhanced' | 'premium'>('basic');
   const [visualStyle, setVisualStyle] = useState<
     'photorealistic' | 'illustration' | 'isometric' | 'minimalist' | 'hand-drawn'
@@ -140,7 +133,7 @@ export const CreateVideoView = React.memo(function CreateVideoView({
       const currentPreset = audioSettings.googleVoicePreset;
       const isCurrentValid = availableVoicePresets.some((p) => p.id === currentPreset);
 
-      if (!isCurrentValid) {
+      if (!isCurrentValid && availableVoicePresets[0]) {
         // Current preset not available for this language, switch to first available
         setAudioSettings({
           ...audioSettings,
@@ -191,10 +184,7 @@ export const CreateVideoView = React.memo(function CreateVideoView({
       language,
       voiceProfileId,
       voicePresetId,
-      audioSettings: {
-        ...audioSettings,
-        language, // Ensure language is in audioSettings for TTS
-      },
+      audioSettings,
       // Phase 1 AI Integration - Quality Tier Settings
       qualityTier,
       visualStyle: qualityTier !== 'basic' ? visualStyle : undefined,
@@ -481,7 +471,11 @@ export const CreateVideoView = React.memo(function CreateVideoView({
                             </div>
                           ) : (
                             <Select
-                              value={audioSettings.googleVoicePreset || availableVoicePresets[0].id}
+                              value={
+                                audioSettings.googleVoicePreset ??
+                                availableVoicePresets[0]?.id ??
+                                ''
+                              }
                               onValueChange={(value) =>
                                 setAudioSettings({ ...audioSettings, googleVoicePreset: value })
                               }

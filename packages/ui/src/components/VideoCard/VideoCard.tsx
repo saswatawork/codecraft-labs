@@ -9,7 +9,7 @@ export interface VideoCardAction {
   icon?: React.ReactNode;
   onClick: () => void;
   disabled?: boolean;
-  variant?: 'default' | 'outline' | 'ghost';
+  variant?: 'default' | 'outline' | 'ghost' | 'destructive';
   title?: string;
 }
 
@@ -21,7 +21,7 @@ export interface VideoCardMeta {
 export interface VideoCardProps extends React.HTMLAttributes<HTMLDivElement> {
   title: string;
   description?: string;
-  thumbnailUrl?: string;
+  thumbnailUrl?: string | undefined;
   duration?: string;
   status?: {
     label: string;
@@ -29,11 +29,11 @@ export interface VideoCardProps extends React.HTMLAttributes<HTMLDivElement> {
   };
   metadata?: VideoCardMeta[];
   actions?: VideoCardAction[];
-  onPlay?: () => void;
+  onPlay?: (() => void) | undefined;
   isProcessing?: boolean;
   viewMode?: 'grid' | 'list';
   /** Optional preview video URL for hover scrubbing */
-  previewUrl?: string;
+  previewUrl?: string | undefined;
 }
 
 /**
@@ -115,7 +115,9 @@ export const VideoCard = React.forwardRef<HTMLDivElement, VideoCardProps>(
                 ? 'text-primary hover:bg-primary/10 focus-visible:ring-primary/30'
                 : action.variant === 'outline'
                   ? 'text-secondary hover:bg-secondary/10 focus-visible:ring-secondary/30'
-                  : 'text-foreground/80 hover:bg-foreground/5 focus-visible:ring-foreground/20';
+                  : action.variant === 'destructive'
+                    ? 'text-destructive hover:bg-destructive/10 focus-visible:ring-destructive/30'
+                    : 'text-foreground/80 hover:bg-foreground/5 focus-visible:ring-foreground/20';
 
             return (
               <Button

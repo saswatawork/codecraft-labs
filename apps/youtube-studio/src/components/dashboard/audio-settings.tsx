@@ -140,7 +140,7 @@ export function AudioSettings({
         max={max}
         step={step}
         value={[value]}
-        onValueChange={([v]) => onValueChange(v)}
+        onValueChange={([v]) => v !== undefined && onValueChange(v)}
         className="cursor-pointer"
       />
       <div className="flex justify-between text-xs text-muted-foreground px-1">
@@ -265,7 +265,7 @@ export function AudioSettings({
               max={2}
               step={0.1}
               value={[settings.tempo]}
-              onValueChange={([v]) => updateSetting('tempo', v)}
+              onValueChange={([v]) => v !== undefined && updateSetting('tempo', v)}
             />
           </div>
 
@@ -282,7 +282,7 @@ export function AudioSettings({
               max={100}
               step={5}
               value={[settings.volume]}
-              onValueChange={([v]) => updateSetting('volume', v)}
+              onValueChange={([v]) => v !== undefined && updateSetting('volume', v)}
             />
           </div>
         </CardContent>

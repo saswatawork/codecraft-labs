@@ -108,7 +108,7 @@ export function VoiceProfileSelector({ selectedId, onSelect }: VoiceProfileSelec
   const filteredVoices = useMemo(() => {
     if (selectedCategory === 'all') return voices;
     const lower = voices.map((v) => v.name.toLowerCase());
-    return voices.filter((v, i) => lower[i].includes(selectedCategory));
+    return voices.filter((_, i) => lower[i]?.includes(selectedCategory));
   }, [voices, selectedCategory]);
 
   const handlePlay = (voice: VoiceProfile) => {

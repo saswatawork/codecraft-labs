@@ -219,7 +219,7 @@ export const VideoCreateRequestSchema = z.object({
   useIntelligentPrompts: z.boolean().optional().default(true),
 });
 
-export type VideoCreateRequest = z.infer<typeof VideoCreateRequestSchema>;
+export type VideoCreateRequest = z.input<typeof VideoCreateRequestSchema>;
 
 export const VideoUpdateRequestSchema = z.object({
   title: z.string().optional(),

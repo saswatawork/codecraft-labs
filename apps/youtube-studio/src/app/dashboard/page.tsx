@@ -8,7 +8,7 @@ import { toast } from 'sonner';
 
 export default function DashboardPage() {
   const router = useRouter();
-  const { data: voicesResponse, isLoading: voicesLoading } = useVoices();
+  const { data: voicesResponse } = useVoices();
   const voices = voicesResponse?.voices || [];
   const createVideo = useCreateVideo();
 
@@ -41,7 +41,7 @@ export default function DashboardPage() {
       await createVideo.mutateAsync({
         title: settings.title,
         description: settings.description,
-        inputContent: settings.inputContent, // User's "What do you want to create?" input
+        scriptContent: settings.inputContent, // User's "What do you want to create?" input
         language: settings.language,
         voiceProfileId: settings.voiceProfileId,
         voicePresetId: settings.voicePresetId, // Pass voice preset ID to backend

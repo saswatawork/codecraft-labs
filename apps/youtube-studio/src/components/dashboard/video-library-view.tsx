@@ -426,7 +426,7 @@ export function VideoLibraryView({
                     metadata={buildVideoMetadata(video)}
                     actions={buildVideoActions(video)}
                     onPlay={video.status === 'ready' ? () => onPlay(video) : undefined}
-                    isProcessing={video.status === 'processing'}
+                    isProcessing={false}
                     viewMode={viewMode}
                     previewUrl={
                       video.status === 'ready' ? (video.videoUrl ?? undefined) : undefined

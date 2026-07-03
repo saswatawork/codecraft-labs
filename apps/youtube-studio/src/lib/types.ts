@@ -1,7 +1,7 @@
 // Shared types for YouTube Studio application
 // These align with the API client types from @ccl/yt-api-client
 
-export type VideoStatus = 'draft' | 'processing' | 'ready' | 'published' | 'error';
+export type VideoStatus = 'draft' | 'queued' | 'processing' | 'ready' | 'published' | 'error';
 
 export type InputType = 'url' | 'description';
 
@@ -9,7 +9,8 @@ export type GenerationStage =
   | 'extracting_content'
   | 'generating_script'
   | 'planning_scenes'
-  | 'generating_visuals'
+  | 'generating_voiceover'
+  | 'generating_slides'
   | 'assembling_video'
   | 'finalizing';
 
@@ -22,7 +23,7 @@ export type Language = {
 export type VoiceProfile = {
   id: string;
   name: string;
-  preview?: string;
+  preview?: string | undefined;
   createdAt: number;
 };
 
@@ -31,18 +32,18 @@ export type AudioSettings = {
   emotion: 'neutral' | 'excited' | 'calm' | 'serious' | 'playful';
   theme: 'none' | 'upbeat' | 'dramatic' | 'corporate' | 'inspirational';
   volume: number;
-  pitch?: number;
-  musicVolume?: number;
-  voiceClarity?: number;
-  backgroundNoise?: number;
-  voiceMode?: 'normal' | 'dramatic';
+  pitch?: number | undefined;
+  musicVolume?: number | undefined;
+  voiceClarity?: number | undefined;
+  backgroundNoise?: number | undefined;
+  voiceMode?: 'normal' | 'dramatic' | undefined;
   // TTS Engine Selection
-  ttsEngine?: 'chatterbox' | 'google';
+  ttsEngine?: 'chatterbox' | 'google' | undefined;
   // Google Cloud TTS options (only used when ttsEngine = 'google')
-  googleVoicePreset?: string;
-  googleSpeakingRate?: number;
-  googlePitch?: number;
-  googleEnableSSML?: boolean;
+  googleVoicePreset?: string | undefined;
+  googleSpeakingRate?: number | undefined;
+  googlePitch?: number | undefined;
+  googleEnableSSML?: boolean | undefined;
 };
 
 export type AudioPreset = {
@@ -76,7 +77,7 @@ export type VideoScene = {
   narration: string;
   visualDescription: string;
   visualStyle: string;
-  imageUrl?: string;
+  imageUrl?: string | undefined;
 };
 
 export type VideoScript = {
@@ -92,41 +93,47 @@ export type Video = {
   id: string;
   title: string;
   description: string;
-  inputType: InputType;
-  inputContent: string;
   language: string;
   status: VideoStatus;
-  thumbnailUrl?: string;
-  videoUrl?: string;
-  duration?: number;
-  voiceProfileId?: string;
+  thumbnailUrl?: string | undefined;
+  videoUrl?: string | undefined;
+  duration?: number | undefined;
+  voiceProfileId?: string | undefined;
   audioSettings: AudioSettings;
   createdAt: number;
   updatedAt: number;
-  publishedTo?: Array<{
-    platform: string;
-    url?: string;
-    publishedAt: number;
-  }>;
-  script?: VideoScript;
-  captionTracks?: CaptionTrack[];
-  currentStage?: GenerationStage;
-  progress?: number;
-  error?: string;
+  publishedTo?:
+    | Array<{
+        platform: string;
+        url?: string | undefined;
+        publishedAt: number;
+      }>
+    | undefined;
+  script?: VideoScript | undefined;
+  captionTracks?: CaptionTrack[] | undefined;
+  currentStage?: GenerationStage | undefined;
+  progress?: number | undefined;
+  error?: string | undefined;
 };
 
 export type GenerationSettings = {
   inputType: InputType;
   inputContent: string;
   language: string;
-  voiceProfileId?: string;
-  voicePresetId?: string; // ChatterBox TTS preset
+  voiceProfileId?: string | undefined;
+  voicePresetId?: string | undefined; // ChatterBox TTS preset
   audioSettings: AudioSettings;
   title: string;
   description: string;
   // Phase 1: AI Image Generation Settings
   qualityTier?: 'basic' | 'enhanced' | 'premium';
-  visualStyle?: 'photorealistic' | 'illustration' | 'isometric' | 'minimalist' | 'hand-drawn';
+  visualStyle?:
+    | 'photorealistic'
+    | 'illustration'
+    | 'isometric'
+    | 'minimalist'
+    | 'hand-drawn'
+    | undefined;
   maxImages?: number;
   useImageCache?: boolean;
   // Cinematic Video Generation Settings

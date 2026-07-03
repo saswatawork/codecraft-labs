@@ -11,7 +11,7 @@ type VideoPlayerModalProps = {
 };
 
 export function VideoPlayerModal({ open, onOpenChange, video }: VideoPlayerModalProps) {
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+  const baseUrl = process.env['NEXT_PUBLIC_API_URL'] || 'http://localhost:8000';
   const rawVideoUrl = video?.videoUrl;
 
   // Construct full URL if videoUrl is a relative path

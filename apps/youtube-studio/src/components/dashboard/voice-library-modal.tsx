@@ -12,7 +12,7 @@ interface VoiceLibraryModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   voices: VoiceProfile[];
-  selectedId?: string;
+  selectedId?: string | undefined;
   onSelect: (voiceId: string) => void;
 }
 

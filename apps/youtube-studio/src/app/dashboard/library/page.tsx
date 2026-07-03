@@ -16,7 +16,7 @@ export default function LibraryPage() {
   const [isPlayerOpen, setIsPlayerOpen] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
 
-  const handleEdit = (video: Video) => {
+  const handleEdit = (_video: Video) => {
     toast.info('Edit feature coming soon!');
     // TODO: Implement edit functionality
   };
@@ -39,12 +39,12 @@ export default function LibraryPage() {
     setIsPlayerOpen(true);
   };
 
-  const handlePublish = (video: Video) => {
+  const handlePublish = (_video: Video) => {
     toast.info('Publish feature coming soon!');
     // TODO: Implement publish functionality
   };
 
-  const handleCaptions = (video: Video) => {
+  const handleCaptions = (_video: Video) => {
     toast.info('Captions editor coming soon!');
     // TODO: Implement captions functionality
   };

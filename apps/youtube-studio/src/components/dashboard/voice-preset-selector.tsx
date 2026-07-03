@@ -1,7 +1,6 @@
 'use client';
 
 import { useBuiltInPresets, useVoicePresets } from '@/hooks/use-api';
-import type { VoicePreset } from '@/lib/voice-preset-types';
 import {
   Button,
   Label,
@@ -16,7 +15,7 @@ import {
 import { Loader2, Settings, Sparkles, User } from 'lucide-react';
 
 interface VoicePresetSelectorProps {
-  value?: string;
+  value?: string | undefined;
   onChange: (presetId: string | undefined) => void;
   onManagePresets?: () => void;
   disabled?: boolean;

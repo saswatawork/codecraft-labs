@@ -19,6 +19,8 @@ import type { Session } from 'next-auth';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 
+const API_BASE_URL = process.env['NEXT_PUBLIC_API_URL'] || 'http://localhost:8000';
+
 // API Client Singleton
 let apiClient: YouTubeStudioAPI | null = null;
 let currentSession: Session | null = null;
@@ -31,7 +33,7 @@ export function useAPIClient() {
 
   if (!apiClient) {
     apiClient = new YouTubeStudioAPI({
-      baseUrl: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000',
+      baseUrl: API_BASE_URL,
       getAccessToken: async () => currentSession?.accessToken || null,
       getUserId: async () => currentSession?.user?.id || null,
     });
@@ -185,7 +187,7 @@ export function useDeleteVoice() {
 
 // Built-in Voice Queries (filesystem-based high quality references)
 export function useBuiltInVoices() {
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+  const baseUrl = API_BASE_URL;
 
   return useQuery({
     queryKey: ['built-in-voices'],
@@ -264,8 +266,8 @@ export function useVideoProgress(videoId: string | null) {
 
 // Voice Preset Queries
 export function useVoicePresets(options?: { enabled?: boolean }) {
-  const { client } = useAPIClient();
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+  useAPIClient(); // keep session/client singleton warm
+  const baseUrl = API_BASE_URL;
 
   return useQuery({
     queryKey: ['voice-presets'],
@@ -282,8 +284,8 @@ export function useVoicePresets(options?: { enabled?: boolean }) {
 }
 
 export function useBuiltInPresets(options?: { enabled?: boolean }) {
-  const { client } = useAPIClient();
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+  useAPIClient(); // keep session/client singleton warm
+  const baseUrl = API_BASE_URL;
 
   return useQuery({
     queryKey: ['voice-presets', 'built-in'],
@@ -300,7 +302,7 @@ export function useBuiltInPresets(options?: { enabled?: boolean }) {
 }
 
 export function useVoicePreset(id: string | null) {
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+  const baseUrl = API_BASE_URL;
 
   return useQuery({
     queryKey: ['voice-preset', id],
@@ -317,7 +319,7 @@ export function useVoicePreset(id: string | null) {
 
 export function useCreateVoicePreset() {
   const queryClient = useQueryClient();
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+  const baseUrl = API_BASE_URL;
 
   return useMutation({
     mutationFn: async (data: VoicePresetCreateRequest): Promise<VoicePreset> => {
@@ -340,7 +342,7 @@ export function useCreateVoicePreset() {
 
 export function useUpdateVoicePreset() {
   const queryClient = useQueryClient();
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+  const baseUrl = API_BASE_URL;
 
   return useMutation({
     mutationFn: async ({
@@ -370,7 +372,7 @@ export function useUpdateVoicePreset() {
 
 export function useDeleteVoicePreset() {
   const queryClient = useQueryClient();
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+  const baseUrl = API_BASE_URL;
 
   return useMutation({
     mutationFn: async (id: string): Promise<void> => {

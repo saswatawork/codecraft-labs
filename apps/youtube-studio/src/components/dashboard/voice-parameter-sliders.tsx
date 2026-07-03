@@ -2,11 +2,6 @@
 
 import { DEFAULT_VOICE_PRESET, VOICE_PARAMETERS, type VoicePreset } from '@/lib/voice-preset-types';
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
   Input,
   Label,
   Slider,

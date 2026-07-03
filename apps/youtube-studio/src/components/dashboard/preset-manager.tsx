@@ -84,7 +84,7 @@ function PresetCard({
   onClose,
 }: {
   preset: VoicePreset;
-  onSelect?: (id: string) => void;
+  onSelect?: ((id: string) => void) | undefined;
   onEdit?: () => void;
   onDelete?: () => void;
   onDuplicate?: () => void;
@@ -192,10 +192,10 @@ export function PresetManager({ open, onOpenChange, onPresetSelect }: PresetMana
 
   // Form state for create/edit
   const [formData, setFormData] = useState<VoicePresetCreateRequest>({
+    ...DEFAULT_VOICE_PRESET,
     name: '',
     description: '',
     isPublic: false,
-    ...DEFAULT_VOICE_PRESET,
   });
 
   const handleCreate = async () => {
@@ -210,10 +210,10 @@ export function PresetManager({ open, onOpenChange, onPresetSelect }: PresetMana
 
       // Reset form
       setFormData({
+        ...DEFAULT_VOICE_PRESET,
         name: '',
         description: '',
         isPublic: false,
-        ...DEFAULT_VOICE_PRESET,
       });
 
       // Switch to browse tab
@@ -631,7 +631,7 @@ export function PresetManager({ open, onOpenChange, onPresetSelect }: PresetMana
                   </div>
                   <Switch
                     id="is-public"
-                    checked={formData.isPublic}
+                    checked={formData.isPublic ?? false}
                     onCheckedChange={(checked) => setFormData({ ...formData, isPublic: checked })}
                   />
                 </div>
@@ -669,10 +669,10 @@ export function PresetManager({ open, onOpenChange, onPresetSelect }: PresetMana
                       onClick={() => {
                         setEditingPreset(null);
                         setFormData({
+                          ...DEFAULT_VOICE_PRESET,
                           name: '',
                           description: '',
                           isPublic: false,
-                          ...DEFAULT_VOICE_PRESET,
                         });
                         setActiveTab('browse');
                       }}
