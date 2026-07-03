@@ -158,7 +158,12 @@ export function AudioSettings({
             <Label htmlFor="emotion-compact">Emotion</Label>
             <Select
               value={settings.emotion}
-              onValueChange={(v) => updateSetting('emotion', v as any)}
+              onValueChange={(v) =>
+                updateSetting(
+                  'emotion',
+                  v as 'neutral' | 'excited' | 'calm' | 'serious' | 'playful',
+                )
+              }
             >
               <SelectTrigger id="emotion-compact">
                 <SelectValue />
@@ -201,7 +206,9 @@ export function AudioSettings({
                 <SelectItem value="dramatic">
                   <div className="flex flex-col items-start">
                     <span className="font-medium">🎭 Dramatic</span>
-                    <span className="text-xs text-muted-foreground">Professional narrator style</span>
+                    <span className="text-xs text-muted-foreground">
+                      Professional narrator style
+                    </span>
                   </div>
                 </SelectItem>
               </SelectContent>
@@ -210,7 +217,15 @@ export function AudioSettings({
 
           <div className="space-y-2">
             <Label htmlFor="theme-compact">Background Music</Label>
-            <Select value={settings.theme} onValueChange={(v) => updateSetting('theme', v as any)}>
+            <Select
+              value={settings.theme}
+              onValueChange={(v) =>
+                updateSetting(
+                  'theme',
+                  v as 'none' | 'upbeat' | 'dramatic' | 'corporate' | 'inspirational',
+                )
+              }
+            >
               <SelectTrigger id="theme-compact">
                 <SelectValue />
               </SelectTrigger>
@@ -282,7 +297,11 @@ export function AudioSettings({
         </div>
       </CardHeader>
       <CardContent>
-        <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as any)} className="space-y-4">
+        <Tabs
+          value={activeTab}
+          onValueChange={(v) => setActiveTab(v as 'presets' | 'custom')}
+          className="space-y-4"
+        >
           {showPresets && (
             <>
               <TabsList className="grid w-full grid-cols-2">
@@ -343,7 +362,12 @@ export function AudioSettings({
                     </Label>
                     <Select
                       value={settings.emotion}
-                      onValueChange={(v) => updateSetting('emotion', v as any)}
+                      onValueChange={(v) =>
+                        updateSetting(
+                          'emotion',
+                          v as 'neutral' | 'excited' | 'calm' | 'serious' | 'playful',
+                        )
+                      }
                     >
                       <SelectTrigger id="emotion">
                         <SelectValue />
@@ -384,13 +408,17 @@ export function AudioSettings({
                         <SelectItem value="normal">
                           <div className="flex flex-col items-start">
                             <span className="font-medium">Normal</span>
-                            <span className="text-xs text-muted-foreground">Standard voiceover</span>
+                            <span className="text-xs text-muted-foreground">
+                              Standard voiceover
+                            </span>
                           </div>
                         </SelectItem>
                         <SelectItem value="dramatic">
                           <div className="flex flex-col items-start">
                             <span className="font-medium">🎭 Dramatic</span>
-                            <span className="text-xs text-muted-foreground">Professional narrator style</span>
+                            <span className="text-xs text-muted-foreground">
+                              Professional narrator style
+                            </span>
                           </div>
                         </SelectItem>
                       </SelectContent>
@@ -466,7 +494,12 @@ export function AudioSettings({
                     </Label>
                     <Select
                       value={settings.theme}
-                      onValueChange={(v) => updateSetting('theme', v as any)}
+                      onValueChange={(v) =>
+                        updateSetting(
+                          'theme',
+                          v as 'none' | 'upbeat' | 'dramatic' | 'corporate' | 'inspirational',
+                        )
+                      }
                     >
                       <SelectTrigger id="theme">
                         <SelectValue />

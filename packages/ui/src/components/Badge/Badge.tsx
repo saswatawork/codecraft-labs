@@ -101,16 +101,16 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
     ref,
   ) => {
     // Cast Component for TypeScript
-    const BadgeComponent = Component as any;
+    const BadgeComponent = Component as React.ElementType;
 
     return (
       <BadgeComponent
         ref={ref}
         className={cn(
           badgeVariants({
-            variant: variant as any,
-            size: size as any,
-            tone: tone as any,
+            variant,
+            size,
+            tone,
           }),
           interactive && 'cursor-pointer hover:opacity-80 active:opacity-90',
           loading && 'animate-pulse',

@@ -127,7 +127,7 @@ export const Stack = React.forwardRef<HTMLDivElement, StackProps>(
     },
     ref,
   ) => {
-    const StackComponent = Component as any;
+    const StackComponent = Component as React.ElementType;
 
     return (
       <StackComponent

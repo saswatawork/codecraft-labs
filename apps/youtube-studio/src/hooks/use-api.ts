@@ -15,12 +15,13 @@ import type {
 } from '@ccl/yt-api-client';
 import { YouTubeStudioAPI } from '@ccl/yt-api-client';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import type { Session } from 'next-auth';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 
 // API Client Singleton
 let apiClient: YouTubeStudioAPI | null = null;
-let currentSession: any = null;
+let currentSession: Session | null = null;
 
 export function useAPIClient() {
   const { data: session, status } = useSession();

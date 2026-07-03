@@ -245,10 +245,10 @@ export function validateFutureDate(date: string | Date): ValidationResult {
 /**
  * Compose multiple validators
  */
-export function composeValidators(
-  ...validators: ((value: any) => ValidationResult)[]
-): (value: any) => ValidationResult {
-  return (value: any) => {
+export function composeValidators<T>(
+  ...validators: ((value: T) => ValidationResult)[]
+): (value: T) => ValidationResult {
+  return (value: T) => {
     for (const validator of validators) {
       const result = validator(value);
       if (!result.isValid) {

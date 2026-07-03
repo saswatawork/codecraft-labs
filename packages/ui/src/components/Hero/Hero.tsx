@@ -83,7 +83,7 @@ export interface HeroProps
  */
 export const Hero = React.forwardRef<HTMLElement, HeroProps>(
   ({ className, variant, align, spacing, as: Component = 'section', children, ...props }, ref) => {
-    const HeroComponent = Component as any;
+    const HeroComponent = Component as React.ElementType;
 
     return (
       <HeroComponent

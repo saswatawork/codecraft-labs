@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import type * as React from 'react';
 import {
   Card,
   CardContent,
@@ -9,7 +10,12 @@ import {
 } from '../components/Card';
 
 // Mock Button for stories (using basic element until Button is imported)
-const Button = ({ children, ...props }: any) => (
+// variant/size are accepted for call-site compatibility with the real Button but unused here
+interface MockButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: string;
+  size?: string;
+}
+const Button = ({ children, variant: _variant, size: _size, ...props }: MockButtonProps) => (
   <button
     className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
     {...props}

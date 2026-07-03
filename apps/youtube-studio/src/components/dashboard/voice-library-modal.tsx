@@ -79,7 +79,7 @@ export function VoiceLibraryModal({
   // Normalize voices to a safe array in case the prop isn't an array (e.g., { voices: [...] } or undefined)
   const voicesList = useMemo<VoiceProfile[]>(() => {
     if (Array.isArray(voices)) return voices as VoiceProfile[];
-    const nested = (voices as any)?.voices;
+    const nested = (voices as { voices?: unknown })?.voices;
     if (Array.isArray(nested)) return nested as VoiceProfile[];
     return [];
   }, [voices]);

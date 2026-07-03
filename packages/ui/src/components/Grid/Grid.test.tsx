@@ -302,8 +302,8 @@ describe('Grid', () => {
 
   describe('Ref Forwarding', () => {
     it('forwards ref correctly', () => {
-      const ref = { current: null };
-      render(<Grid ref={ref as any}>Content</Grid>);
+      const ref = { current: null as HTMLDivElement | null };
+      render(<Grid ref={ref}>Content</Grid>);
       expect(ref.current).toBeInstanceOf(HTMLElement);
     });
   });

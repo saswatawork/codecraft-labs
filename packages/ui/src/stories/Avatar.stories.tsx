@@ -233,7 +233,7 @@ export const TeamGroup: Story = {
           key={user.name}
           src={user.image}
           alt={user.name}
-          status={user.status as any}
+          status={user.status}
           size="md"
           className="ring-2 ring-background"
           fallbackVariant={index % 2 === 0 ? 'default' : 'secondary'}

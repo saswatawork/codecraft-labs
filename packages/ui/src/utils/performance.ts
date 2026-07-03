@@ -14,10 +14,14 @@ interface WebVitalMetric {
 /**
  * Report Web Vitals to analytics service
  */
+type GtagFn = (command: string, eventName: string, params: Record<string, unknown>) => void;
+
 export function reportWebVitals(metric: WebVitalMetric): void {
   // Send to analytics
-  if (typeof window !== 'undefined' && (window as any).gtag) {
-    (window as any).gtag('event', metric.name, {
+  const gtag =
+    typeof window !== 'undefined' ? (window as unknown as { gtag?: GtagFn }).gtag : undefined;
+  if (gtag) {
+    gtag('event', metric.name, {
       value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value),
       event_category: 'Web Vitals',
       event_label: metric.id,

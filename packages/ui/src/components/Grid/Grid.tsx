@@ -126,7 +126,7 @@ export const Grid = React.forwardRef<HTMLDivElement, GridProps>(
     },
     ref,
   ) => {
-    const GridComponent = Component as any;
+    const GridComponent = Component as React.ElementType;
 
     // Merge custom minWidth with style prop
     const gridStyle = {

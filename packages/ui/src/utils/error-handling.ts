@@ -178,7 +178,7 @@ export function sanitizeError(error: unknown): {
 /**
  * Async error boundary HOC helper
  */
-export function withAsyncErrorHandling<T extends (...args: any[]) => Promise<any>>(
+export function withAsyncErrorHandling<T extends (...args: unknown[]) => Promise<unknown>>(
   fn: T,
   onError?: (error: Error) => void,
 ): T {

@@ -1,8 +1,7 @@
 import type { Config } from 'tailwindcss';
 
-// Using any to allow safelist property while Tailwind v4 type definitions catch up
-// Tailwind will ignore unknown properties; safelist used internally by PostCSS plugin.
-const config: any = {
+// safelist isn't in Tailwind v4's Config type yet; Tailwind's runtime honors it regardless.
+const config: Config & { safelist?: string[] } = {
   content: {
     files: ['./src/**/*.{js,ts,jsx,tsx,md,mdx}', '../../packages/ui/src/**/*.{js,ts,jsx,tsx}'],
     // @ts-ignore - safelist is supported by Tailwind runtime though not in current type defs

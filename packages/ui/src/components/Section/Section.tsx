@@ -96,7 +96,7 @@ export interface SectionProps
  */
 export const Section = React.forwardRef<HTMLElement, SectionProps>(
   ({ className, spacing, width, variant, as: Component = 'section', children, ...props }, ref) => {
-    const SectionComponent = Component as any;
+    const SectionComponent = Component as React.ElementType;
 
     return (
       <SectionComponent

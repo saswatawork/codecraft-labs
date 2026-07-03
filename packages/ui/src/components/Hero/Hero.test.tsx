@@ -269,8 +269,8 @@ describe('Hero', () => {
 
   describe('Ref Forwarding', () => {
     it('forwards ref correctly', () => {
-      const ref = { current: null };
-      render(<Hero ref={ref as any}>Content</Hero>);
+      const ref = { current: null as HTMLElement | null };
+      render(<Hero ref={ref}>Content</Hero>);
       expect(ref.current).toBeInstanceOf(HTMLElement);
     });
   });

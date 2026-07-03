@@ -155,8 +155,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             id={inputId}
             className={cn(
               inputVariants({
-                variant: finalVariant as any,
-                inputSize: inputSize as any,
+                variant: finalVariant,
+                inputSize,
               }),
               leftIcon && 'pl-10',
               (rightElement || rightIcon) && 'pr-10',

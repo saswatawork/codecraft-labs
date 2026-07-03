@@ -217,8 +217,8 @@ export function PresetManager({ open, onOpenChange, onPresetSelect }: PresetMana
       if (onPresetSelect) {
         onPresetSelect(preset.id);
       }
-    } catch (error: any) {
-      toast.error(error.message || 'Failed to create preset');
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : 'Failed to create preset');
     }
   };
 
@@ -233,8 +233,8 @@ export function PresetManager({ open, onOpenChange, onPresetSelect }: PresetMana
       toast.success(`Preset "${formData.name}" updated successfully`);
       setEditingPreset(null);
       setActiveTab('browse');
-    } catch (error: any) {
-      toast.error(error.message || 'Failed to update preset');
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : 'Failed to update preset');
     }
   };
 
@@ -243,8 +243,8 @@ export function PresetManager({ open, onOpenChange, onPresetSelect }: PresetMana
       await deletePreset.mutateAsync(id);
       toast.success('Preset deleted successfully');
       setDeleteConfirm(null);
-    } catch (error: any) {
-      toast.error(error.message || 'Failed to delete preset');
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : 'Failed to delete preset');
     }
   };
 
@@ -346,8 +346,8 @@ export function PresetManager({ open, onOpenChange, onPresetSelect }: PresetMana
       } else {
         toast.error('No presets were imported');
       }
-    } catch (error: any) {
-      toast.error(error.message || 'Failed to import presets');
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : 'Failed to import presets');
     }
 
     // Reset file input
@@ -361,8 +361,8 @@ export function PresetManager({ open, onOpenChange, onPresetSelect }: PresetMana
       const duplicated = await createPreset.mutateAsync(duplicatePreset(preset));
       toast.success(`Duplicated "${preset.name}"`);
       handleEdit(duplicated);
-    } catch (error: any) {
-      toast.error(error.message || 'Failed to duplicate preset');
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : 'Failed to duplicate preset');
     }
   };
 
@@ -410,7 +410,7 @@ export function PresetManager({ open, onOpenChange, onPresetSelect }: PresetMana
             className="hidden"
           />
 
-          <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as any)}>
+          <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as 'browse' | 'create')}>
             <TabsList className="grid w-full grid-cols-2">
               <TabsTrigger value="browse">Browse Presets</TabsTrigger>
               <TabsTrigger value="create">

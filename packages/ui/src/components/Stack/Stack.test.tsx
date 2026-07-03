@@ -249,8 +249,8 @@ describe('Stack', () => {
 
   describe('Ref Forwarding', () => {
     it('forwards ref correctly', () => {
-      const ref = { current: null };
-      render(<Stack ref={ref as any}>Content</Stack>);
+      const ref = { current: null as HTMLDivElement | null };
+      render(<Stack ref={ref}>Content</Stack>);
       expect(ref.current).toBeInstanceOf(HTMLElement);
     });
   });

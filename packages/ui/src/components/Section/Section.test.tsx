@@ -137,8 +137,8 @@ describe('Section', () => {
 
   describe('Ref Forwarding', () => {
     it('forwards ref correctly', () => {
-      const ref = { current: null };
-      render(<Section ref={ref as any}>Content</Section>);
+      const ref = { current: null as HTMLElement | null };
+      render(<Section ref={ref}>Content</Section>);
       expect(ref.current).toBeInstanceOf(HTMLElement);
     });
   });

@@ -117,9 +117,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           ref={ref}
           className={cn(
             buttonVariants({
-              variant: variant as any,
-              size: size as any,
-              tone: tone as any,
+              variant,
+              size,
+              tone,
             }),
             className,
           )}
@@ -131,7 +131,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     }
 
     // Render as specified component (default: button)
-    const ButtonComponent = Component as any;
+    const ButtonComponent = Component as React.ElementType;
 
     return (
       <ButtonComponent
@@ -139,9 +139,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         type={Component === 'button' ? 'button' : undefined}
         className={cn(
           buttonVariants({
-            variant: variant as any,
-            size: size as any,
-            tone: tone as any,
+            variant,
+            size,
+            tone,
           }),
           className,
         )}
