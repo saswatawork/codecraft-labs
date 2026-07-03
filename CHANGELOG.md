@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- YouTube Studio: voice selector UI with customization controls
+- YouTube Studio: intelligent prompts UI toggle for domain-driven image generation
+
+### Changed
+- Consolidated ad-hoc implementation-summary docs (voice UI, intelligent prompts, video creation redesign, API/UI integration) out of the repo root; durable notes now live in this changelog or `docs/`
+
 ## [1.2.0] - 2025-12-01
 
 ### Added - Week 1: Foundation & Monitoring

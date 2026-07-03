@@ -16,7 +16,7 @@ CodeCraft Labs is my **real-world learning laboratory** where I:
 - ✅ **Document** everything publicly (learning in the open)
 - ✅ **Ship** production-ready code (live portfolio, Storybook deployed)
 
-**Transparent Development:** This README reflects what's **actually built**, not just planned. Check [90-DAY-TRANSFORMATION-CHECKLIST.md](./90-DAY-TRANSFORMATION-CHECKLIST.md) for the roadmap.
+**Transparent Development:** This README reflects what's **actually built**, not just planned. Check [90-DAY-TRANSFORMATION-CHECKLIST.md](./docs/planning/90-DAY-TRANSFORMATION-CHECKLIST.md) for the roadmap.
 
 ## 🏗️ Current Architecture (December 2025)
 
@@ -25,7 +25,7 @@ CodeCraft Labs is my **real-world learning laboratory** where I:
 ```
 codecraft-labs/
 ├── apps/
-│   ├── portfolio/           ✅ Production portfolio (Next.js 16, React 19 RC)
+│   ├── portfolio/           ✅ Production portfolio (Next.js 16, React 19)
 │   ├── web/                 ✅ Secondary portfolio app
 │   └── youtube-studio/      ✅ AI Video Generator (Phase 3 Complete)
 ├── packages/
@@ -66,7 +66,7 @@ codecraft-labs/
 
 **Frontend:**
 - ✅ **Next.js 16** - React framework (portfolio + youtube-studio apps)
-- ✅ **React 19.0.0-rc.1** - Latest React with Concurrent Features
+- ✅ **React 19** - Latest React with Concurrent Features
 - ✅ **TypeScript 5.6.3** - Strict mode, 100% type safety
 - ✅ **Tailwind CSS v4.0.0** - Using @source/@theme directives (bleeding edge)
 - ✅ **Radix UI** - Headless primitives for Dialog, Avatar, etc.
@@ -116,7 +116,7 @@ codecraft-labs/
 
 **Why These Specific Technologies?**
 
-1. **React 19 RC + Tailwind v4** → Early adopter advantage, blog content opportunities
+1. **React 19 + Tailwind v4** → Early adopter advantage, blog content opportunities
 2. **NestJS + Prisma** → TypeScript full-stack, highly demanded in 2025
 3. **AI Integration** → Biggest trend, career differentiator
 4. **Monorepo** → Demonstrates enterprise architecture skills
@@ -130,7 +130,7 @@ codecraft-labs/
 - ✅ **Monorepo Architecture** - Turborepo + pnpm workspaces
 - ✅ **TypeScript Strict Mode** - 100% type-safe codebase
 - ✅ **Design System** - 28 components with 468+ passing tests
-- ✅ **React 19 RC** - Early adopter of bleeding-edge features
+- ✅ **React 19** - Early adopter of bleeding-edge features
 - ✅ **Tailwind CSS v4** - First-mover with @source/@theme directives
 - ✅ **Compound Components** - Hero, Card with advanced composition
 - ✅ **CLI Tool** - create-ccl-app with Handlebars templates
@@ -152,7 +152,7 @@ codecraft-labs/
 
 ### 📋 Future Roadmap
 
-See [90-DAY-TRANSFORMATION-CHECKLIST.md](./90-DAY-TRANSFORMATION-CHECKLIST.md) for detailed timeline and tasks.
+See [90-DAY-TRANSFORMATION-CHECKLIST.md](./docs/planning/90-DAY-TRANSFORMATION-CHECKLIST.md) for detailed timeline and tasks.
 
 ## 📊 Current Metrics (December 2025)
 
@@ -286,7 +286,7 @@ See [90-DAY-TRANSFORMATION-CHECKLIST.md](./docs/planning/90-DAY-TRANSFORMATION-C
 **What's Different About This Project:**
 - **Radical Transparency** - Real progress, not just claims
 - **Learning in Public** - Documenting every step
-- **Bleeding Edge** - React 19 RC, Tailwind v4 (first movers)
+- **Bleeding Edge** - React 19, Tailwind v4 (first movers)
 - **Quality Obsessed** - 468 tests, comprehensive coverage
 - **AI-First Mindset** - Integrating AI into everything (starting Week 7)
 
@@ -295,7 +295,7 @@ See [90-DAY-TRANSFORMATION-CHECKLIST.md](./docs/planning/90-DAY-TRANSFORMATION-C
 ### ✅ Proven Through Code
 - **Frontend Mastery** - React 19, Next.js 16, TypeScript strict mode
 - **Design Systems** - 24 components, 468 tests, Storybook documentation
-- **Early Adoption** - Tailwind v4, React 19 RC (bleeding edge)
+- **Early Adoption** - Tailwind v4, React 19 (bleeding edge)
 - **Testing Excellence** - Vitest 4.0.8 with comprehensive coverage
 - **Modern Tooling** - Biome, Turborepo, pnpm workspaces, Husky
 - **Component Patterns** - Compound components, CVA variants, Radix primitives
@@ -309,7 +309,7 @@ See [90-DAY-TRANSFORMATION-CHECKLIST.md](./docs/planning/90-DAY-TRANSFORMATION-C
 
 ### 📈 Growth Journey
 This project reflects my commitment to **continuous learning** and **transparent development**. I'm documenting my evolution from senior frontend architect to AI-integrated full-stack engineer. Follow the journey:
-- 📝 [90-Day Transformation Checklist](./90-DAY-TRANSFORMATION-CHECKLIST.md)
+- 📝 [90-Day Transformation Checklist](./docs/planning/90-DAY-TRANSFORMATION-CHECKLIST.md)
 - 📖 Blog posts coming soon (dev.to, Medium)
 - 🐦 Updates on Twitter/LinkedIn
 
@@ -332,24 +332,7 @@ This project reflects my commitment to **continuous learning** and **transparent
 2. **Learning in Public** - Documenting every mistake and win
 3. **AI-First** - Integrating AI into everything (2025 trend)
 4. **Quality Obsessed** - 468 tests, comprehensive coverage
-5. **Bleeding Edge** - React 19 RC, Tailwind v4 early adoption
-
----
-
-## 📊 Current Metrics (December 2025)
-
-| Category | Status | Evidence |
-|----------|--------|----------|
-| Frontend | ✅ Production Ready | 468+ tests, Storybook deployed, 2 apps running |
-| Design System | ✅ World-Class | 28 components, CVA variants, Radix UI |
-| Testing | ✅ Comprehensive | Vitest 4.0.8, extensive coverage |
-| Backend API | ✅ Complete | FastAPI with full CRUD endpoints |
-| Database | ✅ Complete | PostgreSQL with SQLAlchemy async ORM |
-| Real-time | ✅ Complete | WebSocket progress tracking |
-| AI Integration | 📋 Week 7 Start | Vercel AI SDK, chatbot, dev tools |
-| Docker | 🚧 Week 2 | Multi-stage builds |
-| Monitoring | 🚧 Week 1 | Sentry + Vercel Analytics |
-| Content | 🚧 Week 1 | First blog post in progress |
+5. **Bleeding Edge** - React 19, Tailwind v4 early adoption
 
 ---
 
