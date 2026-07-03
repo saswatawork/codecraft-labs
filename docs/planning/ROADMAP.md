@@ -360,7 +360,7 @@ Ready to follow along? Here's how:
 
 - [90-DAY-TRANSFORMATION-CHECKLIST.md](./90-DAY-TRANSFORMATION-CHECKLIST.md) - Daily task breakdown
 - [DEVELOPMENT_LOG.md](./DEVELOPMENT_LOG.md) - Technical journal
-- [CONTRIBUTING.md](./CONTRIBUTING.md) - How to contribute
+- [CONTRIBUTING.md](../../CONTRIBUTING.md) - How to contribute
 - [SECURITY.md](./SECURITY.md) - Security policies
 
 ---

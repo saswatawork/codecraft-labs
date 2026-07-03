@@ -275,6 +275,7 @@ See [90-DAY-TRANSFORMATION-CHECKLIST.md](./docs/planning/90-DAY-TRANSFORMATION-C
 - 🎯 [Roadmap](./docs/planning/ROADMAP.md) - 12-week visual timeline
 - 📊 [Week 1 Progress](./docs/progress/WEEK-1-PROGRESS.md) - Latest weekly update
 - 📖 [Setup Guide](./docs/guides/SETUP.md) - Development setup
+- 🤝 [Contributing Guide](./CONTRIBUTING.md) - Code standards and workflow
 - 🏗️ [Design System Docs](./docs/architecture/DESIGN_SYSTEM_ANALYSIS.md) - Architecture details
 - 📝 [Development Log](./docs/progress/DEVELOPMENT_LOG.md) - Technical journal
 - � [Security Policy](./SECURITY.md) - Vulnerability reporting

@@ -34,7 +34,7 @@ docs/
 - [**Setup Guide**](./guides/SETUP.md)  
   Development environment setup and installation instructions
 
-- [**Contributing Guide**](./guides/CONTRIBUTING.md)  
+- [**Contributing Guide**](../CONTRIBUTING.md)  
   How to contribute to the project, code standards, and workflow
 
 - [**Storybook Setup**](./guides/STORYBOOK_SETUP.md)  
@@ -85,7 +85,7 @@ docs/
 
 ### For New Contributors
 1. Start with [Setup Guide](./guides/SETUP.md)
-2. Read [Contributing Guide](./guides/CONTRIBUTING.md)
+2. Read [Contributing Guide](../CONTRIBUTING.md)
 3. Review [Design System Analysis](./architecture/DESIGN_SYSTEM_ANALYSIS.md)
 
 ### For Understanding the Project
