@@ -4,24 +4,8 @@
     "baseUrl": ".",
     "paths": {
       "@ccl/ui": ["./packages/ui/src"],
-      "@ccl/shared": ["./packages/shared/src"],
-      "@ccl/database": ["./packages/database/src"],
-      "@ccl/config": ["./packages/config/src"]
+      "@ccl/yt-api-client": ["./packages/yt-api-client/src"]
     }
   },
-  "include": [],
-  "references": [
-    {
-      "path": "./apps/web"
-    },
-    {
-      "path": "./apps/api"
-    },
-    {
-      "path": "./packages/ui"
-    },
-    {
-      "path": "./packages/shared"
-    }
-  ]
+  "include": []
 }

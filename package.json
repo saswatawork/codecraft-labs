@@ -68,25 +68,13 @@
     "turbo": "^2.0.14",
     "typescript": "^5.6.2"
   },
-  "pnpm": {
-    "peerDependencyRules": {
-      "allowedVersions": {
-        "react": "19.0.0-rc",
-        "react-dom": "19.0.0-rc"
-      }
-    },
-    "overrides": {
-      "react": "19.0.0-rc.1",
-      "react-dom": "19.0.0-rc.1"
-    }
-  },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,json,css}": ["biome check --write"]
   },
   "dependencies": {
-    "@types/react": "^18.2.43",
-    "@types/react-dom": "^18.2.17",
-    "react": "19.0.0-rc.1",
-    "react-dom": "19.0.0-rc.1"
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   }
 }
