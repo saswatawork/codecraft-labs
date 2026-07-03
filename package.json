@@ -1,7 +1,7 @@
 {
   "name": "codecraft-labs",
   "version": "1.0.0",
-  "description": "Modern full-stack development laboratory showcasing enterprise patterns and cutting-edge technologies",
+  "description": "Personal portfolio site and design system monorepo",
   "author": "Saswata Pal <saswata.career@gmail.com>",
   "license": "MIT",
   "type": "module",
@@ -17,16 +17,13 @@
   "keywords": [
     "monorepo",
     "nextjs",
-    "nestjs",
     "typescript",
     "react",
-    "graphql",
     "prisma",
     "tailwindcss",
     "turbo",
-    "full-stack",
     "portfolio",
-    "showcase"
+    "design-system"
   ],
   "engines": {
     "node": ">=20.0.0",

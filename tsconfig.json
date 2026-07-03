@@ -3,8 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@ccl/ui": ["./packages/ui/src"],
-      "@ccl/yt-api-client": ["./packages/yt-api-client/src"]
+      "@ccl/ui": ["./packages/ui/src"]
     }
   },
   "include": []

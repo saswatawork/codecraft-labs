@@ -107,7 +107,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        app: [portfolio, web]
+        app: [portfolio]
     steps:
       - uses: actions/checkout@v4
 

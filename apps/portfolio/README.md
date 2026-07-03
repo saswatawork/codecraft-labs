@@ -79,7 +79,3 @@ The easiest way to deploy is using [Vercel](https://vercel.com):
 ## 📄 License
 
 MIT
-
----
-
-**Created with** [create-ccl-app](https://github.com/yourusername/codecraft-labs) 🚀

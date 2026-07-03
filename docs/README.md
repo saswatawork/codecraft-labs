@@ -7,23 +7,26 @@ Welcome to the comprehensive documentation for CodeCraft Labs. All project docum
 ```
 docs/
 ├── README.md                    # This file - documentation index
-├── planning/                    # Strategic planning & roadmaps
+├── planning/                    # Blog content planning
 ├── guides/                      # How-to guides & setup instructions
-├── architecture/                # Design decisions & system architecture
-└── progress/                    # Weekly progress & development logs
+└── architecture/                # Design system architecture
 ```
 
 ---
 
-## 🗺️ Planning & Roadmap
+## 🗺️ Blog Planning
 
-**Strategic planning, transformation goals, and project roadmaps**
+**The only planning docs still relevant post-cleanup**
 
-- [**90-Day Transformation Checklist**](./planning/90-DAY-TRANSFORMATION-CHECKLIST.md)  
-  Day-by-day execution plan for full-stack + AI transformation (Dec 2025 - Feb 2026)
+- [Blog Content Strategy](./planning/BLOG-CONTENT-STRATEGY.md)
+- [Blog Topics Summary](./planning/BLOG-TOPICS-SUMMARY.md)
+- [Blog Content Roadmap (Visual)](./planning/BLOG-CONTENT-ROADMAP-VISUAL.md)
 
-- [**Roadmap**](./planning/ROADMAP.md)  
-  12-week visual timeline with phases, success metrics, and investment breakdown
+The prior 90-day transformation checklist, 12-week roadmap, and weekly sprint
+docs were removed — they described a NestJS/Prisma backend + generic AI chatbot
+plan that was never built and is no longer the plan. `youtube-studio` (the app
+those docs were building toward) and its unused duplicate `web` app have been
+removed from this repo; the real video pipeline lives at `~/workspace/video-studio`.
 
 ---
 
@@ -66,21 +69,6 @@ docs/
 
 ---
 
-## 📊 Progress Tracking
-
-**Weekly updates, development logs, and improvement tracking**
-
-- [**Week 1 Progress**](./progress/WEEK-1-PROGRESS.md)  
-  Week 1 summary: README audit, monitoring setup, blog post creation
-
-- [**Development Log**](./progress/DEVELOPMENT_LOG.md)  
-  Ongoing technical journal of decisions, learnings, and progress
-
-- [**Improvements**](./progress/IMPROVEMENTS.md)  
-  Backlog of improvement ideas and future enhancements
-
----
-
 ## 🚀 Quick Links
 
 ### For New Contributors
@@ -89,14 +77,12 @@ docs/
 3. Review [Design System Analysis](./architecture/DESIGN_SYSTEM_ANALYSIS.md)
 
 ### For Understanding the Project
-1. Check [90-Day Transformation Checklist](./planning/90-DAY-TRANSFORMATION-CHECKLIST.md)
-2. Review [Roadmap](./planning/ROADMAP.md)
-3. Read [Week 1 Progress](./progress/WEEK-1-PROGRESS.md)
+1. Read the [root README](../README.md)
+2. Review [Design System Analysis](./architecture/DESIGN_SYSTEM_ANALYSIS.md)
 
 ### For Technical Details
 1. See [Design System Implementation](./architecture/DESIGN_SYSTEM_IMPLEMENTATION_SUMMARY.md)
 2. Review [Storybook Setup](./guides/STORYBOOK_SETUP.md)
-3. Check [Development Log](./progress/DEVELOPMENT_LOG.md)
 
 ---
 
@@ -113,7 +99,7 @@ Some documentation remains in the root directory for visibility and convention:
 
 ## 🔄 Documentation Updates
 
-This documentation is actively maintained and updated as the project evolves. Last major reorganization: December 1, 2025.
+This documentation is actively maintained and updated as the project evolves. Last major reorganization: July 3, 2026 (removed stale youtube-studio/web apps and their planning docs).
 
 **Contributing to Docs:**
 - Keep documentation up-to-date with code changes
@@ -142,4 +128,4 @@ This documentation is actively maintained and updated as the project evolves. La
 
 **Need help?** Open an issue or reach out via [LinkedIn](https://linkedin.com/in/saswatapal)
 
-**Last Updated:** December 1, 2025
+**Last Updated:** July 3, 2026

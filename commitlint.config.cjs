@@ -23,11 +23,8 @@ module.exports = {
       2,
       'always',
       [
-        'web', // Frontend app
-        'api', // Backend app
-        'admin', // Admin app
-        'ui', // UI package
-        'shared', // Shared package
+        'portfolio', // Portfolio app
+        'ui', // Design system package
         'config', // Configuration
         'deps', // Dependencies
         'docs', // Documentation
