@@ -24,8 +24,8 @@ export class YouTubeStudioAPI {
     this.getUserId = config.getUserId;
   }
 
-  private async getHeaders(): Promise<HeadersInit> {
-    const headers: HeadersInit = {
+  private async getHeaders(): Promise<Record<string, string>> {
+    const headers: Record<string, string> = {
       'Content-Type': 'application/json',
     };
 
@@ -70,12 +70,6 @@ export class YouTubeStudioAPI {
   // Video Resources
   videos = {
     create: async (data: VideoCreateRequest): Promise<Video> => {
-      console.log('📤 API Client sending video create request:', {
-        imageGenerator: data.imageGenerator,
-        visualTheme: data.visualTheme,
-        fullData: data,
-      });
-      console.log('📤 VISUAL THEME being sent:', data.visualTheme);
       return this.request<Video>('/api/videos', {
         method: 'POST',
         body: JSON.stringify(data),
@@ -147,9 +141,8 @@ export class YouTubeStudioAPI {
     },
 
     create: async (data: FormData): Promise<VoiceProfile> => {
-      const headers = await this.getHeaders();
-      // Remove Content-Type to let browser set boundary for FormData
-      (headers as Record<string, string>)['Content-Type'] = undefined as any;
+      // Omit Content-Type to let the browser set the multipart boundary for FormData
+      const { 'Content-Type': _contentType, ...headers } = await this.getHeaders();
 
       const url = `${this.baseUrl}/api/voices`;
       const response = await fetch(url, {
