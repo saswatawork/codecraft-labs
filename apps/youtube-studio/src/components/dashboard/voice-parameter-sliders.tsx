@@ -1,11 +1,20 @@
 'use client';
 
-import { Label } from '@/components/ui/label';
-import { Slider } from '@/components/ui/slider';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { DEFAULT_VOICE_PRESET, VOICE_PARAMETERS, type VoicePreset } from '@/lib/voice-preset-types';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@ccl/ui';
-import { Input } from '@ccl/ui';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  Input,
+  Label,
+  Slider,
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@ccl/ui';
 import { Info } from 'lucide-react';
 
 interface VoiceParameterSlidersProps {

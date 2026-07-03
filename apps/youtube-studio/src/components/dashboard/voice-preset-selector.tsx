@@ -1,7 +1,10 @@
 'use client';
 
-import { Label } from '@/components/ui/label';
+import { useBuiltInPresets, useVoicePresets } from '@/hooks/use-api';
+import type { VoicePreset } from '@/lib/voice-preset-types';
 import {
+  Button,
+  Label,
   Select,
   SelectContent,
   SelectGroup,
@@ -9,10 +12,7 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { useBuiltInPresets, useVoicePresets } from '@/hooks/use-api';
-import type { VoicePreset } from '@/lib/voice-preset-types';
-import { Button } from '@ccl/ui';
+} from '@ccl/ui';
 import { Loader2, Settings, Sparkles, User } from 'lucide-react';
 
 interface VoicePresetSelectorProps {

@@ -1,11 +1,17 @@
 'use client';
 
-import { Label } from '@/components/ui/label';
 import type { VoiceProfile } from '@/lib/types';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@ccl/ui';
-import { Button } from '@ccl/ui';
-import { Input } from '@ccl/ui';
-import { Badge } from '@ccl/ui';
+import {
+  Badge,
+  Button,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  Input,
+  Label,
+} from '@ccl/ui';
 import { Menu, Mic, Play, Plus, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 

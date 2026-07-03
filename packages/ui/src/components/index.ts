@@ -42,6 +42,17 @@ export * from './VideoPlayer';
 export * from './VideoCard';
 export * from './ViewToggle';
 
+// Radix-based primitives
+export * from './AlertDialog';
+export * from './Label';
+export * from './Select';
+export * from './Separator';
+export * from './Slider';
+export * from './Switch';
+export * from './Tabs';
+export * from './Textarea';
+export * from './Tooltip';
+
 // Re-exports for convenience (default exports)
 export { default as Button } from './Button';
 export { default as Input } from './Input';

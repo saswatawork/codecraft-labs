@@ -1,21 +1,31 @@
-import { Label } from '@/components/ui/label';
+import { AUDIO_PRESETS, EMOTIONS, THEMES } from '@/lib/constants';
+import type { AudioSettings as AudioSettingsType } from '@/lib/types';
+import { cn } from '@/lib/utils';
 import {
+  Badge,
+  Button,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  Label,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Separator } from '@/components/ui/separator';
-import { Slider } from '@/components/ui/slider';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { AUDIO_PRESETS, EMOTIONS, THEMES } from '@/lib/constants';
-import type { AudioSettings as AudioSettingsType } from '@/lib/types';
-import { cn } from '@/lib/utils';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@ccl/ui';
-import { Button } from '@ccl/ui';
-import { Badge } from '@ccl/ui';
+  Separator,
+  Slider,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@ccl/ui';
 import {
   AudioWaveform,
   Info,

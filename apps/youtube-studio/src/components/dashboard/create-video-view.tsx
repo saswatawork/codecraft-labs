@@ -1,16 +1,5 @@
 'use client';
 
-import { Label } from '@/components/ui/label';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import { Switch } from '@/components/ui/switch';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Textarea } from '@/components/ui/textarea';
 import { useBuiltInPresets, useVoicePresets } from '@/hooks/use-api';
 import {
   DEFAULT_AUDIO_SETTINGS,
@@ -24,9 +13,27 @@ import type {
   InputType,
   VoiceProfile,
 } from '@/lib/types';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@ccl/ui';
-import { Button } from '@ccl/ui';
-import { Input } from '@ccl/ui';
+import {
+  Button,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  Input,
+  Label,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  Switch,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+  Textarea,
+} from '@ccl/ui';
 import {
   ArrowRight,
   Brain,

@@ -1,9 +1,15 @@
 'use client';
 
-import { Switch } from '@/components/ui/switch';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@ccl/ui';
-import { Button } from '@ccl/ui';
-import { Input } from '@ccl/ui';
+import {
+  Button,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  Input,
+  Switch,
+} from '@ccl/ui';
 import { Bell, Database, Settings, Shield, User } from 'lucide-react';
 import { toast } from 'sonner';
 
