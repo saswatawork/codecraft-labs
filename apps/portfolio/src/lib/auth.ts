@@ -17,7 +17,7 @@ export const authConfig = {
       // Add user role to session
       if (session.user) {
         session.user.id = user.id;
-        session.user.role = (user as { role?: string }).role || 'USER';
+        session.user.role = (user as { role?: 'USER' | 'ADMIN' }).role || 'USER';
       }
       return session;
     },
